@@ -1,4 +1,4 @@
-﻿namespace Homeo_mgt.Helper
+﻿namespace ClinicManagementSystem.Helper
 {
     public class QueryHelper
     {

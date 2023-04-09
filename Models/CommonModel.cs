@@ -1,4 +1,4 @@
-﻿namespace Homeo_mgt.Models
+﻿namespace ClinicManagementSystem.Models
 {
     public class Parameters
     {

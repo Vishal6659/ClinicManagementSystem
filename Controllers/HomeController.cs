@@ -1,5 +1,4 @@
-﻿using Homeo_mgt.Models;
-using Homeo_mgt.Services;
+﻿using ClinicManagementSystem.Services;
 using ClinicManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -41,7 +40,7 @@ namespace ClinicManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                throw;
+
             }
             return View();
         }

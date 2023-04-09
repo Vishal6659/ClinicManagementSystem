@@ -1,8 +1,8 @@
-﻿using Homeo_mgt.Helper;
-using Homeo_mgt.Models;
+﻿using ClinicManagementSystem.Helper;
+using ClinicManagementSystem.Models;
 using System.Data;
 
-namespace Homeo_mgt.Services
+namespace ClinicManagementSystem.Services
 {
     public interface IAccountServices 
     {

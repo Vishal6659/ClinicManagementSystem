@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Homeo_mgt.Models
+namespace ClinicManagementSystem.Models
 {
     public class LoginModel
     {

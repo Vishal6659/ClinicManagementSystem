@@ -1,9 +1,9 @@
-﻿using Homeo_mgt.Models;
+﻿using ClinicManagementSystem.Models;
 using Npgsql;
 using System.Data;
 
 
-namespace Homeo_mgt.Helper
+namespace ClinicManagementSystem.Helper
 {
     public class PostgresDbHelper
     {
