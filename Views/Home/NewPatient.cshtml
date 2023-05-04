@@ -1,0 +1,111 @@
+﻿@model ClinicManagementSystem.Models.NewPatient;
+
+@{    
+    ViewData["Title"] = "New Patient";
+    Layout = "_Layout";
+}
+
+<div class="card shadow" style="margin-top:20px">
+    <form asp-action="" asp-controller="" method="post">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">New Patients</div>
+                <div class="col-md-10"></div>                
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>First Name @*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="FirstName" class="form-control" placeholder="First Name" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                 <label class="control-label"><span style="color:red">*</span>Email Address@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="Email" class="form-control" placeholder="Email Address" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Phone@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="Phone" class="form-control" placeholder="Phone" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Birthday@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="Birthday" class="form-control" placeholder="Birthday" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Gender@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">   
+                    <select class="form-select">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>                  
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Blood Group@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <select class="form-select">
+                        <option value="Unknown">Unknown</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>                   
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Address@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="Address" class="form-control" placeholder="Address" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Patient Weight@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="PatientWeight" class="form-control" placeholder="Patient Weight" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Patient Height@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="PatientHeight" class="form-control" placeholder="Patient Height" />
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:20px">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <input type="submit" value="Submit" class="btn btn-primary btn-sm" style="padding-left:60px; padding-right:60px; margin-left:170px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </form>   
+</div>

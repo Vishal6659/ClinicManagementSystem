@@ -3,7 +3,108 @@
     Layout = "_Layout";
 }
 
-<div class="text-center">   
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>  
+
+<div style="margin-left:20px; padding-top:20px">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card shadow" style="border-left: solid 4px blue;">
+                <div class="card-body" style="padding-bottom:60px;">
+                    <h6 style="font-weight: normal">New Appointments</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow" style="border-left: solid 4px forestgreen;">
+                <div class="card-body" style="padding-bottom:60px">
+                    <h6 style="font-weight: normal">Total Appointments</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow" style="border-left: solid 4px lightseagreen;">
+                <div class="card-body" style="padding-bottom:60px">
+                    <h6 style="font-weight: normal">New Patients</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow" style="border-left: solid 4px darkgoldenrod;">
+                <div class="card-body" style="padding-bottom:60px">
+                    <h6 style="font-weight: normal">All Patients</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top:20px; padding-bottom:50px">
+        <div class="col-md-3">
+            <div class="card shadow" style="border-left: solid 4px blue;">
+                <div class="card-body" style="padding-bottom:60px">
+                    <h6 style="font-weight: normal">Total Prescriptions</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow" style="border-left: solid 4px forestgreen;">
+                <div class="card-body" style="padding-bottom:60px">
+                    <h6 style="font-weight: normal">Total Payments</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow" style="border-left: solid 4px lightseagreen;">
+                <div class="card-body" style="padding-bottom:60px">
+                    <h6 style="font-weight: normal">Payment This Month</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow" style="border-left: solid 4px darkgoldenrod;">
+                <div class="card-body" style="padding-bottom:60px">
+                    <h6 style="font-weight: normal">Payments This Year</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow">
+        <form asp-action="" asp-controller="" method="get">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Appointment List</div>
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2" style="margin-top:4px">
+                        <input type="submit" value="New Appointment" class="btn btn-primary btn-sm" style="margin-left:30px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="card-body">
+            <div class="box-body with-border">
+                <table id="doctable">
+                    <thead>
+                        <tr>
+                            <th style="font-weight:normal">ID</th>
+                            <th style="font-weight:normal">Patient Name</th>
+                            <th style="font-weight:normal">Date</th>
+                            <th style="font-weight:normal">Time Slot</th>
+                            <th style="font-weight:normal">Status</th>
+                            <th style="font-weight:normal">Created At</th>
+                            <th style="font-weight:normal">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#doctable').DataTable();
+    });
+</script>
+
+
+
+

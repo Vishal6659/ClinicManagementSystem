@@ -39,6 +39,13 @@ body{
     background-color:var(--sidebar-color);
 }
 
+/*===========Navbar====================*/
+.navbar{
+    background:var(--sidebar-color);
+    height:50px;
+    margin-left:251px;
+}
+
 /*============Reusable CSS============*/
 .sidebar .text{
     font-size:16px;
@@ -98,7 +105,7 @@ header .image-text .header-text{
     margin-top:-2px;
 }
 
-.sidebar header .toggle{
+/*.sidebar header .toggle{
     position:absolute;
     top:50%;
     right:-25px;
@@ -112,7 +119,7 @@ header .image-text .header-text{
     border-radius:50%;
     color:var(--sidebar-color);
     font-size:22px;
-}
+}*/
 
 .sidebar .search-box{
     background:var(--primary-color-light);

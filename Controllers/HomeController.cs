@@ -78,6 +78,16 @@ namespace ClinicManagementSystem.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult AllPatients() 
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult NewPatient() 
+        {
+            return View();
+        }
       
     }
 }
