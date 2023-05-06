@@ -21,7 +21,7 @@ namespace ClinicManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginModel loginModel)
+        public IActionResult Login(LoginModel loginModel)        
         {
             try
             {
@@ -30,18 +30,29 @@ namespace ClinicManagementSystem.Controllers
                     bool data = accountServices.checkLoginCredentials(loginModel);
                     if (data != false)
                     {
+                        TempData["msg"] = "Login Succesfull";
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
+                        TempData["msg"] = "Login Unsuccesfull";
                         return View();
                     }
+                }
+                else 
+                {
+                    TempData["msg"] = "Please enter the Login Credentials";
+                    return View();
                 }
             }
             catch (Exception ex)
             {
-
+                throw;
             }
+        }
+
+        public IActionResult Index()
+        {            
             return View();
         }
 
@@ -57,10 +68,16 @@ namespace ClinicManagementSystem.Controllers
             {
                 if (registrationModel != null)
                 {
-                    bool data = accountServices.insertRegistrationData(registrationModel);
-                    if (data != false)
+                    int data = accountServices.insertRegistrationData(registrationModel);
+                    if (data != 1)
                     {
+                        TempData["msg"] = "Registration Succesfull";
                         return RedirectToAction("Login", "Home");
+                    }
+                    else 
+                    {
+                        TempData["msg"] = "Registration UnSuccesfull";
+                        return View();
                     }
                 }
                 else
@@ -72,22 +89,6 @@ namespace ClinicManagementSystem.Controllers
             {
                 throw;
             }
-            return View();
-        }
-        public IActionResult Index()
-        {
-            return View();
-        }
-        [HttpGet]
-        public IActionResult AllPatients() 
-        {
-            return View();
-        }
-        [HttpGet]
-        public IActionResult NewPatient() 
-        {
-            return View();
-        }
-      
+        }                    
     }
 }

@@ -5,6 +5,10 @@
 }
 
 <style>
+    .container-fluid {
+        overflow: hidden;
+    }
+
     .container {
         position: absolute;
         top: 50%;
@@ -37,6 +41,15 @@
         }
 </style>
 
+<div id="msgDiv" style="margin-top:15px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+        }
+    }
+</div>
+
 <form asp-action="Login" asp-controller="Home" method="post">
     <div class="container">
         <h2>
@@ -62,4 +75,8 @@
 
     </div>
 </form>
+
+<script type="text/javascript">
+
+</script>
 

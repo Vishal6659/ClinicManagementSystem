@@ -1,16 +1,25 @@
 ﻿@model ClinicManagementSystem.Models.NewPatient;
 
-@{    
+@{
     ViewData["Title"] = "New Patient";
     Layout = "_Layout";
 }
 
+<div id="msgDiv" style="margin-top:15px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+        }
+    }
+</div>
+
 <div class="card shadow" style="margin-top:20px">
-    <form asp-action="" asp-controller="" method="post">
+    <form asp-action="NewPatient" asp-controller="Patient" method="post">
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">New Patients</div>
-                <div class="col-md-10"></div>                
+                <div class="col-md-10"></div>
             </div>
         </div>
         <div class="card-body">
@@ -24,15 +33,23 @@
             </div>
             <div class="row" style="margin-bottom:20px">
                 <div class="col-md-4">
-                 <label class="control-label"><span style="color:red">*</span>Email Address@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label"><span style="color:red">*</span>Last Name @*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" asp-for="Email" class="form-control" placeholder="Email Address" />
+                    <input type="text" asp-for="LastName" class="form-control" placeholder="Last Name" />
                 </div>
             </div>
             <div class="row" style="margin-bottom:20px">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Phone@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label"><span style="color:red">*</span>Age@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="Age" class="form-control" placeholder="Age" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Mobile Number@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
                 </div>
                 <div class="col-md-8">
                     <input type="text" asp-for="Phone" class="form-control" placeholder="Phone" />
@@ -50,11 +67,11 @@
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Gender@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
                 </div>
-                <div class="col-md-8">   
-                    <select class="form-select">
+                <div class="col-md-8">
+                    <select class="form-select" asp-for="Gender">
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
-                    </select>                  
+                    </select>
                 </div>
             </div>
             <div class="row" style="margin-bottom:20px">
@@ -62,7 +79,7 @@
                     <label class="control-label"><span style="color:red">*</span>Blood Group@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
                 </div>
                 <div class="col-md-8">
-                    <select class="form-select">
+                    <select class="form-select" asp-for="BloodGroup">
                         <option value="Unknown">Unknown</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
@@ -72,7 +89,7 @@
                         <option value="O-">O-</option>
                         <option value="AB+">AB+</option>
                         <option value="AB-">AB-</option>
-                    </select>                   
+                    </select>
                 </div>
             </div>
             <div class="row" style="margin-bottom:20px">
@@ -107,5 +124,8 @@
             </div>
             <div class="col-md-3"></div>
         </div>
-    </form>   
+    </form>
 </div>
+<script type="text/javascript">
+    
+</script>

@@ -6,7 +6,7 @@ namespace ClinicManagementSystem.Services
 {
     public interface IAccountServices 
     {
-        bool insertRegistrationData(RegistrationModel registrationModel);
+        int insertRegistrationData(RegistrationModel registrationModel);
         bool checkLoginCredentials(LoginModel loginModel);
     }
     public class AccountServices : IAccountServices        
@@ -16,7 +16,7 @@ namespace ClinicManagementSystem.Services
         {
             _pDb = new PostgresDbHelper();  
         }
-        public bool insertRegistrationData(RegistrationModel registrationModel) 
+        public int insertRegistrationData(RegistrationModel registrationModel) 
         {
             int _result = 0;
             List<Parameters> parameters = new List<Parameters>() 
@@ -38,19 +38,20 @@ namespace ClinicManagementSystem.Services
                 new Parameters{ ParameterName = "Pass", ParameterValue = registrationModel.Password},
                 new Parameters{ ParameterName = "Confirmpassword", ParameterValue = registrationModel.Confirmpassword}
             };
-            _result = _pDb.InsertUpdateDelete(QueryHelper.insertRegistrationData, parameters, Convert.ToString(Program.configuration["ClinicConnectionString"]));
-            if (_result != null && _result > 0)
+            _result = _pDb.InsertUpdateDelete(QueryHelper.insertRegistrationData, parameters);
+            if (_result != 0 && _result > 0)
             {
-                return true;
+                return 1;
             }
             else 
             {
-                return false;
+                return 0;
             }
         }
 
         public bool checkLoginCredentials(LoginModel loginModel) 
         {
+            bool _Return = false;
             try
             {
                 DataTable dataTable = new DataTable();
@@ -59,14 +60,15 @@ namespace ClinicManagementSystem.Services
                     new Parameters{ ParameterName = "Username", ParameterValue = loginModel.Username},
                     new Parameters{ ParameterName = "Password", ParameterValue = loginModel.Password}
                 };
-                dataTable = _pDb.SelectMethod(Convert.ToString(Program.configuration["ClinicConnectionString"]), QueryHelper.verifyLoginCredentials, parameters);
+                dataTable = _pDb.SelectMethod(QueryHelper.verifyLoginCredentials, parameters);
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
-                    return true;
+                    _Return = true;
+                    return _Return;
                 }
                 else 
                 {
-                    return false;
+                    return _Return;
                 }
             }
             catch (Exception ex)
