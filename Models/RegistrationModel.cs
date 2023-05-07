@@ -43,4 +43,35 @@ namespace ClinicManagementSystem.Models
 
         public String Confirmpassword { get; set; }
     }
+
+    public class ResponseModel : RegistrationModel
+    {
+        public int Id { get; set; }
+    }
+
+   /* public class SetSessionModel 
+    {
+        public String Firstame { get; set; }
+        public String? Lastname { get; set; }
+        public string Mobilenumber { get; set; }
+        public String? Email { get; set; }
+        public String Address { get; set; }
+        public String? Officaname { get; set; }
+        public String City { get; set; }
+        public String Gender { get; set; }
+        public String Username { get; set; }
+    }
+
+    public class GetSessionModel
+    {
+        public String Firstame { get; set; }
+        public String? Lastname { get; set; }
+        public string Mobilenumber { get; set; }
+        public String? Email { get; set; }
+        public String Address { get; set; }
+        public String? Officaname { get; set; }
+        public String City { get; set; }
+        public String Gender { get; set; }
+        public String Username { get; set; }
+    }*/
 }

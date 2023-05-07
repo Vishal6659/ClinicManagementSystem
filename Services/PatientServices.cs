@@ -1,11 +1,13 @@
 ﻿using ClinicManagementSystem.Helper;
 using ClinicManagementSystem.Models;
+using System.Data;
 
 namespace ClinicManagementSystem.Services
 {
     public interface IPatientServices 
     {
         int AddNewPatient(NewPatient newPatient);
+        List<AllPatientModel> GetAllPatientListData();
     }
     public class PatientServices : IPatientServices
     {
@@ -38,6 +40,36 @@ namespace ClinicManagementSystem.Services
             else 
             {
                 return 0;
+            }
+        }
+
+        public List<AllPatientModel> GetAllPatientListData() 
+        {            
+            try
+            {
+                List<AllPatientModel> allPatientsList = new List<AllPatientModel>();
+                DataTable dataTable = new DataTable();
+                dataTable = _pDb.SelectMethod(QueryHelper.getAllPatientListData, null);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        allPatientsList.Add(new AllPatientModel()
+                        {
+                            ID = Convert.ToString(dataTable.Rows[i]["id"]),
+                            PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
+                            Phone = Convert.ToString(dataTable.Rows[i]["phone"]),
+                            BloodGroup = Convert.ToString(dataTable.Rows[i]["bloodGroup"]),
+                            Date = Convert.ToString(dataTable.Rows[i]["birthday"])
+                        });
+                    }
+                }
+                return allPatientsList;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
     }

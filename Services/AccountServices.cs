@@ -7,7 +7,7 @@ namespace ClinicManagementSystem.Services
     public interface IAccountServices 
     {
         int insertRegistrationData(RegistrationModel registrationModel);
-        bool checkLoginCredentials(LoginModel loginModel);
+        ResponseModel checkLoginCredentials(LoginModel loginModel);
     }
     public class AccountServices : IAccountServices        
     {
@@ -49,9 +49,9 @@ namespace ClinicManagementSystem.Services
             }
         }
 
-        public bool checkLoginCredentials(LoginModel loginModel) 
-        {
-            bool _Return = false;
+        public ResponseModel checkLoginCredentials(LoginModel loginModel) 
+        {           
+            ResponseModel responseModel = new ResponseModel();
             try
             {
                 DataTable dataTable = new DataTable();
@@ -63,18 +63,31 @@ namespace ClinicManagementSystem.Services
                 dataTable = _pDb.SelectMethod(QueryHelper.verifyLoginCredentials, parameters);
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
-                    _Return = true;
-                    return _Return;
-                }
-                else 
-                {
-                    return _Return;
-                }
+                    responseModel.Id = Convert.ToInt16(dataTable.Rows[0]["id"]);
+                    responseModel.Firstame = Convert.ToString(dataTable.Rows[0]["firstname"]);
+                    responseModel.Middlename = Convert.ToString(dataTable.Rows[0]["middlename"]);
+                    responseModel.Lastname = Convert.ToString(dataTable.Rows[0]["lastname"]);
+                    responseModel.Age = Convert.ToString(dataTable.Rows[0]["age"]);
+                    responseModel.Mobilenumber = Convert.ToString(dataTable.Rows[0]["mobilenumber"]);
+                    responseModel.Email = Convert.ToString(dataTable.Rows[0]["email"]);
+                    responseModel.Address = Convert.ToString(dataTable.Rows[0]["address"]);
+                    responseModel.Officaname = Convert.ToString(dataTable.Rows[0]["officename"]);
+                    responseModel.Landmark = Convert.ToString(dataTable.Rows[0]["landmark"]);
+                    responseModel.City = Convert.ToString(dataTable.Rows[0]["city"]);
+                    responseModel.State = Convert.ToString(dataTable.Rows[0]["state"]);
+                    responseModel.Country = Convert.ToString(dataTable.Rows[0]["country"]);
+                    responseModel.Gender = Convert.ToString(dataTable.Rows[0]["gender"]);
+                    responseModel.Username = Convert.ToString(dataTable.Rows[0]["username"]);
+                    responseModel.Password = Convert.ToString(dataTable.Rows[0]["_password"]);
+                    responseModel.Confirmpassword = Convert.ToString(dataTable.Rows[0]["confirmpassword"]);
+                    
+                }                
             }
             catch (Exception ex)
             {
                 throw;
             }
+            return responseModel;
         }
     }
 }

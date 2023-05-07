@@ -10,7 +10,17 @@ namespace ClinicManagementSystem.Controllers
         [HttpGet]
         public IActionResult AllPatients()
         {
-            return View();
+            AllPatientModelVM allPatientModel = new AllPatientModelVM();
+            try
+            {
+                allPatientModel.patientModelList = patientServices.GetAllPatientListData();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return View(allPatientModel);
         }
         [HttpGet]
         public IActionResult NewPatient()

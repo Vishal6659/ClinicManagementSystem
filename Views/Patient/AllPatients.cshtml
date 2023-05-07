@@ -1,4 +1,4 @@
-﻿@model ClinicManagementSystem.Models.AllPatientModel;
+﻿@model ClinicManagementSystem.Models.AllPatientModelVM;
 
 @{
     ViewData["Title"] = "All Patients";
@@ -28,7 +28,7 @@
     </form>
     <div class="card-body">
         <div class="box-body with-border">
-            <table id="allPatientsTable">
+            <table id="allPatientsTable" class="table table-hover">
                 <thead>
                     <tr>
                         <th style="font-weight:normal">ID</th>
@@ -40,6 +40,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @{
+                        if (Model.patientModelList != null && Model.patientModelList.Count > 0)
+                        {
+                            foreach (var item in Model.patientModelList)
+                            {
+                                <tr>
+                                    <td>@item.ID</td>
+                                    <td>@item.PatientName</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.BloodGroup</td>
+                                    <td>@item.Date</td>
+                                    <td>Sample</td>
+                                </tr>
+                            }
+                        }
+                    }
                 </tbody>
             </table>
         </div>

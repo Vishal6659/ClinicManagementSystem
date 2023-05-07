@@ -2,6 +2,7 @@
 using ClinicManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using static SessionExtensions;
 
 namespace ClinicManagementSystem.Controllers
 {
@@ -25,11 +26,22 @@ namespace ClinicManagementSystem.Controllers
         {
             try
             {
+               // SetSessionModel setSessionModel = new SetSessionModel();
                 if (loginModel != null)
                 {
-                    bool data = accountServices.checkLoginCredentials(loginModel);
-                    if (data != false)
+                    ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
+                    if (responseModel != null && responseModel.Id > 0)
                     {
+                       /* setSessionModel.Firstame = responseModel.Firstame;
+                        setSessionModel.Lastname = responseModel.Lastname;
+                        setSessionModel.Mobilenumber = responseModel.Mobilenumber;
+                        setSessionModel.Email = responseModel.Email;
+                        setSessionModel.Address = responseModel.Address;
+                        setSessionModel.Officaname = responseModel.Officaname;
+                        setSessionModel.City = responseModel.City;
+                        setSessionModel.Gender = responseModel.Gender;
+                        setSessionModel.Username = responseModel.Username;
+                        HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);*/
                         TempData["msg"] = "Login Succesfull";
                         return RedirectToAction("Index", "Home");
                     }
@@ -52,8 +64,27 @@ namespace ClinicManagementSystem.Controllers
         }
 
         public IActionResult Index()
-        {            
-            return View();
+        {
+           // GetSessionModel sessionModel = new GetSessionModel();
+            try
+            {
+                return View();
+               /* sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                   
+                }
+                else 
+                {
+                    return RedirectToAction("Login", "Home");
+                }*/
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+           // return View();            
         }
 
         [HttpGet]

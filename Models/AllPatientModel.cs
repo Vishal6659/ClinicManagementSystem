@@ -10,6 +10,10 @@
         public string Actions { get; set; }
        
     }
+    public class AllPatientModelVM 
+    {
+        public List<AllPatientModel> patientModelList { get; set; } = new List<AllPatientModel>();
+    }
 
     public class NewPatient 
     {
