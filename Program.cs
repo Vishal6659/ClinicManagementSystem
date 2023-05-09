@@ -35,7 +35,7 @@ public partial class Program
     public static IConfiguration? configuration { get; set; }
 }
 
-public static class SessionExtensions 
+/*public static class SessionExtensions 
 {
     public static void SetObjectAsJson(this ISession session, string key, object value) 
     {
@@ -58,4 +58,4 @@ public static class SessionExtensions
     {
         public const string SessionData = "SessionData";
     }
-}
+}*/

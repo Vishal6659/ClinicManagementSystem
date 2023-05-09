@@ -13,13 +13,13 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js">
     </script>
 </head>
-<body>    
+<body>
     <nav class="navbar">
         <div class="col-md-11"></div>
         <div class="col-md-1">
             <span>User</span>
             <i class='bx bx-user userlogo'></i>
-        </div>        
+        </div>
     </nav>
     <div class="container-fluid row">
         <div class="col-md-2">
@@ -39,60 +39,60 @@
 
                 <div class="menu-bar">
                     <div class="menu">
-                        <li class="search-box">
-                            <i class='bx bx-search-alt-2 icons'></i>&nbsp;&nbsp;
-                            <input type="search" placeholder="Search ..." />
-                        </li>
-                        @*<ul class="menu-links">*@
-                        <li class="nav-link">
-                            <a asp-controller="Home" asp-action="Index">
-                                <i class='bx bx-home-alt icons'></i>&nbsp;&nbsp;
-                                <span class="text nav-text">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="#">
-                                <i class='bx bx-plus-medical'></i>&nbsp;&nbsp;
-                                <span class="text nav-text">Patients</span>
-                            </a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="#">
-                                <i class='bx bx-file'></i>&nbsp;&nbsp;
-                                <span class="text nav-text">Appointment</span>
-                            </a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="#">
-                                <i class='bx bx-envelope'></i>&nbsp;&nbsp;
-                                <span class="text nav-text">Prescription</span>
-                            </a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="#">
-                                <i class='bx bx-wallet'></i>&nbsp;&nbsp;
-                                <span class="text nav-text">Billing</span>
-                            </a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="#">
-                                <i class='bx bx-cog'></i>&nbsp;&nbsp;
-                                <span class="text nav-text">Setting</span>
-                            </a>
-                        </li>
-                        @*</ul>*@
+                        <ul class="nav navbar-nav">
+                            <li class="search-box">
+                                <i class='bx bx-search-alt-2 icons' style="margin-left:10px"></i>&nbsp;&nbsp;
+                                <input type="search" placeholder="Search ..." />
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav" style="margin-left:20px;">                            
+                            <li class="nav-link">
+                                <a asp-controller="Home" asp-action="Index">
+                                    <i class='bx bx-home-alt icons'></i>&nbsp;&nbsp;
+                                    <span class="text nav-text">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#">
+                                    <i class='bx bx-plus-medical'></i>&nbsp;&nbsp;
+                                    <span class="text nav-text">Patients</span>
+                                </a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#">
+                                    <i class='bx bx-file'></i>&nbsp;&nbsp;
+                                    <span class="text nav-text">Appointment</span>
+                                </a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#">
+                                    <i class='bx bx-envelope'></i>&nbsp;&nbsp;
+                                    <span class="text nav-text">Prescription</span>
+                                </a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#">
+                                    <i class='bx bx-wallet'></i>&nbsp;&nbsp;
+                                    <span class="text nav-text">Billing</span>
+                                </a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#">
+                                    <i class='bx bx-cog'></i>&nbsp;&nbsp;
+                                    <span class="text nav-text">Setting</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-
                     <div class="bottom-content">
-                        @*<ul>*@
-                        <li class="nav-bottom-link">
-                            <a asp-action="Login" asp-controller="Home">
-                                <i class='bx bx-log-out icons'></i>&nbsp;&nbsp;
-                                <span class="text nav-text">Logout</span>
-                            </a>
-                        </li>
-                        @*</ul>*@
-
+                        <ul class="nav navbar-nav" style="margin-left:10px;">
+                            <li class="nav-link">
+                                <a asp-action="Login" asp-controller="Home">
+                                    <i class='bx bx-log-out icons'></i>&nbsp;&nbsp;
+                                    <span class="text nav-text">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
