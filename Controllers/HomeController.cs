@@ -18,21 +18,34 @@ namespace ClinicManagementSystem.Controllers
 
         public IActionResult Login()
         {
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, null);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(LoginModel loginModel)        
+        public IActionResult Login(LoginModel loginModel)
         {
             try
             {
-               // SetSessionModel setSessionModel = new SetSessionModel();
+                SetSessionModel setSessionModel = new SetSessionModel();
                 if (loginModel != null)
                 {
                     ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
                     if (responseModel != null && responseModel.Id > 0)
                     {
-                       /* setSessionModel.Firstame = responseModel.Firstame;
+                        setSessionModel.Firstame = responseModel.Firstame;
                         setSessionModel.Lastname = responseModel.Lastname;
                         setSessionModel.Mobilenumber = responseModel.Mobilenumber;
                         setSessionModel.Email = responseModel.Email;
@@ -41,7 +54,7 @@ namespace ClinicManagementSystem.Controllers
                         setSessionModel.City = responseModel.City;
                         setSessionModel.Gender = responseModel.Gender;
                         setSessionModel.Username = responseModel.Username;
-                        HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);*/
+                        HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);
                         TempData["msg"] = "Login Succesfull";
                         return RedirectToAction("Index", "Home");
                     }
@@ -51,7 +64,7 @@ namespace ClinicManagementSystem.Controllers
                         return View();
                     }
                 }
-                else 
+                else
                 {
                     TempData["msg"] = "Please enter the Login Credentials";
                     return View();
@@ -65,26 +78,23 @@ namespace ClinicManagementSystem.Controllers
 
         public IActionResult Index()
         {
-           // GetSessionModel sessionModel = new GetSessionModel();
             try
             {
-                return View();
-               /* sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
                 if (sessionModel != null)
                 {
-                   
+                    return View();
                 }
-                else 
+                else
                 {
+                    TempData["msg"] = "Session Not Found";
                     return RedirectToAction("Login", "Home");
-                }*/
-
+                }
             }
             catch (Exception ex)
             {
                 throw;
             }
-           // return View();            
         }
 
         [HttpGet]
@@ -105,7 +115,7 @@ namespace ClinicManagementSystem.Controllers
                         TempData["msg"] = "Registration Succesfull";
                         return RedirectToAction("Login", "Home");
                     }
-                    else 
+                    else
                     {
                         TempData["msg"] = "Registration UnSuccesfull";
                         return View();
@@ -120,6 +130,13 @@ namespace ClinicManagementSystem.Controllers
             {
                 throw;
             }
-        }                    
+        }
+        [HttpGet]
+        public IActionResult Sidebar()
+        {
+            return View();
+        }
+
+
     }
 }

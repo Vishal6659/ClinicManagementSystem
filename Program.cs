@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", false, true).Build();
 
@@ -6,6 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(int.MaxValue);
+    options.Cookie.HttpOnly = false;
+});
 
 var app = builder.Build();
 
@@ -19,6 +26,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
 app.UseRouting();
 
@@ -35,27 +43,21 @@ public partial class Program
     public static IConfiguration? configuration { get; set; }
 }
 
-/*public static class SessionExtensions 
+public static class SessionExtensions
 {
-    public static void SetObjectAsJson(this ISession session, string key, object value) 
+    public static void SetObjectAsJson(this ISession session, string key, object value)
     {
         session.SetString(key, JsonConvert.SerializeObject(value));
     }
 
     public static T GetObjectFromJson<T>(this ISession session, string key)
     {
-        var value = SessionExtensions.GetString(key);
+        var value = session.GetString(key);
 
-        return value == null ? default(T) : JsonConvert.DeserializeObject<T>((string)value);
+        return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
     }
-
-    private static object GetString(string key)
-    {
-        throw new NotImplementedException();
-    }
-
-    public class SessionVariables 
-    {
-        public const string SessionData = "SessionData";
-    }
-}*/
+}
+public class SessionVariables
+{
+    public const string SessionData = "SessionData";
+}

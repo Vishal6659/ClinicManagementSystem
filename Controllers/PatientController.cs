@@ -13,11 +13,19 @@ namespace ClinicManagementSystem.Controllers
             AllPatientModelVM allPatientModel = new AllPatientModelVM();
             try
             {
-                allPatientModel.patientModelList = patientServices.GetAllPatientListData();
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    allPatientModel.patientModelList = patientServices.GetAllPatientListData();
+                }
+                else 
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }                 
             }
             catch (Exception ex)
             {
-
                 throw;
             }
             return View(allPatientModel);
@@ -25,37 +33,58 @@ namespace ClinicManagementSystem.Controllers
         [HttpGet]
         public IActionResult NewPatient()
         {
-            return View();
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    return View();
+                }
+                else 
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }           
         }
         [HttpPost]
         public IActionResult NewPatient(NewPatient newPatient)
         {
             try
             {
-                if (newPatient != null)
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
                 {
-                    int success = patientServices.AddNewPatient(newPatient);
-                    if (success != 0)
+                    if (newPatient != null)
                     {
-                        TempData["msg"] = "New Patient Succesfully Inserted";
-                        return RedirectToAction("AllPatients", "Patient");
-                    }
-                    else
-                    {
-                        TempData["msg"] = "New Patient not Inserted Succesfully ";
-                        return View();
-                    }
+                        int success = patientServices.AddNewPatient(newPatient);
+                        if (success != 0)
+                        {
+                            TempData["msg"] = "New Patient Succesfully Inserted";
+                            return RedirectToAction("AllPatients", "Patient");
+                        }
+                        else
+                        {
+                            TempData["msg"] = "New Patient not Inserted Succesfully ";
+                            return View();
+                        }
+                    }                    
                 }
                 else
                 {
-                    return View();
-                }
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }                
             }
             catch (Exception ex)
             {
                 throw;
             }
-
+            return View(newPatient);
         }
     }
 }

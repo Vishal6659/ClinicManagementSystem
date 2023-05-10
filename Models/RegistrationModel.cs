@@ -49,7 +49,7 @@ namespace ClinicManagementSystem.Models
         public int Id { get; set; }
     }
 
-   /* public class SetSessionModel 
+    public class SetSessionModel
     {
         public String Firstame { get; set; }
         public String? Lastname { get; set; }
@@ -73,5 +73,5 @@ namespace ClinicManagementSystem.Models
         public String City { get; set; }
         public String Gender { get; set; }
         public String Username { get; set; }
-    }*/
+    }
 }

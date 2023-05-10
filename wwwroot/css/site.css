@@ -175,6 +175,10 @@ header .image-text .header-text{
     margin-left: 5px;
 }
 
+#sidebar.active {
+    margin-left: -250px;
+}
+
 /*html {
   font-size: 14px;
 }

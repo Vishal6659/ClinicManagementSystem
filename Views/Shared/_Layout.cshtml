@@ -23,7 +23,7 @@
     </nav>
     <div class="container-fluid row">
         <div class="col-md-2">
-            <nav class="sidebar">
+            <nav class="sidebar" id="sideBar">
                 <header>
                     <div class="image-text">
                         <span class="image">
@@ -45,40 +45,40 @@
                                 <input type="search" placeholder="Search ..." />
                             </li>
                         </ul>
-                        <ul class="nav navbar-nav" style="margin-left:20px;">                            
+                        <ul class="nav navbar-nav" style="margin-left:20px;">
                             <li class="nav-link">
                                 <a asp-controller="Home" asp-action="Index">
-                                    <i class='bx bx-home-alt icons'></i>&nbsp;&nbsp;
+                                    <i class='bx bx-home-alt icons' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Dashboard</span>
                                 </a>
-                            </li>
+                            </li>                            
                             <li class="nav-link">
                                 <a href="#">
-                                    <i class='bx bx-plus-medical'></i>&nbsp;&nbsp;
+                                    <i class='bx bx-plus-medical' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Patients</span>
                                 </a>
                             </li>
                             <li class="nav-link">
                                 <a href="#">
-                                    <i class='bx bx-file'></i>&nbsp;&nbsp;
+                                    <i class='bx bx-file' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Appointment</span>
                                 </a>
                             </li>
                             <li class="nav-link">
                                 <a href="#">
-                                    <i class='bx bx-envelope'></i>&nbsp;&nbsp;
+                                    <i class='bx bx-envelope' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Prescription</span>
                                 </a>
                             </li>
                             <li class="nav-link">
                                 <a href="#">
-                                    <i class='bx bx-wallet'></i>&nbsp;&nbsp;
+                                    <i class='bx bx-wallet' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Billing</span>
                                 </a>
                             </li>
                             <li class="nav-link">
                                 <a href="#">
-                                    <i class='bx bx-cog'></i>&nbsp;&nbsp;
+                                    <i class='bx bx-cog' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Setting</span>
                                 </a>
                             </li>
@@ -111,3 +111,20 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>
