@@ -1,0 +1,50 @@
+﻿@model ClinicManagementSystem.Models.AllTestModel
+@{
+    ViewData["Title"] = "New Test";
+    Layout = "_Layout";
+}
+
+<div id="msgDiv" style="margin-top:15px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+        }
+    }
+</div>
+
+<div class="card shadow" style="margin-top:20px">
+    <form asp-action="NewTest" asp-controller="Test" method="post">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">New Tests</div>
+                <div class="col-md-10"></div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Test Name @*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="TestName" class="form-control" placeholder="Test Name" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Description @*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="Description" class="form-control" placeholder="Description" />
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:20px">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <input type="submit" value="Submit" class="btn btn-primary btn-sm" style="padding-left:60px; padding-right:60px; margin-left:170px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </form>
+</div>

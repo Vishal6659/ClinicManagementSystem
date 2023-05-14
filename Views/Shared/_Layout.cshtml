@@ -53,7 +53,7 @@
                                 </a>
                             </li>                            
                             <li class="nav-link">
-                                <a href="#">
+                                <a asp-controller="Patient" asp-action="AllPatients">
                                     <i class='bx bx-plus-medical' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Patients</span>
                                 </a>
@@ -68,6 +68,18 @@
                                 <a href="#">
                                     <i class='bx bx-envelope' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Prescription</span>
+                                </a>
+                            </li>
+                            <li class="nav-link">
+                                <a asp-controller="Drug" asp-action="AllDrugs">
+                                    <i class='bx bxs-capsule' style="margin-left:10px;"></i>&nbsp;&nbsp;
+                                    <span class="text nav-text">Drugs</span>
+                                </a>
+                            </li>
+                            <li class="nav-link">
+                                <a asp-controller="Test" asp-action="AllTests">
+                                    <i class='bx bx-test-tube' style="margin-left:10px;"></i>&nbsp;&nbsp;
+                                    <span class="text nav-text">Tests</span>
                                 </a>
                             </li>
                             <li class="nav-link">

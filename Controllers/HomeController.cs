@@ -28,7 +28,6 @@ namespace ClinicManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-
                 throw;
             }
             return View();

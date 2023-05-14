@@ -1,0 +1,64 @@
+﻿@model ClinicManagementSystem.Models.AllDrugModelVM
+@{
+    ViewData["Title"] = "All Drugs";
+    Layout = "_Layout";
+}
+
+<div id="msgDiv" style="margin-top:15px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+        }
+    }
+</div>
+
+<div class="card shadow" style="margin-top:20px">
+    <form asp-action="NewDrug" asp-controller="Drug" method="get">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">All Drugs</div>
+                <div class="col-md-8"></div>
+                <div class="col-md-2" style="margin-top:4px">
+                    <input type="submit" value="New Drug" class="btn btn-primary btn-sm" style="margin-left:55px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="card-body">
+        <div class="box-body with-border">
+            <table id="allDrugsTable" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="font-weight:normal">ID</th>
+                        <th style="font-weight:normal">Drug Name</th>
+                        <th style="font-weight:normal">Description</th>                        
+                        <th style="font-weight:normal">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        if (Model.allDrugModelsList != null && Model.allDrugModelsList.Count > 0)
+                        {
+                            foreach (var item in Model.allDrugModelsList)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.DrugName</td>
+                                    <td>@item.Description</td>                                    
+                                    <td>Sample</td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#allDrugsTable').DataTable();
+    });
+</script>
