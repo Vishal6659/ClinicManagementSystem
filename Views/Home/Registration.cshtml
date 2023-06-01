@@ -17,6 +17,7 @@
     .container-fluid {
         overflow: hidden;
     }
+
     .card {
         margin: 0;
         position: absolute;
@@ -24,7 +25,7 @@
         left: 50%;
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
-        width: 75%;        
+        width: 75%;
         overflow: hidden;
         box-shadow: 0px 30px 25px -1px rgb(0,0,0,.6);
     }
@@ -46,35 +47,39 @@
 
 <form asp-controller="Home" asp-action="Registration" method="post">
     <div class="card">
-        <div class="card-header"><h2>Registration Page</h2></div>
+        <div class="card-header"><h2>Doctor's Registration Page</h2></div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>First Name <span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Firstame" class="form-control" placeholder="First Name" />
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label">Middle Name</span></label>
-                    <input type="text" asp-for="Middlename" class="form-control" placeholder="Middle Name" />
+                    <label class="control-label"><span style="color:red">*</span>First Name <span asp-validation-for="FirstName" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <input type="text" asp-for="FirstName" class="form-control" placeholder="First Name" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label">Last Name</span></label>
-                    <input type="text" asp-for="Lastname" class="form-control" placeholder="Last Name" />
+                    <input type="text" asp-for="LastName" class="form-control" placeholder="Last Name" />
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">Gender</span></label>
+                    <select class="form-select" asp-for="Gender">
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
                 </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Age <span asp-validation-for="Age" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Age" class="form-control" placeholder="Enter Age" />
+                    <label class="control-label"><span style="color:red">*</span>Date Of Birth <span asp-validation-for="DateOfBirth" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <input type="date" asp-for="DateOfBirth" class="form-control" placeholder="Enter Date of birth" />
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Mobile Number <span asp-validation-for="Mobilenumber" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Mobilenumber" class="form-control" placeholder="Enter Mobile Number" />
+                    <label class="control-label"><span style="color:red">*</span>Mobile Number <span asp-validation-for="PhoneNumber" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="Enter Mobile Number" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label">Email</label>
-                    <input type="text" asp-for="Email" class="form-control" placeholder="Enter Email" />
+                    <input type="text" asp-for="EmailAddress" class="form-control" placeholder="Enter Email" />
                 </div>
             </div>
             <br />
@@ -84,74 +89,69 @@
                     <input type="text" asp-for="Address" class="form-control" placeholder="Enter Address" />
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label">Office Name</label>
-                    <input type="text" asp-for="Officaname" class="form-control" placeholder="Enter Office Name" />
+                    <label class="control-label">Aadhar Card Number</label>
+                    <input type="text" asp-for="AadharCardNumber" class="form-control" placeholder="Enter Aadhar Card Number" />
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Landmark <span asp-validation-for="Landmark" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Landmark" class="form-control" placeholder="Enter Landmark" />
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>City <span asp-validation-for="City" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="City" class="form-control" placeholder="Enter City" />
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>State <span asp-validation-for="State" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="State" class="form-control" placeholder="Enter State" />
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label">Country</label>
-                    <input type="text" asp-for="Country" class="form-control" placeholder="Enter Country" />
+                    <label class="control-label"><span style="color:red">*</span>Specialization <span asp-validation-for="Specialization" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <input type="text" asp-for="Specialization" class="form-control" placeholder="Enter Specialization" />
                 </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Username <span asp-validation-for="Username" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <label class="control-label"><span style="color:red">*</span>Medical Liscence Number <span asp-validation-for="MedicalLiscenseNumber" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <input type="text" asp-for="MedicalLiscenseNumber" class="form-control" placeholder="Enter Medical Liscence Number" />
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Qualification <span asp-validation-for="Qualification" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <input type="text" asp-for="Qualification" class="form-control" placeholder="Enter Qualification" />
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">Experiance</label>
+                    <input type="text" asp-for="Experiance" class="form-control" placeholder="Enter Experiance" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Clinic/Hospital Affiliation <span asp-validation-for="Affiliation" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <input type="text" asp-for="Affiliation" class="form-control" placeholder="Enter Clinic/Hospital Affiliation" />
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Language Spoken <span asp-validation-for="LanguageSpoken" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <input type="text" asp-for="LanguageSpoken" class="form-control" placeholder="Enter Language Spoken" />
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Upload Profile Picture <span asp-validation-for="ProfilePicture" class="clearfix text-danger" style="font-size: 12px"></span></label>
+                    <input type="file" asp-for="ProfilePicture" class="form-control" placeholder="Upload Profile Picture" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Username<span asp-validation-for="Username" class="clearfix text-danger" style="font-size: 12px"></span></label>
                     <input type="text" asp-for="Username" class="form-control" placeholder="Enter Username" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Password <span asp-validation-for="Password" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Password" class="form-control" placeholder="Enter Password" />
+                    <input type="password" asp-for="Password" class="form-control" placeholder="Enter Password" />
                 </div>
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Confirm Password <span asp-validation-for="Confirmpassword" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Confirmpassword" class="form-control" placeholder="Enter Password again" />
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Gender <span asp-validation-for="Gender" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6" style="display:flex">
-                    <div class="col-md-2">
-                        <input type="radio" asp-for="Gender" name="gender" value="Male" />
-                        <label>Male</label>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="radio" asp-for="Gender" name="gender" value="Female" />
-                        <label>Female</label>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="radio" asp-for="Gender" name="gender" value="Not to say" />
-                        <label>Not to say</label>
-                    </div>
+                    <label class="control-label"><span style="color:red">*</span>Confirm Password @*<span asp-validation-for="Confirmpassword" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <input type="password" class="form-control" placeholder="Please Confirm Password" />
                 </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <input class="form-control btn btn-primary" type="submit" />
+                    <input class="form-control btn btn-primary" id="submit" onclick="CheckData()" type="submit" />
                 </div>
                 <div class="col-md-4"></div>
             </div>
         </div>
     </div>
 </form>
+
+

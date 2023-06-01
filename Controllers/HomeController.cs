@@ -44,13 +44,11 @@ namespace ClinicManagementSystem.Controllers
                     ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
                     if (responseModel != null && responseModel.Id > 0)
                     {
-                        setSessionModel.Firstame = responseModel.Firstame;
-                        setSessionModel.Lastname = responseModel.Lastname;
-                        setSessionModel.Mobilenumber = responseModel.Mobilenumber;
-                        setSessionModel.Email = responseModel.Email;
+                        setSessionModel.Firstame = responseModel.FirstName;
+                        setSessionModel.Lastname = responseModel.LastName;
+                        setSessionModel.Mobilenumber = Convert.ToString(responseModel.PhoneNumber);
+                        setSessionModel.Email = responseModel.EmailAddress;
                         setSessionModel.Address = responseModel.Address;
-                        setSessionModel.Officaname = responseModel.Officaname;
-                        setSessionModel.City = responseModel.City;
                         setSessionModel.Gender = responseModel.Gender;
                         setSessionModel.Username = responseModel.Username;
                         HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);
@@ -111,14 +109,13 @@ namespace ClinicManagementSystem.Controllers
                     int data = accountServices.insertRegistrationData(registrationModel);
                     if (data != 1)
                     {
-                        TempData["msg"] = "Registration Succesfull";
-                        return RedirectToAction("Login", "Home");
+                        TempData["msg"] = "Registration UnSuccesfull";                        
                     }
                     else
                     {
-                        TempData["msg"] = "Registration UnSuccesfull";
-                        return View();
+                        TempData["msg"] = "Registration Succesfull";                        
                     }
+                    return RedirectToAction("Login", "Home");
                 }
                 else
                 {
