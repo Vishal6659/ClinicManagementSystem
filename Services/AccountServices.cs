@@ -64,7 +64,7 @@ namespace ClinicManagementSystem.Services
                 dataTable = _pDb.SelectMethod(QueryHelper.verifyLoginCredentials, parameters);
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
-                    responseModel.Id = Convert.ToInt16(dataTable.Rows[0]["id"]);
+                    responseModel.DocId = Convert.ToInt32(dataTable.Rows[0]["doc_id"]);
                     responseModel.FirstName = Convert.ToString(dataTable.Rows[0]["firstname"]);
                     responseModel.LastName = Convert.ToString(dataTable.Rows[0]["lastname"]);
                     responseModel.Gender = Convert.ToString(dataTable.Rows[0]["gender"]);

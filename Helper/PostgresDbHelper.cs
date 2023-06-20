@@ -72,7 +72,7 @@ namespace ClinicManagementSystem.Helper
             return result;
         }
 
-        public DataTable SelectMethod(string query, List<Parameters> dbDataParameters = null)
+        public DataTable SelectMethod(string query, List<Parameters>? dbDataParameters = null)
         {
             DataTable dataTable = new DataTable();
             try

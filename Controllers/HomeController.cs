@@ -42,16 +42,16 @@ namespace ClinicManagementSystem.Controllers
                 if (loginModel != null)
                 {
                     ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
-                    if (responseModel != null && responseModel.Id > 0)
+                    if (responseModel != null)
                     {
+                        setSessionModel.DocId = responseModel.DocId;
                         setSessionModel.Firstame = responseModel.FirstName;
                         setSessionModel.Lastname = responseModel.LastName;
-                        setSessionModel.Mobilenumber = Convert.ToString(responseModel.PhoneNumber);
+                        setSessionModel.Mobilenumber = Convert.ToInt64(responseModel.PhoneNumber);
                         setSessionModel.Email = responseModel.EmailAddress;
                         setSessionModel.Address = responseModel.Address;
                         setSessionModel.Gender = responseModel.Gender;
-                        setSessionModel.Username = responseModel.Username;
-                        HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);
+                        HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);                        
                         TempData["msg"] = "Login Succesfull";
                         return RedirectToAction("Index", "Home");
                     }
@@ -127,11 +127,7 @@ namespace ClinicManagementSystem.Controllers
                 throw;
             }
         }
-        [HttpGet]
-        public IActionResult Sidebar()
-        {
-            return View();
-        }
+      
 
 
     }

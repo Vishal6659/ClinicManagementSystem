@@ -10,13 +10,14 @@ namespace ClinicManagementSystem.Controllers
         [HttpGet]
         public IActionResult AllPatients()
         {
-            AllPatientModelVM allPatientModel = new AllPatientModelVM();
+            AllPatientModelVM allPatientModel = new AllPatientModelVM();             
             try
             {
                 GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
                 if (sessionModel != null)
                 {
-                    allPatientModel.patientModelList = patientServices.GetAllPatientListData();
+                    int DocId = sessionModel.DocId;
+                    allPatientModel.patientModelList = patientServices.GetAllPatientListData(DocId);
                 }
                 else 
                 {
@@ -59,8 +60,9 @@ namespace ClinicManagementSystem.Controllers
                 GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
                 if (sessionModel != null)
                 {
+                    newPatient.DocID = sessionModel.DocId;
                     if (newPatient != null)
-                    {
+                    {                        
                         int success = patientServices.AddNewPatient(newPatient);
                         if (success != 0)
                         {

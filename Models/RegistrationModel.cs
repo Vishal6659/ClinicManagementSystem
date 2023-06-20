@@ -40,31 +40,28 @@ namespace ClinicManagementSystem.Models
 
     public class ResponseModel : RegistrationModel
     {
-        public int Id { get; set; }
+        public int DocId { get; set; }
     }
 
     public class SetSessionModel
     {
+        public int DocId { get; set; }
         public String Firstame { get; set; }
         public String? Lastname { get; set; }
-        public string Mobilenumber { get; set; }
+        public Int64 Mobilenumber { get; set; }
         public String? Email { get; set; }
         public String Address { get; set; }
-        public String City { get; set; }
         public String Gender { get; set; }
-        public String Username { get; set; }
     }
 
     public class GetSessionModel
     {
+        public int DocId { get; set; }
         public String Firstame { get; set; }
         public String? Lastname { get; set; }
-        public string Mobilenumber { get; set; }
+        public Int64 Mobilenumber { get; set; }
         public String? Email { get; set; }
         public String Address { get; set; }
-        public String? Officaname { get; set; }
-        public String City { get; set; }
         public String Gender { get; set; }
-        public String Username { get; set; }
     }
 }

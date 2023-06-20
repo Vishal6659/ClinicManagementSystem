@@ -7,7 +7,7 @@ namespace ClinicManagementSystem.Services
     public interface IPatientServices 
     {
         int AddNewPatient(NewPatient newPatient);
-        List<AllPatientModel> GetAllPatientListData();
+        List<AllPatientModel> GetAllPatientListData(int DocId);
     }
     public class PatientServices : IPatientServices
     {
@@ -21,6 +21,7 @@ namespace ClinicManagementSystem.Services
             int result = 0;
             List<Parameters> parameters = new List<Parameters>() 
             {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( newPatient.DocID)},
                 new Parameters{ ParameterName = "FirstName", ParameterValue = newPatient.FirstName},
                 new Parameters{ ParameterName = "LastName", ParameterValue = newPatient.LastName},
                 new Parameters{ ParameterName = "Age", ParameterValue =Convert.ToString(newPatient.Age)},
@@ -43,22 +44,26 @@ namespace ClinicManagementSystem.Services
             }
         }
 
-        public List<AllPatientModel> GetAllPatientListData() 
+        public List<AllPatientModel> GetAllPatientListData(int DocId) 
         {            
             try
             {
                 List<AllPatientModel> allPatientsList = new List<AllPatientModel>();
                 DataTable dataTable = new DataTable();
-                dataTable = _pDb.SelectMethod(QueryHelper.getAllPatientListData, null);
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getAllPatientListData, parameters);
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     for (int i = 0; i < dataTable.Rows.Count; i++)
                     {
                         allPatientsList.Add(new AllPatientModel()
                         {
-                            ID = Convert.ToString(dataTable.Rows[i]["id"]),
+                            ID = Convert.ToInt32(dataTable.Rows[i]["id"]),
                             PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
-                            Phone = Convert.ToString(dataTable.Rows[i]["phone"]),
+                            Phone = Convert.ToInt64(dataTable.Rows[i]["phone"]),
                             BloodGroup = Convert.ToString(dataTable.Rows[i]["bloodGroup"]),
                             Date = Convert.ToString(dataTable.Rows[i]["birthday"])
                         });
