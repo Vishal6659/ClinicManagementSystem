@@ -42,7 +42,7 @@ namespace ClinicManagementSystem.Controllers
                 if (loginModel != null)
                 {
                     ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
-                    if (responseModel != null)
+                    if (responseModel.DocId != null && responseModel.AadharCardNumber != null)
                     {
                         setSessionModel.DocId = responseModel.DocId;
                         setSessionModel.Firstame = responseModel.FirstName;

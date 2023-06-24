@@ -2,7 +2,7 @@
 {
     public class AllTestModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string TestName { get; set; }
         public string Description { get; set; }
     }
@@ -14,6 +14,7 @@
 
     public class NewTest 
     {
+        public int DocID { get; set; }
         public string TestName { get; set; }
         public string Description { get; set; }
     }

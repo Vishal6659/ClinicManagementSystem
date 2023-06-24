@@ -4,7 +4,7 @@
     {
         public string Id { get; set; }
         public string DrugName { get; set; }        
-        public string Description { get; set; }
+        public string GenericName { get; set; }
     }
     public class AllDrugModelVM 
     {
@@ -13,6 +13,7 @@
 
     public class NewDrug 
     {
+        public int DocID { get; set; }
         public string DrugName { get; set; }
         public string GenericName { get; set; }
         public string Note { get; set; }
