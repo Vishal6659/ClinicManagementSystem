@@ -2,7 +2,6 @@
 using ClinicManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-//using static SessionExtensions;
 
 namespace ClinicManagementSystem.Controllers
 {
@@ -23,7 +22,7 @@ namespace ClinicManagementSystem.Controllers
                 GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
                 if (sessionModel != null)
                 {
-                    HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, null);
+                    HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, null);                   
                 }
             }
             catch (Exception ex)
@@ -40,7 +39,7 @@ namespace ClinicManagementSystem.Controllers
             {
                 SetSessionModel setSessionModel = new SetSessionModel();
                 if (loginModel != null)
-                {
+                {                   
                     ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
                     if (responseModel.DocId != null && responseModel.AadharCardNumber != null)
                     {

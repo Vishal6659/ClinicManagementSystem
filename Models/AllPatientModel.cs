@@ -18,6 +18,7 @@
     public class NewPatient 
     {
         public int DocID { get; set; }
+        public int PatientID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Age { get; set; }

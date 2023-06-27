@@ -2,7 +2,7 @@
 {
     public class AllDrugModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string DrugName { get; set; }        
         public string GenericName { get; set; }
     }

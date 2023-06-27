@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "All Prescriptions";
+    Layout = "_Layout";
+}
+
+<div id="msgDiv" style="margin-top:15px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+        }
+    }
+</div>
+
+<div class="card shadow" style="margin-top:20px">
+    <form asp-action="NewPrescription" asp-controller="Prescription" method="get">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">All Prescriptions</div>
+                <div class="col-md-8"></div>
+                <div class="col-md-2" style="margin-top:4px">
+                    <input type="submit" value="New Prescription" class="btn btn-primary btn-sm" style="margin-left:55px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="card-body">
+        <div class="box-body with-border">
+            <table id="allPatientsTable" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="font-weight:normal">ID</th>
+                        <th style="font-weight:normal">Patient Name</th>                        
+                        <th style="font-weight:normal">Date</th>
+                        <th style="font-weight:normal">Content</th>
+                        <th style="font-weight:normal">Actions</th>
+                    </tr>
+                </thead>
+                @*<tbody>
+                @{
+                if (Model.patientModelList != null && Model.patientModelList.Count > 0)
+                {
+                foreach (var item in Model.patientModelList)
+                {
+                <tr>
+                <td>@item.ID</td>
+                <td>@item.PatientName</td>
+                <td>@item.Phone</td>
+                <td>@item.BloodGroup</td>
+                <td>@item.Date</td>
+                <td>Sample</td>
+                </tr>
+                }
+                }
+                }
+                </tbody>*@
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#allPatientsTable').DataTable();
+    });
+</script>

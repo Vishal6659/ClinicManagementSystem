@@ -53,7 +53,8 @@ namespace ClinicManagementSystem.Services
                     {
                         allTestModelsList.Add(new AllTestModel()
                         {
-                            Id = Convert.ToString( dataTable.Rows[i]["id"]),
+                            /*Id = Convert.ToString( dataTable.Rows[i]["id"]),*/
+                            Id = i+1,
                             TestName = Convert.ToString(dataTable.Rows[i]["testname"]),
                             Description = Convert.ToString(dataTable.Rows[i]["description"])
                         });

@@ -60,6 +60,9 @@ namespace ClinicManagementSystem.Controllers
                 GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
                 if (sessionModel != null)
                 {
+                    Random random = new Random();
+                    int num = random.Next();
+                    newPatient.PatientID = num;
                     newPatient.DocID = sessionModel.DocId;
                     if (newPatient != null)
                     {                        

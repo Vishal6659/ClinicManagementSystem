@@ -22,6 +22,7 @@ namespace ClinicManagementSystem.Services
             List<Parameters> parameters = new List<Parameters>() 
             {
                 new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( newPatient.DocID)},
+                new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString( newPatient.PatientID)},
                 new Parameters{ ParameterName = "FirstName", ParameterValue = newPatient.FirstName},
                 new Parameters{ ParameterName = "LastName", ParameterValue = newPatient.LastName},
                 new Parameters{ ParameterName = "Age", ParameterValue =Convert.ToString(newPatient.Age)},
@@ -61,7 +62,7 @@ namespace ClinicManagementSystem.Services
                     {
                         allPatientsList.Add(new AllPatientModel()
                         {
-                            ID = Convert.ToInt32(dataTable.Rows[i]["id"]),
+                            ID = i+1,
                             PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
                             Phone = Convert.ToInt64(dataTable.Rows[i]["phone"]),
                             BloodGroup = Convert.ToString(dataTable.Rows[i]["bloodGroup"]),
