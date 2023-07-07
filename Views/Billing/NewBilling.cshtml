@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "New Billing";
+    Layout = "_Layout";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow" style="margin-top:20px">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-10" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">New Appoinemtnts</div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="control-label"><span style="color:red">*</span>Select Patient@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select class="form-select">
+                            <option>Select Patient...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="control-label"><span style="color:red">*</span>Payment Mode@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select class="form-select">
+                            <option>Cash...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="control-label"><span style="color:red">*</span>Payment Status@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    </div>
+                    <div class="col-md-8">
+                        <select class="form-select">
+                            <option>Paid...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <input type="submit" value="Create Invoice" class="btn btn-primary btn-sm" style="background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-8">
+        <div class="card shadow" style="margin-top:20px">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Invoice Details</div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" placeholder="Invoice Title" />
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" placeholder="Amount" />
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" value="Remove" class="btn btn-danger btn-sm" />
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+

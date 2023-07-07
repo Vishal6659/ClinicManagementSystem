@@ -38,10 +38,10 @@ namespace ClinicManagementSystem.Controllers
             try
             {
                 SetSessionModel setSessionModel = new SetSessionModel();
-                if (loginModel != null)
+                if (loginModel != null && loginModel.Username != null && loginModel.Password != null)
                 {                   
                     ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
-                    if (responseModel.DocId != null && responseModel.AadharCardNumber != null)
+                    if (responseModel.DocId != 0 && responseModel.AadharCardNumber != 0)
                     {
                         setSessionModel.DocId = responseModel.DocId;
                         setSessionModel.Firstame = responseModel.FirstName;

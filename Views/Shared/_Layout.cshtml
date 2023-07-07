@@ -26,8 +26,8 @@
             <nav class="sidebar" id="sideBar">
                 <header>
                     <div class="image-text">
-                        <span class="image">
-                            <img src="./Images/Logo.jpg" alt="Logo">
+                        <span class="image">                            
+                            <img src="@Url.Content("~/Images/DocLogo.jpg")" style="width:50px" alt="Logo">
                         </span>
                         <div class="text header-text">
                             <span class="name">Clinic Management</span>
@@ -59,7 +59,7 @@
                                 </a>
                             </li>
                             <li class="nav-link">
-                                <a href="#">
+                                <a asp-controller="Appointment" asp-action="AllAppointments">
                                     <i class='bx bx-file' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Appointment</span>
                                 </a>
@@ -83,17 +83,17 @@
                                 </a>
                             </li>
                             <li class="nav-link">
-                                <a href="#">
+                                <a asp-controller="Billing" asp-action="AllBillings">
                                     <i class='bx bx-wallet' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Billing</span>
                                 </a>
                             </li>
-                            <li class="nav-link">
+                           @* <li class="nav-link">
                                 <a href="#">
                                     <i class='bx bx-cog' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Setting</span>
                                 </a>
-                            </li>
+                            </li>*@
                         </ul>
                     </div>
                     <div class="bottom-content">

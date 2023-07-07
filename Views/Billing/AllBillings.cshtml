@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "All Billings";
+    Layout = "_Layout";
+}
+
+<div class="card shadow mt-4">
+    <form asp-action="NewBilling" asp-controller="Billing" method="get">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">All Billings</div>
+                <div class="col-md-8"></div>
+                <div class="col-md-2" style="margin-top:4px">
+                    <input type="submit" value="New Billing" class="btn btn-primary btn-sm" style="margin-left:55px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="card-body">
+        <div class="box-body with-border">
+            <table id="allBillingsTable" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="font-weight:normal">ID</th>
+                        <th style="font-weight:normal">Patient Name</th>
+                        <th style="font-weight:normal">Date</th>
+                        <th style="font-weight:normal">Amount</th>
+                        <th style="font-weight:normal">Status</th>
+                        <th style="font-weight:normal">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#allBillingsTable').DataTable();
+    });
+</script>
