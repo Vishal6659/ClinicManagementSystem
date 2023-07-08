@@ -16,75 +16,116 @@
     <div class="row">
         <div class="col-md-3">
             <div class="card shadow" style="border-left: solid 4px blue;">
-                <div class="card-body" style="padding-bottom:60px;">
-                    <h6 style="font-weight: normal">New Appointments</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <h6 style="font-weight: normal" class="pb-3">New Appointments</h6>
+                    </div>
+                    <div class="row">
+                        <h5>0</h5>
+                    </div>                                        
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow" style="border-left: solid 4px forestgreen;">
-                <div class="card-body" style="padding-bottom:60px">
-                    <h6 style="font-weight: normal">Total Appointments</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <h6 style="font-weight: normal" class="pb-3">Total Appointments</h6>
+                    </div>
+                    <div class="row">
+                        <h5>0</h5>
+                    </div>                    
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow" style="border-left: solid 4px lightseagreen;">
-                <div class="card-body" style="padding-bottom:60px">
-                    <h6 style="font-weight: normal">New Patients</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <h6 style="font-weight: normal" class="pb-3">New Patients</h6>
+                    </div>
+                    <div class="row">
+                        <h5>0</h5>
+                    </div>                    
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow" style="border-left: solid 4px darkgoldenrod;">
-                <div class="card-body" style="padding-bottom:60px">
-                    <h6 style="font-weight: normal">All Patients</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <h6 style="font-weight: normal" class="pb-3">All Patients</h6>
+                    </div>
+                    <div class="row">
+                        <h5>0</h5>
+                    </div>                    
                 </div>
             </div>
         </div>
     </div>
-    <div class="row" style="padding-top:20px; padding-bottom:50px">
+    <div class="row mb-5 mt-3">
         <div class="col-md-3">
             <div class="card shadow" style="border-left: solid 4px blue;">
-                <div class="card-body" style="padding-bottom:60px">
-                    <h6 style="font-weight: normal">Total Prescriptions</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <h6 style="font-weight: normal" class="pb-3">New Prescriptions</h6>
+                    </div>
+                    <div class="row">
+                        <h5>0</h5>
+                    </div>                    
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow" style="border-left: solid 4px forestgreen;">
-                <div class="card-body" style="padding-bottom:60px">
-                    <h6 style="font-weight: normal">Total Payments</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <h6 style="font-weight: normal" class="pb-3">Total Prescriptions</h6>
+                    </div>
+                    <div class="row">
+                        <h5>0</h5>
+                    </div>                    
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow" style="border-left: solid 4px lightseagreen;">
-                <div class="card-body" style="padding-bottom:60px">
-                    <h6 style="font-weight: normal">Payment This Month</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <h6 style="font-weight: normal" class="pb-3">Total Payments</h6>
+                    </div>
+                    <div class="row">
+                        <h5>0</h5>
+                    </div>                    
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow" style="border-left: solid 4px darkgoldenrod;">
-                <div class="card-body" style="padding-bottom:60px">
-                    <h6 style="font-weight: normal">Payments This Year</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <h6 style="font-weight: normal" class="pb-3">Payments This Month</h6>
+                    </div>
+                    <div class="row">
+                        <h5>0</h5>
+                    </div>                    
                 </div>
             </div>
         </div>
     </div>
     <div class="card shadow">
-        <form asp-action="" asp-controller="" method="get">
+        
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-4" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Appointment List &nbsp;|&nbsp; @DateTime.Today.ToString("dddd, dd MMMM yyyy")</div>
                     <div class="col-md-6"></div>
                     <div class="col-md-2" style="margin-top:4px">
+                    <a asp-action="NewAppointment" asp-controller="Appointment" method="get">
                         <input type="submit" value="New Appointment" class="btn btn-primary btn-sm" style="margin-left:30px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+                    </a>                        
                     </div>
                 </div>
-            </div>
-        </form>
+            </div>        
         <div class="card-body">
             <div class="box-body with-border">
                 <table id="doctable" class="table table-hover">

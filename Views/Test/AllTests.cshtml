@@ -13,17 +13,17 @@
 </div>
 
 <div class="card shadow" style="margin-top:20px">
-    <form asp-action="NewTest" asp-controller="Test" method="get">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">All Tests</div>
-                <div class="col-md-8"></div>
-                <div class="col-md-2" style="margin-top:4px">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">All Tests</div>
+            <div class="col-md-8"></div>
+            <div class="col-md-2" style="margin-top:4px">
+                <a asp-action="NewTest" asp-controller="Test" method="get">
                     <input type="submit" value="New Tests" class="btn btn-primary btn-sm" style="margin-left:55px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
-                </div>
+                </a>
             </div>
         </div>
-    </form>
+    </div>
     <div class="card-body">
         <div class="box-body with-border">
             <table id="allTestsTable" class="table table-hover">
@@ -31,7 +31,7 @@
                     <tr>
                         <th style="font-weight:normal">ID</th>
                         <th style="font-weight:normal">Test Name</th>
-                        <th style="font-weight:normal">Description</th>                        
+                        <th style="font-weight:normal">Description</th>
                         <th style="font-weight:normal">Actions</th>
                     </tr>
                 </thead>
@@ -43,7 +43,7 @@
                             {
                                 <tr>
                                     <td>@item.Id</td>
-                                    <td>@item.TestName</td>                                   
+                                    <td>@item.TestName</td>
                                     <td>@item.Description</td>
                                     <td>Sample</td>
                                 </tr>

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "All Prescriptions";
     Layout = "_Layout";
 }
@@ -14,24 +13,24 @@
 </div>
 
 <div class="card shadow" style="margin-top:20px">
-    <form asp-action="NewPrescription" asp-controller="Prescription" method="get">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">All Prescriptions</div>
-                <div class="col-md-8"></div>
-                <div class="col-md-2" style="margin-top:4px">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-2" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">All Prescriptions</div>
+            <div class="col-md-8"></div>
+            <div class="col-md-2" style="margin-top:4px">
+                <a asp-action="NewPrescription" asp-controller="Prescription" method="get">
                     <input type="submit" value="New Prescription" class="btn btn-primary btn-sm" style="margin-left:55px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
-                </div>
+                </a>
             </div>
         </div>
-    </form>
+    </div>
     <div class="card-body">
         <div class="box-body with-border">
             <table id="allPatientsTable" class="table table-hover">
                 <thead>
                     <tr>
                         <th style="font-weight:normal">ID</th>
-                        <th style="font-weight:normal">Patient Name</th>                        
+                        <th style="font-weight:normal">Patient Name</th>
                         <th style="font-weight:normal">Date</th>
                         <th style="font-weight:normal">Content</th>
                         <th style="font-weight:normal">Actions</th>
