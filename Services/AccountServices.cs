@@ -4,22 +4,24 @@ using System.Data;
 
 namespace ClinicManagementSystem.Services
 {
-    public interface IAccountServices 
+    public interface IAccountServices
     {
         int insertRegistrationData(RegistrationModel registrationModel);
         ResponseModel checkLoginCredentials(LoginModel loginModel);
+        DashboardAllPatientsCount getTotalPatientsCount(int DocId);
+        DashboardNewPatientsCount getAllNewPatientsCount(int DocId);
     }
-    public class AccountServices : IAccountServices        
+    public class AccountServices : IAccountServices
     {
         PostgresDbHelper _pDb;
-        public AccountServices() 
+        public AccountServices()
         {
-            _pDb = new PostgresDbHelper();  
+            _pDb = new PostgresDbHelper();
         }
-        public int insertRegistrationData(RegistrationModel registrationModel) 
+        public int insertRegistrationData(RegistrationModel registrationModel)
         {
             int _result = 0;
-            List<Parameters> parameters = new List<Parameters>() 
+            List<Parameters> parameters = new List<Parameters>()
             {
                 new Parameters{ ParameterName = "Firstname", ParameterValue = registrationModel.FirstName},
                 new Parameters{ ParameterName = "Lastname", ParameterValue = registrationModel.LastName},
@@ -37,26 +39,26 @@ namespace ClinicManagementSystem.Services
                 new Parameters{ ParameterName = "LanguageSpoken", ParameterValue = registrationModel.LanguageSpoken},
                 new Parameters{ ParameterName = "Username", ParameterValue = registrationModel.Username},
                 new Parameters{ ParameterName = "Password", ParameterValue = registrationModel.Password}
-               
+
             };
             _result = _pDb.InsertUpdateDelete(QueryHelper.insertRegistrationData, parameters);
             if (_result != 0 && _result > 0)
             {
                 return 1;
             }
-            else 
+            else
             {
                 return 0;
             }
         }
 
-        public ResponseModel checkLoginCredentials(LoginModel loginModel) 
-        {           
+        public ResponseModel checkLoginCredentials(LoginModel loginModel)
+        {
             ResponseModel responseModel = new ResponseModel();
             try
             {
                 DataTable dataTable = new DataTable();
-                List<Parameters> parameters = new List<Parameters>() 
+                List<Parameters> parameters = new List<Parameters>()
                 {
                     new Parameters{ ParameterName = "Username", ParameterValue = loginModel.Username},
                     new Parameters{ ParameterName = "Password", ParameterValue = loginModel.Password}
@@ -78,15 +80,61 @@ namespace ClinicManagementSystem.Services
                     responseModel.Qualification = Convert.ToString(dataTable.Rows[0]["qualification"]);
                     responseModel.Experiance = Convert.ToString(dataTable.Rows[0]["experiance"]);
                     responseModel.Affiliation = Convert.ToString(dataTable.Rows[0]["affiliation"]);
-                    responseModel.LanguageSpoken = Convert.ToString(dataTable.Rows[0]["languagespoken"]);                    
-                    
-                }                
+                    responseModel.LanguageSpoken = Convert.ToString(dataTable.Rows[0]["languagespoken"]);
+
+                }
             }
             catch (Exception ex)
             {
                 throw;
             }
             return responseModel;
+        }
+
+        public DashboardAllPatientsCount getTotalPatientsCount(int DocId)
+        {
+            DashboardAllPatientsCount dashboardAllPatientsCount = new DashboardAllPatientsCount();
+            try
+            {
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ParameterName = "DocId", ParameterValue =Convert.ToString(DocId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getAllPatientCountForDashboard, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    dashboardAllPatientsCount.Count = Convert.ToInt32(dataTable.Rows[0]["Count"]);
+                }
+                return dashboardAllPatientsCount;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public DashboardNewPatientsCount getAllNewPatientsCount(int DocId)
+        {
+            DashboardNewPatientsCount dashboardNewPatientsCount = new DashboardNewPatientsCount();
+            try
+            {
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ParameterName = "DocId", ParameterValue =Convert.ToString(DocId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getAllNewPatientCountForDashboard, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    dashboardNewPatientsCount.Count = Convert.ToInt32(dataTable.Rows[0]["Count"]);
+                }
+                return dashboardNewPatientsCount;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

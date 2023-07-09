@@ -22,7 +22,7 @@ namespace ClinicManagementSystem.Controllers
                 GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
                 if (sessionModel != null)
                 {
-                    HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, null);                   
+                    HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, null);
                 }
             }
             catch (Exception ex)
@@ -39,18 +39,18 @@ namespace ClinicManagementSystem.Controllers
             {
                 SetSessionModel setSessionModel = new SetSessionModel();
                 if (loginModel != null && loginModel.Username != null && loginModel.Password != null)
-                {                   
+                {
                     ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
                     if (responseModel.DocId != 0 && responseModel.AadharCardNumber != 0)
                     {
                         setSessionModel.DocId = responseModel.DocId;
-                        setSessionModel.Firstame = responseModel.FirstName;
+                        setSessionModel.Firstname = responseModel.FirstName;
                         setSessionModel.Lastname = responseModel.LastName;
                         setSessionModel.Mobilenumber = Convert.ToInt64(responseModel.PhoneNumber);
                         setSessionModel.Email = responseModel.EmailAddress;
                         setSessionModel.Address = responseModel.Address;
                         setSessionModel.Gender = responseModel.Gender;
-                        HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);                        
+                        HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);
                         TempData["msg"] = "Login Succesfull";
                         return RedirectToAction("Index", "Home");
                     }
@@ -108,11 +108,11 @@ namespace ClinicManagementSystem.Controllers
                     int data = accountServices.insertRegistrationData(registrationModel);
                     if (data != 1)
                     {
-                        TempData["msg"] = "Registration UnSuccesfull";                        
+                        TempData["msg"] = "Registration UnSuccesfull";
                     }
                     else
                     {
-                        TempData["msg"] = "Registration Succesfull";                        
+                        TempData["msg"] = "Registration Succesfull";
                     }
                     return RedirectToAction("Login", "Home");
                 }
@@ -126,8 +126,38 @@ namespace ClinicManagementSystem.Controllers
                 throw;
             }
         }
-      
 
+        [HttpGet]
+        public IActionResult getAllPatientsCount(int DocId)
+        {
+            DashboardAllPatientsCount dashboardAllPatientsCount = new DashboardAllPatientsCount();
+            GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+            if (sessionModel != null)
+            {
+                dashboardAllPatientsCount = accountServices.getTotalPatientsCount(DocId);
+            }
+            else
+            {
+                return Json(null);
+            }
+            return Json(dashboardAllPatientsCount);
+        }
+
+        [HttpGet]
+        public IActionResult getAllNewPatientsCount(int DocId) 
+        {
+            DashboardNewPatientsCount dashboardNewPatientsCount = new DashboardNewPatientsCount();
+            GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+            if (sessionModel != null)
+            {
+                dashboardNewPatientsCount = accountServices.getAllNewPatientsCount(DocId);
+            }
+            else
+            {
+                return Json(null);
+            }
+            return Json(dashboardNewPatientsCount);
+        }
 
     }
 }

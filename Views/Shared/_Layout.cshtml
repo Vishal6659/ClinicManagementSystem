@@ -14,11 +14,33 @@
     </script>
 </head>
 <body>
+   
+    @{
+    string firstName = string.Empty;
+    string lastName = string.Empty;
+    string fullName = string.Empty;
+    string mobileNumber = string.Empty;
+    string email = string.Empty;
+    string address = string.Empty;
+
+    GetSessionModel sessionModel = Context.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+    if (sessionModel != null)
+    {
+    firstName = sessionModel.Firstname;
+    lastName = sessionModel.Lastname;
+    fullName = Convert.ToString(firstName.Concat(lastName));
+    mobileNumber = Convert.ToString(sessionModel.Mobilenumber);
+    email = sessionModel.Email;
+    address = sessionModel.Address;
+    }
+    }
+   
+    
     <nav class="navbar">
         <div class="col-md-11"></div>
         <div class="col-md-1">
-            <span>User</span>
-            <i class='bx bx-user userlogo'></i>
+            <span>@firstName</span>
+            <i class='bx bx-user userlogo' id="sideUserInfoModal"></i>
         </div>
     </nav>
     <div class="container-fluid row">
@@ -26,7 +48,7 @@
             <nav class="sidebar" id="sideBar">
                 <header>
                     <div class="image-text">
-                        <span class="image">                            
+                        <span class="image">
                             <img src="@Url.Content("~/Images/DocLogo.jpg")" style="width:50px" alt="Logo">
                         </span>
                         <div class="text header-text">
@@ -50,7 +72,7 @@
                                     <i class='bx bx-home-alt icons' style="margin-left:10px;"></i>&nbsp;&nbsp;
                                     <span class="text nav-text">Dashboard</span>
                                 </a>
-                            </li>                            
+                            </li>
                             <li class="nav-link">
                                 <a asp-controller="Patient" asp-action="AllPatients">
                                     <i class='bx bx-plus-medical' style="margin-left:10px;"></i>&nbsp;&nbsp;
@@ -87,11 +109,11 @@
                                     <span class="text nav-text">Billing</span>
                                 </a>
                             </li>
-                           @* <li class="nav-link">
-                                <a href="#">
-                                    <i class='bx bx-cog' style="margin-left:10px;"></i>&nbsp;&nbsp;
-                                    <span class="text nav-text">Setting</span>
-                                </a>
+                            @* <li class="nav-link">
+                            <a href="#">
+                            <i class='bx bx-cog' style="margin-left:10px;"></i>&nbsp;&nbsp;
+                            <span class="text nav-text">Setting</span>
+                            </a>
                             </li>*@
                         </ul>
                     </div>
@@ -123,7 +145,7 @@
 </body>
 </html>
 
-<script>
+<script type="text/javascript">
     var dropdown = document.getElementsByClassName("dropdown-btn");
     var i;
 

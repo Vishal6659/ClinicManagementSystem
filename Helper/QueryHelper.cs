@@ -12,6 +12,8 @@
         public const string getAllDrugListData = "Select * from tbl_alldrug where doc_id = @DocId::bigint;";
         public const string insertNewTestData = "insert into tbl_alltests(doc_id, testname, description) values" + "(CAST(@DocId AS Int), @TestName, @Description);";
         public const string getAllTestListData = "Select * from tbl_alltests where doc_id = @DocId::bigint;";
+        public const string getAllPatientCountForDashboard = "Select COUNT(*) from tbl_newPatient where doc_id = @DocId::bigint;";
+        public const string getAllNewPatientCountForDashboard = "Select COUNT(CURRENT_TIMESTAMP) from tbl_newPatient where doc_id = @DocId::bigint;";
 
     }
 }
