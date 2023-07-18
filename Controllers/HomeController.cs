@@ -159,5 +159,36 @@ namespace ClinicManagementSystem.Controllers
             return Json(dashboardNewPatientsCount);
         }
 
+        [HttpGet]
+        public IActionResult getAllAppointmentCount(int DocId) 
+        {
+            DashboardAllAppointmentCount dashboardAllAppointmentCount = new DashboardAllAppointmentCount();
+            GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+            if (sessionModel != null)
+            {
+                dashboardAllAppointmentCount = accountServices.getAllAppointmentCountForDashboard(DocId);
+            }
+            else
+            {
+                return Json(null);
+            }
+            return Json(dashboardAllAppointmentCount);
+        }
+
+        [HttpGet]
+        public IActionResult getNewAppointmentCount(int DocId)
+        {
+            DashboardNewAppointmentCount dashboardNewAppointmentCount = new DashboardNewAppointmentCount();
+            GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+            if (sessionModel != null)
+            {
+                dashboardNewAppointmentCount = accountServices.getNewAppointmentCountForDashboard(DocId);
+            }
+            else
+            {
+                return Json(null);
+            }
+            return Json(dashboardNewAppointmentCount);
+        }
     }
 }

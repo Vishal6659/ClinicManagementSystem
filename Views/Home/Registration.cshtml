@@ -47,16 +47,16 @@
 
 <form asp-controller="Home" asp-action="Registration" method="post">
     <div class="card">
-        <div class="card-header"><h2>Doctor's Registration Page</h2></div>
+        <div class="card-header"><h2 style="color:cornflowerblue;">Doctor's Registration Page</h2></div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>First Name <span asp-validation-for="FirstName" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="FirstName" class="form-control" placeholder="First Name" />
+                    <input type="text" asp-for="FirstName" class="form-control" placeholder="First Name" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label">Last Name</span></label>
-                    <input type="text" asp-for="LastName" class="form-control" placeholder="Last Name" />
+                    <input type="text" asp-for="LastName" class="form-control" placeholder="Last Name" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label">Gender</span></label>
@@ -71,75 +71,75 @@
             <div class="row">
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Date Of Birth <span asp-validation-for="DateOfBirth" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="date" asp-for="DateOfBirth" class="form-control" placeholder="Enter Date of birth" />
+                    <input type="date" asp-for="DateOfBirth" class="form-control" placeholder="Enter Date of birth" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Mobile Number <span asp-validation-for="PhoneNumber" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="Enter Mobile Number" />
+                    <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="Enter Mobile Number" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label">Email</label>
-                    <input type="text" asp-for="EmailAddress" class="form-control" placeholder="Enter Email" />
+                    <input type="text" asp-for="EmailAddress" class="form-control" placeholder="Enter Email" autocomplete="off" />
                 </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Address <span asp-validation-for="Address" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Address" class="form-control" placeholder="Enter Address" />
+                    <input type="text" asp-for="Address" class="form-control" placeholder="Enter Address" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label">Aadhar Card Number</label>
-                    <input type="text" asp-for="AadharCardNumber" class="form-control" placeholder="Enter Aadhar Card Number" />
+                    <input type="text" asp-for="AadharCardNumber" class="form-control" placeholder="Enter Aadhar Card Number" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Specialization <span asp-validation-for="Specialization" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Specialization" class="form-control" placeholder="Enter Specialization" />
+                    <input type="text" asp-for="Specialization" class="form-control" placeholder="Enter Specialization" autocomplete="off" />
                 </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Medical Liscence Number <span asp-validation-for="MedicalLiscenseNumber" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="MedicalLiscenseNumber" class="form-control" placeholder="Enter Medical Liscence Number" />
+                    <input type="text" asp-for="MedicalLiscenseNumber" class="form-control" placeholder="Enter Medical Liscence Number" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Qualification <span asp-validation-for="Qualification" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Qualification" class="form-control" placeholder="Enter Qualification" />
+                    <input type="text" asp-for="Qualification" class="form-control" placeholder="Enter Qualification" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label">Experiance</label>
-                    <input type="text" asp-for="Experiance" class="form-control" placeholder="Enter Experiance" />
+                    <input type="text" asp-for="Experiance" class="form-control" placeholder="Enter Experiance" autocomplete="off" />
                 </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Clinic/Hospital Affiliation <span asp-validation-for="Affiliation" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Affiliation" class="form-control" placeholder="Enter Clinic/Hospital Affiliation" />
+                    <input type="text" asp-for="Affiliation" class="form-control" placeholder="Enter Clinic/Hospital Affiliation" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Language Spoken <span asp-validation-for="LanguageSpoken" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="LanguageSpoken" class="form-control" placeholder="Enter Language Spoken" />
+                    <input type="text" asp-for="LanguageSpoken" class="form-control" placeholder="Enter Language Spoken" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Upload Profile Picture <span asp-validation-for="ProfilePicture" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="file" asp-for="ProfilePicture" class="form-control" placeholder="Upload Profile Picture" />
+                    <input type="file" asp-for="ProfilePicture" class="form-control" placeholder="Upload Profile Picture" autocomplete="off" />
                 </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Username<span asp-validation-for="Username" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="text" asp-for="Username" class="form-control" placeholder="Enter Username" />
+                    <input type="text" asp-for="Username" class="form-control" placeholder="Enter Username" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Password <span asp-validation-for="Password" class="clearfix text-danger" style="font-size: 12px"></span></label>
-                    <input type="password" asp-for="Password" class="form-control" placeholder="Enter Password" />
+                    <input type="password" asp-for="Password" class="form-control" placeholder="Enter Password" autocomplete="off" />
                 </div>
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Confirm Password @*<span asp-validation-for="Confirmpassword" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
-                    <input type="password" class="form-control" placeholder="Please Confirm Password" />
+                    <input type="password" class="form-control" placeholder="Please Confirm Password" autocomplete="off" />
                 </div>
             </div>
             <br />

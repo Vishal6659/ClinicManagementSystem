@@ -1,7 +1,17 @@
-﻿@{
+﻿@model ClinicManagementSystem.Models.AllAppointmentModelVM
+@{
     ViewData["Title"] = "All Appointments";
     Layout = "_Layout";
 }
+
+<div id="msgDiv" style="margin-top:15px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+        }
+    }
+</div>
 
 <div class="card shadow mt-4">
     <div class="card-header">
@@ -29,6 +39,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @{
+                        if (Model.allAppointmentModelsList != null && Model.allAppointmentModelsList.Count > 0)
+                        {
+                            foreach (var item in Model.allAppointmentModelsList)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Date</td>
+                                    <td>@item.Status</td>
+                                    <td>@item.createdAt</td>
+                                    <td>Sample</td>
+                                </tr>
+                            }
+                        }
+                    }      
                 </tbody>
             </table>
         </div>

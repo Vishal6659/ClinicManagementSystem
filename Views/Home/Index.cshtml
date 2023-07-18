@@ -30,7 +30,7 @@
                         <h6 style="font-weight: normal" class="pb-3">New Appointments</h6>
                     </div>
                     <div class="row">
-                        <h5>0</h5>
+                        <h5 id="newAppointmentsCount">0</h5>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         <h6 style="font-weight: normal" class="pb-3">Total Appointments</h6>
                     </div>
                     <div class="row">
-                        <h5>0</h5>
+                        <h5 id="allAppointmentsCount">0</h5>
                     </div>
                 </div>
             </div>
@@ -201,6 +201,50 @@
                 }
                 else {
                     console.log('No Data Found for : getAllPatientsCount');
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Home/getAllAppointmentCount",
+            data: { DocId },
+            success: function (data) {
+                console.log(`All New Patient Count : Respond Json ====> ${JSON.stringify(data)}`);
+                if (data != null) {
+                    var tCount = `${JSON.stringify(data)}`;
+                    var finalCount = tCount.replace(/\D/g, '');
+                    $('#allAppointmentsCount').text(finalCount);
+                }
+                else if (data == 0) {
+                    $("#allAppointmentsCount").text("0");
+                }
+                else {
+                    console.log('No Data Found for : getAllAppointmentsCount');
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Home/getNewAppointmentCount",
+            data: { DocId },
+            success: function (data) {
+                console.log(`All New Patient Count : Respond Json ====> ${JSON.stringify(data)}`);
+                if (data != null) {
+                    var tCount = `${JSON.stringify(data)}`;
+                    var finalCount = tCount.replace(/\D/g, '');
+                    $('#newAppointmentsCount').text(finalCount);
+                }
+                else if (data == 0) {
+                    $("#newAppointmentsCount").text("0");
+                }
+                else {
+                    console.log('No Data Found for : getNewAppointmentsCount');
                 }
             }
         });

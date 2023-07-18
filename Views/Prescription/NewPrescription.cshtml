@@ -39,34 +39,38 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row mb-4">
-                    <div class="col-md 3">
-                        <input type="text" class="form-control" placeholder="Type" />
+                <div class="DrugDivMain">
+                    <div class="internalDrugDiv">
+                        <div class="row mb-4">
+                            <div class="col-md 3">
+                                <input type="text" class="form-control" placeholder="Type" />
+                            </div>
+                            <div class="col-md 6">
+                                <select class="form-select">
+                                    <option>Select Drug...</option>
+                                </select>
+                            </div>
+                            <div class="col-md 3">
+                                <input type="text" class="form-control" placeholder="Mg/Ml" />
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Dose" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Duration" />
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Advice/Comments" />
+                            </div>
+                        </div>
+                        <hr />
                     </div>
-                    <div class="col-md 6">
-                        <select class="form-select">
-                            <option>Select Drug...</option>
-                        </select>
-                    </div>
-                    <div class="col-md 3">
-                        <input type="text" class="form-control" placeholder="Mg/Ml" />
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Dose" />
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Duration" />
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-12">
-                        <input type="text" class="form-control" placeholder="Advice/Comments" />
-                    </div>
-                </div>
-                <hr />
-                <button class="btn btn-primary" style="background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none">Add Drug</button>
+                </div>                             
+                <button class="btn btn-primary" id="addDrugBtn" style="background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none">Add Drug</button>
             </div>
         </div>
         <div class="card shadow mt-5">
@@ -77,21 +81,81 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <select class="form-select">
-                            <option>Select Test...</option>
-                        </select>                        
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Description" />
-                    </div>
-                </div>
-                <hr />
-                <button class="btn btn-primary" style="background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none">Add Test</button>
+                <div class="testDivMain">
+                    <div class="testDivInternal">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select class="form-select">
+                                    <option>Select Test...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Description" />
+                            </div>
+                        </div>
+                        <hr />
+                    </div>                    
+                </div>                               
+                <button class="btn btn-primary" id="addTestBtn" style="background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none">Add Test</button>
             </div>
         </div>
     </div>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#addDrugBtn").click(function () {
+            var html = `
+                     <div class="internalDrugDiv">
+                    <div class="row mb-4">
+                        <div class="col-md 3">
+                            <input type="text" class="form-control" placeholder="Type" />
+                        </div>
+                        <div class="col-md 6">
+                            <select class="form-select">
+                                <option>Select Drug...</option>
+                            </select>
+                        </div>
+                        <div class="col-md 3">
+                            <input type="text" class="form-control" placeholder="Mg/Ml" />
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Dose" />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Duration" />
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" placeholder="Advice/Comments" />
+                        </div>
+                    </div>
+                    <hr />
+                </div> 
+            `;
+            $(".DrugDivMain").append(html);
+        });
 
+        $("#addTestBtn").click(function(){
+            var html = `
+                         <div class="testDivInternal">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select class="form-select">
+                                        <option>Select Test...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Description" />
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+            `;
+            $(".testDivMain").append(html);
+        });
+    });
+</script>

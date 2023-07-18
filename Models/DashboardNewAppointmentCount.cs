@@ -12,4 +12,9 @@
     {
         public int Count { get; set; }
     }
+    public class DashboardAllAppointmentCount
+    {
+        public int Count { get; set; }
+    }
+    
 }

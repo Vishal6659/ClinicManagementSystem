@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ClinicManagementSystem.Models.NewAppointment
+@{
     ViewData["Title"] = "New Appointment";
     Layout = "_Layout";
 }
@@ -14,20 +15,41 @@
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Select Patient@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label"><span style="color:red">*</span>Patient Name</label>
                 </div>
                 <div class="col-md-8">
-                    <select class="form-select">
-                        <option>Select Patient...</option>
-                    </select>
+                    @*<select class="form-select" asp-for="Name">
+                    <option value="">Select</option>
+                    </select>*@
+                    <input type="text" placeholder="Enter Name" asp-for="Name" class="form-control" />
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Select Date</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="date" asp-for="Date" class="form-control" />
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Select Time</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="time" asp-for="Time" class="form-control" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Select Date@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label"><span style="color:red">*</span>Status</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="date" class="form-control" />
+                    <select class="form-select" asp-for="Status">
+                        <option value="">Select</option>
+                        <option value="Visited">Visited</option>
+                        <option value="Pending">Pending</option>
+                    </select>
                 </div>
             </div>
             <div class="row mt-4">

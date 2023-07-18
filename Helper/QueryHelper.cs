@@ -14,6 +14,9 @@
         public const string getAllTestListData = "Select * from tbl_alltests where doc_id = @DocId::bigint;";
         public const string getAllPatientCountForDashboard = "Select COUNT(*) from tbl_newPatient where doc_id = @DocId::bigint;";
         public const string getAllNewPatientCountForDashboard = "Select COUNT(CURRENT_TIMESTAMP) from tbl_newPatient where doc_id = @DocId::bigint;";
-
+        public const string insertNewAppointmentData = "insert into tbl_newappointment(doc_id, namee, datee, timee, status) values" + "(CAST(@DocId AS Int), @Name, @Date, @Time, @Status);";
+        public const string getAllAppointmentListData = "Select * from tbl_newappointment where doc_id = @DocId::bigint;";
+        public const string getAllAppointmentCountForDashboard = "Select COUNT(*) from tbl_newappointment where doc_id = @DocId::bigint;";
+        public const string getNewAppointmentCountForDashboard = "Select COUNT(CURRENT_TIMESTAMP) from tbl_newappointment where doc_id = @DocId::bigint;";
     }
 }
