@@ -12,6 +12,8 @@ namespace ClinicManagementSystem.Services
         DashboardNewPatientsCount getAllNewPatientsCount(int DocId);
         DashboardAllAppointmentCount getAllAppointmentCountForDashboard(int DocId);
         DashboardNewAppointmentCount getNewAppointmentCountForDashboard(int DocId);
+        DashboardNewPriscriptionCount getDashboardNewPriscriptionCount(int DocId);
+        DashboardAllPriscriptionCount getAllPrescriptionCountForDashboard(int DocId);
     }
     public class AccountServices : IAccountServices
     {
@@ -178,6 +180,52 @@ namespace ClinicManagementSystem.Services
                     dashboardNewAppointmentCount.Count = Convert.ToInt32(dataTable.Rows[0]["Count"]);
                 }
                 return dashboardNewAppointmentCount;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public DashboardNewPriscriptionCount getDashboardNewPriscriptionCount(int DocId)
+        {
+            DashboardNewPriscriptionCount dashboardNewPriscriptionCount= new DashboardNewPriscriptionCount();
+            try
+            {
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ParameterName = "DocId", ParameterValue =Convert.ToString(DocId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getNewPrescriptionCountForDashboard, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    dashboardNewPriscriptionCount.Count = Convert.ToInt32(dataTable.Rows[0]["Count"]);
+                }
+                return dashboardNewPriscriptionCount;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public DashboardAllPriscriptionCount getAllPrescriptionCountForDashboard(int DocId)
+        {
+            DashboardAllPriscriptionCount dashboardAllAppointmentCount = new DashboardAllPriscriptionCount();
+            try
+            {
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ParameterName = "DocId", ParameterValue =Convert.ToString(DocId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getAllPrescriptionCountForDashboard, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    dashboardAllAppointmentCount.Count = Convert.ToInt32(dataTable.Rows[0]["Count"]);
+                }
+                return dashboardAllAppointmentCount;
             }
             catch (Exception ex)
             {

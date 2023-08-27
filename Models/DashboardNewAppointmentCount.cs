@@ -16,5 +16,13 @@
     {
         public int Count { get; set; }
     }
-    
+    public class DashboardNewPriscriptionCount 
+    {
+        public int Count { get; set; }
+    }
+    public class DashboardAllPriscriptionCount
+    {
+        public int Count { get; set; }
+    }
+
 }

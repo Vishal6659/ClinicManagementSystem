@@ -56,7 +56,6 @@ namespace ClinicManagementSystem.Services
                     {
                         allDrugModelsList.Add(new AllDrugModel()
                         {
-                            /*Id = Convert.ToString(dataTable.Rows[i]["id"]),*/
                             Id = i+1,
                             DrugName = Convert.ToString(dataTable.Rows[i]["drugname"]),
                             GenericName = Convert.ToString(dataTable.Rows[i]["genericname"])

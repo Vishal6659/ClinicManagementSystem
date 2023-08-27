@@ -31,12 +31,11 @@
             <table id="allPatientsTable" class="table table-hover">
                 <thead>
                     <tr>
-                        <th style="font-weight:normal">ID</th>
-                        <th style="font-weight:normal">Patient Name</th>
-                        <th style="font-weight:normal">Phone</th>
-                        <th style="font-weight:normal">Blood Group</th>
-                        <th style="font-weight:normal">Date</th>
-                        <th style="font-weight:normal">Actions</th>
+                        <th style="font-weight:bold">ID</th>
+                        <th style="font-weight:bold">Patient Name</th>
+                        <th style="font-weight:bold">Phone Number</th>
+                        <th style="font-weight:bold">Created Date</th>
+                        <th style="font-weight:bold">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,9 +48,15 @@
                                     <td>@item.ID</td>
                                     <td>@item.PatientName</td>
                                     <td>@item.Phone</td>
-                                    <td>@item.BloodGroup</td>
                                     <td>@item.Date</td>
-                                    <td>Sample</td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2"><i class='bx bxs-edit-alt'></i></div>
+                                            <div class="col-md-2"><i class='bx bxs-message-square-x'></i></div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                    </td>
                                 </tr>
                             }
                         }

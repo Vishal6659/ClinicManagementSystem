@@ -74,12 +74,15 @@ namespace ClinicManagementSystem.Controllers
 
         public IActionResult Index()
         {
+            AllPatientModelVM allPatientModel = new AllPatientModelVM();
+            IPatientServices patientServices = new PatientServices();
             try
             {
                 GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
                 if (sessionModel != null)
                 {
-                    return View();
+                    int DocId = sessionModel.DocId;
+                    allPatientModel.patientModelList = patientServices.GetAllPatientListDataForToday(DocId);
                 }
                 else
                 {
@@ -91,6 +94,7 @@ namespace ClinicManagementSystem.Controllers
             {
                 throw;
             }
+            return View(allPatientModel);
         }
 
         [HttpGet]
@@ -189,6 +193,38 @@ namespace ClinicManagementSystem.Controllers
                 return Json(null);
             }
             return Json(dashboardNewAppointmentCount);
+        }
+
+        [HttpGet]
+        public IActionResult getNewPrescriptionCount(int DocId)
+        {
+            DashboardNewPriscriptionCount dashboardNewPriscriptionCount = new DashboardNewPriscriptionCount();
+            GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+            if (sessionModel != null)
+            {
+                dashboardNewPriscriptionCount = accountServices.getDashboardNewPriscriptionCount(DocId);
+            }
+            else
+            {
+                return Json(null);
+            }
+            return Json(dashboardNewPriscriptionCount);
+        }
+
+        [HttpGet]
+        public IActionResult getAllPrescriptionCount(int DocId)
+        {
+            DashboardAllPriscriptionCount dashboardAllPriscriptionCount = new DashboardAllPriscriptionCount();
+            GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+            if (sessionModel != null)
+            {
+                dashboardAllPriscriptionCount = accountServices.getAllPrescriptionCountForDashboard(DocId);
+            }
+            else
+            {
+                return Json(null);
+            }
+            return Json(dashboardAllPriscriptionCount);
         }
     }
 }

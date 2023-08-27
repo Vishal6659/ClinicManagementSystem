@@ -8,6 +8,7 @@ namespace ClinicManagementSystem.Services
     {
         int AddNewPatient(NewPatient newPatient);
         List<AllPatientModel> GetAllPatientListData(int DocId);
+        List<AllPatientModel> GetAllPatientListDataForToday(int DocId);
     }
     public class PatientServices : IPatientServices
     {
@@ -27,12 +28,14 @@ namespace ClinicManagementSystem.Services
                 new Parameters{ ParameterName = "LastName", ParameterValue = newPatient.LastName},
                 new Parameters{ ParameterName = "Age", ParameterValue =Convert.ToString(newPatient.Age)},
                 new Parameters{ ParameterName = "Phone", ParameterValue = Convert.ToString(newPatient.Phone)},
-                new Parameters{ ParameterName = "Birthday", ParameterValue = (newPatient.Birthday)},
                 new Parameters{ ParameterName = "Gender", ParameterValue = newPatient.Gender},
-                new Parameters{ ParameterName = "BloodGroup", ParameterValue = newPatient.BloodGroup},
-                new Parameters{ ParameterName = "Address", ParameterValue = newPatient.Address},
-                new Parameters{ ParameterName = "PatientWeight", ParameterValue =Convert.ToString( newPatient.PatientWeight)},
-                new Parameters{ ParameterName = "PatientHeight", ParameterValue = Convert.ToString(newPatient.PatientHeight)}
+                new Parameters{ ParameterName = "PresentComplaint", ParameterValue = newPatient.PresentComplaint},
+                new Parameters{ ParameterName = "PastHistory", ParameterValue = newPatient.PastHistory},
+                new Parameters{ ParameterName = "FamilyHistory", ParameterValue = newPatient.FamilyHistory},
+                new Parameters{ ParameterName = "PresentMedication", ParameterValue = newPatient.PresentMedication},
+                new Parameters{ ParameterName = "PhysicalNature", ParameterValue = newPatient.PhysicalNature},
+                new Parameters{ ParameterName = "MentalNature", ParameterValue = newPatient.MentalNature},
+               
             };
             result = _pDb.InsertUpdateDelete(QueryHelper.insertNewPatientData, parameters);
             if (result != 0 && result > 0)
@@ -65,8 +68,40 @@ namespace ClinicManagementSystem.Services
                             ID = i+1,
                             PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
                             Phone = Convert.ToInt64(dataTable.Rows[i]["phone"]),
-                            BloodGroup = Convert.ToString(dataTable.Rows[i]["bloodGroup"]),
-                            Date = Convert.ToString(dataTable.Rows[i]["birthday"])
+                            Date = Convert.ToString(dataTable.Rows[i]["created_at"])
+                        });
+                    }
+                }
+                return allPatientsList;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public List<AllPatientModel> GetAllPatientListDataForToday(int DocId) 
+        {
+            try
+            {
+                List<AllPatientModel> allPatientsList = new List<AllPatientModel>();
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getAllPatientListDataForToday, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        allPatientsList.Add(new AllPatientModel()
+                        {
+                            ID = i + 1,
+                            PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
+                            Phone = Convert.ToInt64(dataTable.Rows[i]["phone"]),
+                            Date = Convert.ToString(dataTable.Rows[i]["created_at"])
                         });
                     }
                 }

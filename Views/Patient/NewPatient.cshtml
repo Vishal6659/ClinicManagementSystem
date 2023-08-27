@@ -33,7 +33,7 @@
             </div>
             <div class="row" style="margin-bottom:20px">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Last Name @*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label">Last Name @*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
                 </div>
                 <div class="col-md-8">
                     <input type="text" asp-for="LastName" class="form-control" placeholder="Last Name" autocomplete="off" />
@@ -49,20 +49,12 @@
             </div>
             <div class="row" style="margin-bottom:20px">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Mobile Number@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label">Mobile Number@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" asp-for="Phone" class="form-control" placeholder="Phone" autocomplete="off" />
+                    <input type="text" asp-for="Phone" class="form-control" placeholder="Mobile Number" autocomplete="off" />
                 </div>
-            </div>
-            <div class="row" style="margin-bottom:20px">
-                <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Birthday@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
-                </div>
-                <div class="col-md-8">
-                    <input type="date" asp-for="Birthday" class="form-control" autocomplete="off" />
-                </div>
-            </div>
+            </div> 
             <div class="row" style="margin-bottom:20px">
                 <div class="col-md-4">
                     <label class="control-label"><span style="color:red">*</span>Gender@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
@@ -77,7 +69,58 @@
             </div>
             <div class="row" style="margin-bottom:20px">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Blood Group@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label"><span style="color:red">*</span>Present Complaint@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="PresentComplaint" class="form-control" placeholder="Present Complaint of the Patient" autocomplete="off" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Past History@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="PastHistory" class="form-control" placeholder="Past History of the Patient" autocomplete="off" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Family History@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="FamilyHistory" class="form-control" placeholder="Family History of the Patient" autocomplete="off" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Present Medication@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" asp-for="PresentMedication" class="form-control" placeholder="Present Medication of the Patient" autocomplete="off" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Nature@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" asp-for="PhysicalNature" class="form-control" placeholder="Physical Nature of the Patient" autocomplete="off" />
+                </div>
+                <div class="col-md-4">
+                    <input type="text" asp-for="MentalNature" class="form-control" placeholder="Mental Nature of the Patient" autocomplete="off" />
+                </div>
+            </div>
+            @*<div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Birthday</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="date" asp-for="Birthday" class="form-control" autocomplete="off" />
+                </div>
+            </div>            
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-4">
+                    <label class="control-label"><span style="color:red">*</span>Blood Group</label>
                 </div>
                 <div class="col-md-8">
                     <select class="form-select" asp-for="BloodGroup">
@@ -95,7 +138,7 @@
             </div>
             <div class="row" style="margin-bottom:20px">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Address@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label"><span style="color:red">*</span>Address</label>
                 </div>
                 <div class="col-md-8">
                     <input type="text" asp-for="Address" class="form-control" placeholder="Address" autocomplete="off" />
@@ -103,7 +146,7 @@
             </div>
             <div class="row" style="margin-bottom:20px">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Patient Weight@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label"><span style="color:red">*</span>Patient Weight</label>
                 </div>
                 <div class="col-md-8">
                     <input type="text" asp-for="PatientWeight" class="form-control" placeholder="Patient Weight" autocomplete="off" />
@@ -111,12 +154,12 @@
             </div>
             <div class="row" style="margin-bottom:20px">
                 <div class="col-md-4">
-                    <label class="control-label"><span style="color:red">*</span>Patient Height@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
+                    <label class="control-label"><span style="color:red">*</span>Patient Height</label>
                 </div>
                 <div class="col-md-8">
                     <input type="text" asp-for="PatientHeight" class="form-control" placeholder="Patient Height" autocomplete="off" />
                 </div>
-            </div>
+            </div>*@
         </div>
         <div class="row" style="margin-bottom:20px">
             <div class="col-md-3"></div>

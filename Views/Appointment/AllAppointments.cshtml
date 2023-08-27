@@ -30,12 +30,12 @@
             <table id="allAppointmentTable" class="table table-hover">
                 <thead>
                     <tr>
-                        <th style="font-weight:normal">ID</th>
-                        <th style="font-weight:normal">Patient Name</th>
-                        <th style="font-weight:normal">Date</th>
-                        <th style="font-weight:normal">Status</th>
-                        <th style="font-weight:normal">Created at</th>
-                        <th style="font-weight:normal">Actions</th>
+                        <th style="font-weight:bold">ID</th>
+                        <th style="font-weight:bold">Patient Name</th>
+                        <th style="font-weight:bold">Date</th>
+                        <th style="font-weight:bold">Status</th>
+                        <th style="font-weight:bold">Created at</th>
+                        <th style="font-weight:bold">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +50,14 @@
                                     <td>@item.Date</td>
                                     <td>@item.Status</td>
                                     <td>@item.createdAt</td>
-                                    <td>Sample</td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2"><i class='bx bxs-edit-alt'></i></div>
+                                            <div class="col-md-2"><i class='bx bxs-message-square-x'></i></div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                    </td>
                                 </tr>
                             }
                         }
