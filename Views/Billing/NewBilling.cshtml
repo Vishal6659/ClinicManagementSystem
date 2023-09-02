@@ -1,84 +1,136 @@
-﻿@{
+﻿@model ClinicManagementSystem.Models.NewBillingModel
+@{
     ViewData["Title"] = "New Billing";
     Layout = "_Layout";
 }
 
+@{
+    string DocId = string.Empty;
+    GetSessionModel sessionModel = Context.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+    if (sessionModel != null)
+    {
+        DocId = Convert.ToString(sessionModel.DocId);
+    }
+}
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="card shadow" style="margin-top:20px">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-10" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">New Appoinemtnts</div>
-                    <div class="col-md-2"></div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <label class="control-label"><span style="color:red">*</span>Select Patient@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
-                    </div>
-                    <div class="col-md-8">
-                        <select class="form-select">
-                            <option>Select Patient...</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <label class="control-label"><span style="color:red">*</span>Payment Mode@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
-                    </div>
-                    <div class="col-md-8">
-                        <select class="form-select">
-                            <option>Cash...</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <label class="control-label"><span style="color:red">*</span>Payment Status@*<span asp-validation-for="Firstame" class="clearfix text-danger" style="font-size: 12px"></span>*@</label>
-                    </div>
-                    <div class="col-md-8">
-                        <select class="form-select">
-                            <option>Paid...</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <input type="submit" value="Create Invoice" class="btn btn-primary btn-sm" style="background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
-                    </div>
-                    <div class="col-md-4"></div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-md-8">
-        <div class="card shadow" style="margin-top:20px">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Invoice Details</div>
-                    <div class="col-md-6"></div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-5">
-                        <input type="text" class="form-control" placeholder="Invoice Title" />
-                    </div>
-                    <div class="col-md-5">
-                        <input type="text" class="form-control" placeholder="Amount" />
-                    </div>
-                    <div class="col-md-2">
-                        <input type="submit" value="Remove" class="btn btn-danger btn-sm" />
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-    </div>
+<div id="msgDiv" style="margin-top:15px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+        }
+    }
 </div>
 
+<form asp-action="NewBilling" asp-controller="Billing" method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow" style="margin-top:20px">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">New Billing</div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="control-label">Select Patient</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-select js-example-basic-single" name="PatientName" asp-for="PatientName">
+                                <option value="">Select Patient...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="control-label">Payment Mode</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-select" asp-for="PaymentMode">
+                                <option value="">Select...</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Card">Card</option>
+                                <option value="UPI">UPI</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="control-label">Amount</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="number" class="form-control" placeholder="Amount" asp-for="Amount" />
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="control-label">Payment Status</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-select" asp-for="PaymentStatus">
+                                <option value="">Select</option>
+                                <option value="Paid">Paid</option>
+                                <option value="Unpaid">Unpaid</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-4" hidden>
+                        <div class="col-md-4">
+                            <label class="control-label">Patient Id</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="Description" asp-for="PatientId" />
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="submit" value="Submit" class="btn btn-primary btn-sm" style="background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var PatientId;
+
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+        var DocId = @DocId;
+        $('#PatientName').empty();
+        $('#PatientName').append('< option value = "" > Select Patient... < /option>');
+        if (DocId !== 0) {
+            $.ajax({
+                type: "GET",
+                url: "/Billing/getAllPatientsName",
+                data: { DocId: DocId },
+                success: function (data) {
+                    console.log(`getAllPatientsNameForBilling : Response ====> ${JSON.stringify(data)}`);
+                    $('#PatientName').empty();
+                    var html = '<option value="">Select</option>';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.patientName + '-' + value.patientId + '"> ' + value.patientName + '</option>';
+                    });
+                    $('#PatientName').append(html);
+                },
+            });
+            $('#PatientName').change(function () {
+                $('#PatientId').val(null);
+                var patientId = $('#PatientName').find(":selected").val();
+                PatientId = patientId.split("-")[1];
+                $('#PatientId').val(function () {
+                    return this.value + PatientId;
+                });
+            });
+        }       
+    });
+
+
+
+</script>

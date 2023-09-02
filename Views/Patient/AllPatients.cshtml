@@ -32,6 +32,7 @@
                 <thead>
                     <tr>
                         <th style="font-weight:bold">ID</th>
+                        <th style="font-weight:bold" hidden>Patient Id</th>
                         <th style="font-weight:bold">Patient Name</th>
                         <th style="font-weight:bold">Phone Number</th>
                         <th style="font-weight:bold">Created Date</th>
@@ -46,6 +47,7 @@
                             {
                                 <tr>
                                     <td>@item.ID</td>
+                                    <td hidden>@item.PatientId</td>
                                     <td>@item.PatientName</td>
                                     <td>@item.Phone</td>
                                     <td>@item.Date</td>

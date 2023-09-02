@@ -88,7 +88,7 @@ namespace ClinicManagementSystem.Controllers
             {
                 throw;
             }
-            return RedirectToAction("AllPrescriptions", "Prescription");
+            return RedirectToAction("NewBilling", "Billing");
         }
         [HttpGet]
         public IActionResult getAllPatientsName(int DocId) 
@@ -158,6 +158,30 @@ namespace ClinicManagementSystem.Controllers
                     return Json(null);
                 }
                 return Json(allTestNamesDetails);
+            }
+            else
+            {
+                return Json(null);
+            }
+        }
+        [HttpGet]
+        public IActionResult getAllPastRecordsOfPatientOnId(int DocId, int PatientId) 
+        {
+            ResponseListModel responseListModel = new ResponseListModel();
+            List<AllPastPrescriptionDataModel> allPastRecordsOfPatientList = new List<AllPastPrescriptionDataModel>();
+            GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+            if (sessionModel != null) 
+            {
+                if (DocId != 0)
+                {
+                    responseListModel.data = JsonConvert.SerializeObject(prescriptionServices.allPastRecordsOfPatient(DocId, PatientId));
+                    allPastRecordsOfPatientList = JsonConvert.DeserializeObject<List<AllPastPrescriptionDataModel>>(responseListModel.data.ToString().Trim());
+                }
+                else 
+                {
+                    return Json(null);
+                }
+                return Json(allPastRecordsOfPatientList);
             }
             else
             {

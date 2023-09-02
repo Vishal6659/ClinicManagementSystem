@@ -25,6 +25,9 @@
         public const string getAllDrugNameByDocId = "select drugname from tbl_alldrug tn where doc_id = @DocId::bigint;";
         public const string getAllTestNameByDocId = "select testname from tbl_alltests tn where doc_id = @DocId::bigint;";
         public const string insertNewPrescriptionData = "insert into tbl_newprescription(patient_id, patient_name, doc_id, drug_type, drug_name, drug_mgorml, drug_dosage, test_name, test_description) values" + "(CAST(@PatientId AS Int), @PatientName, CAST(@DocId AS Int), @DrugType, @DrugName, @DrugMgOrMl, @DrugDosage ,@TestName, @TestDescription)";
-        public const string getAllPriscriptionListData = "select patient_name, drug_name, drug_dosage, test_name, test_description from tbl_newprescription where doc_id = @DocId::bigint;";
+        public const string getAllPriscriptionListData = "select patient_id, patient_name, drug_name, drug_dosage, test_name, test_description from tbl_newprescription where doc_id = @DocId::bigint;";
+        public const string getAllPastRecordsOfPatientByPatientId = "select * from tbl_newprescription where doc_id = @DocId::bigint and patient_id = @PatientId;";
+        public const string insertNewBillingData = "insert into tbl_newbilling(patient_id, doc_id, patient_name, payment_mode, amount, status) values " + "(CAST(@PatientId AS Int), CAST(@DocId AS Int), @PatientName, @PaymentMode, @Amount, @PaymentStatus);";
+        public const string getAllBillingListData = "select patient_id, patient_name, amount, status, created_at from tbl_newbilling where doc_id = @DocId::bigint;";
     }
 }

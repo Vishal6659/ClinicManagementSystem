@@ -3,6 +3,7 @@
     public class AllPrescriptionModel
     {
         public int Id { get; set; }
+        public string PatientId { get; set; }
         public string PatientName { get; set; }
         public string DrugName { get; set; }
         public string DrugAdviceOrComments { get; set; }
@@ -44,6 +45,17 @@
     public class AllTestNamesDetails
     {
         public string TestName { get; set; }
+    }
+    public class AllPastPrescriptionDataModel
+    {
+        public int Id { get; set; }
+        public string PatientName { get; set; }
+        public string DrugName { get; set; }
+        public string DrugAdviceOrComments { get; set; }
+        public string TestName { get; set; }
+        public string TestDescription { get; set; }
+        public string CreatedAt { get; set; }
+
     }
     public class ResponseListModel 
     {

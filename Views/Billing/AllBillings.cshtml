@@ -1,7 +1,17 @@
-﻿@{
+﻿@model ClinicManagementSystem.Models.AllBillingModelVM
+@{
     ViewData["Title"] = "All Billings";
     Layout = "_Layout";
 }
+
+<div id="msgDiv" style="margin-top:15px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+        }
+    }
+</div>
 
 <div class="card shadow mt-4">
     <div class="card-header">
@@ -20,15 +30,39 @@
             <table id="allBillingsTable" class="table table-hover">
                 <thead>
                     <tr>
-                        <th style="font-weight:normal">ID</th>
-                        <th style="font-weight:normal">Patient Name</th>
-                        <th style="font-weight:normal">Date</th>
-                        <th style="font-weight:normal">Amount</th>
-                        <th style="font-weight:normal">Status</th>
-                        <th style="font-weight:normal">Actions</th>
+                        <th style="font-weight:bold">ID</th>
+                        <th style="font-weight:bold">Patient Name</th>
+                        <th style="font-weight:bold">Date</th>
+                        <th style="font-weight:bold">Amount</th>
+                        <th style="font-weight:bold">Status</th>
+                        <th style="font-weight:bold">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @{
+                        if (Model.allBillingModelsList != null && Model.allBillingModelsList.Count > 0)
+                        {
+                            foreach (var item in Model.allBillingModelsList)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td hidden>@item.PatientId</td>
+                                    <td>@item.PatientName</td>
+                                    <td>@item.CreatedOn</td>
+                                    <td>@item.Amount</td>
+                                    <td>@item.Status</td>                                    
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2" id="editIcon"><i class='bx bxs-edit-alt'></i></div>
+                                            <div class="col-md-2" id="deleteIcon"><i class='bx bxs-message-square-x'></i></div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
                 </tbody>
             </table>
         </div>
@@ -38,5 +72,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#allBillingsTable').DataTable();
+        $('#editIcon').click(function () {
+            alert("I am an Edit alert box!");
+        });
+        $('#deleteIcon').click(function () {
+            alert("I am an Delete alert box!");
+        });
     });
 </script>

@@ -31,6 +31,7 @@
                 <thead>
                     <tr>
                         <th style="font-weight:bold">ID</th>
+                        <th style="font-weight:bold" hidden>Patient Id</th>
                         <th style="font-weight:bold">Patient Name</th>
                         <th style="font-weight:bold">Drug Name</th>
                         <th style="font-weight:bold">Drug Advice</th>
@@ -47,6 +48,7 @@
                             {
                                 <tr>
                                     <td>@item.Id</td>
+                                    <td hidden>@item.PatientId</td>
                                     <td>@item.PatientName</td>
                                     <td>@item.DrugName</td>
                                     <td>@item.DrugAdviceOrComments</td>
@@ -55,8 +57,8 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-md-4"></div>
-                                            <div class="col-md-2"><i class='bx bxs-edit-alt'></i></div>
-                                            <div class="col-md-2"><i class='bx bxs-message-square-x'></i></div>
+                                            <div class="col-md-2" id="editIcon"><i class='bx bxs-edit-alt'></i></div>
+                                            <div class="col-md-2" id="deleteIcon"><i class='bx bxs-message-square-x'></i></div>
                                             <div class="col-md-4"></div>
                                         </div>
                                     </td>
@@ -73,5 +75,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#allPatientsTable').DataTable();
+        $('#editIcon').click(function(){
+            alert("I am an Edit alert box!");
+        });
+        $('#deleteIcon').click(function () {
+            alert("I am an Delete alert box!");
+        });
+            
     });
 </script>

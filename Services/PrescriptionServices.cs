@@ -12,6 +12,7 @@ namespace ClinicManagementSystem.Services
         List<AllTestNamesDetails> allTestNames(int DocId);
         int addNewPrescriptionData(NewPrescriptionModel newPrescriptionModel);
         List<AllPrescriptionModel> allPrescriptionLists(int DocId);
+        List<AllPastPrescriptionDataModel> allPastRecordsOfPatient(int DocId, int PatientId);
     }
     public class PrescriptionServices : IPrescriptionServices
     {
@@ -157,8 +158,9 @@ namespace ClinicManagementSystem.Services
                     allPrescriptionLists.Add(new AllPrescriptionModel()
                     {
                         Id = i+1,
+                        PatientId = Convert.ToString(dataTable.Rows[i]["patient_id"]),
                         PatientName = Convert.ToString(dataTable.Rows[i]["patient_name"]),
-                        DrugName = Convert.ToString(dataTable.Rows[i]["patient_name"]),
+                        DrugName = Convert.ToString(dataTable.Rows[i]["drug_name"]),
                         DrugAdviceOrComments = Convert.ToString(dataTable.Rows[i]["drug_dosage"]),
                         TestName = Convert.ToString(dataTable.Rows[i]["test_name"]),
                         TestDescription = Convert.ToString(dataTable.Rows[i]["test_description"]),
@@ -166,6 +168,35 @@ namespace ClinicManagementSystem.Services
                 }
             }
             return allPrescriptionLists;
+        }
+
+        public List<AllPastPrescriptionDataModel> allPastRecordsOfPatient(int DocId, int PatientId) 
+        {
+            List<AllPastPrescriptionDataModel> allPastRecordsOfPatientList = new List<AllPastPrescriptionDataModel>();
+            DataTable dataTable = new DataTable();
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue=Convert.ToString( DocId)},
+                new Parameters{ ParameterName = "PatientId", ParameterValue=Convert.ToString( PatientId)}
+            };
+            dataTable = _pDb.SelectMethod(QueryHelper.getAllPastRecordsOfPatientByPatientId, parameters);
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    allPastRecordsOfPatientList.Add(new AllPastPrescriptionDataModel()
+                    {
+                        Id = i + 1,                        
+                        PatientName = Convert.ToString(dataTable.Rows[i]["patient_name"]),
+                        DrugName = Convert.ToString(dataTable.Rows[i]["drug_name"]),
+                        DrugAdviceOrComments = Convert.ToString(dataTable.Rows[i]["drug_dosage"]),
+                        TestName = Convert.ToString(dataTable.Rows[i]["test_name"]),
+                        TestDescription = Convert.ToString(dataTable.Rows[i]["test_description"]),
+                        CreatedAt = Convert.ToString(dataTable.Rows[i]["created_at"])
+                    });
+                }
+            }
+            return allPastRecordsOfPatientList;
         }
     }
 }

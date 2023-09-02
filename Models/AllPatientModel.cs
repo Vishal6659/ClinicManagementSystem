@@ -3,6 +3,7 @@
     public class AllPatientModel
     {
         public int ID { get; set; }
+        public string PatientId { get; set; }
         public string PatientName { get; set; }
         public Int64 Phone { get; set; }
         public string Date { get; set; }
