@@ -75,14 +75,14 @@ namespace ClinicManagementSystem.Controllers
         public IActionResult Index()
         {
             AllPatientModelVM allPatientModel = new AllPatientModelVM();
-            IPatientServices patientServices = new PatientServices();
+            IAccountServices accountServices = new AccountServices();
             try
             {
                 GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
                 if (sessionModel != null)
                 {
                     int DocId = sessionModel.DocId;
-                    allPatientModel.patientModelList = patientServices.GetAllPatientListDataForToday(DocId);
+                    allPatientModel.patientModelList = accountServices.GetAllPatientListDataForToday(DocId);
                 }
                 else
                 {
@@ -225,6 +225,38 @@ namespace ClinicManagementSystem.Controllers
                 return Json(null);
             }
             return Json(dashboardAllPriscriptionCount);
+        }
+
+        [HttpGet]
+        public IActionResult getAllPaymentCountForToday(int DocId) 
+        {
+            DashboardAllPaymentCountForToday dashboardAllPaymentCountForToday = new DashboardAllPaymentCountForToday();
+            GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+            if (sessionModel != null) 
+            {
+                dashboardAllPaymentCountForToday = accountServices.GetAllPaymentCountForToday(DocId);
+            }
+            else
+            {
+                return Json(null);
+            }
+            return Json(dashboardAllPaymentCountForToday);
+        }
+
+        [HttpGet]
+        public IActionResult getAllPaymentsCount(int DocId) 
+        {
+            DashboardAllPaymentsCount dashboardAllPaymentsCount = new DashboardAllPaymentsCount();
+            GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+            if (sessionModel != null)
+            {
+                dashboardAllPaymentsCount = accountServices.getAllPaymentsCount(DocId);
+            }
+            else 
+            {
+                return Json(null);
+            }
+            return Json(dashboardAllPaymentsCount);
         }
     }
 }

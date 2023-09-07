@@ -14,6 +14,9 @@ namespace ClinicManagementSystem.Services
         DashboardNewAppointmentCount getNewAppointmentCountForDashboard(int DocId);
         DashboardNewPriscriptionCount getDashboardNewPriscriptionCount(int DocId);
         DashboardAllPriscriptionCount getAllPrescriptionCountForDashboard(int DocId);
+        DashboardAllPaymentCountForToday GetAllPaymentCountForToday(int DocId);
+        DashboardAllPaymentsCount getAllPaymentsCount(int DocId);
+        List<AllPatientModel> GetAllPatientListDataForToday(int DocId);
     }
     public class AccountServices : IAccountServices
     {
@@ -229,6 +232,86 @@ namespace ClinicManagementSystem.Services
             }
             catch (Exception ex)
             {
+                throw;
+            }
+        }
+
+        public DashboardAllPaymentCountForToday GetAllPaymentCountForToday(int DocId) 
+        {
+            DashboardAllPaymentCountForToday dashboardAllPaymentCountForToday = new DashboardAllPaymentCountForToday();
+            try
+            {
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ParameterName = "DocId", ParameterValue =Convert.ToString(DocId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getAllPaymentCountForToday, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0) 
+                {
+                    dashboardAllPaymentCountForToday.Count = Convert.ToInt32(dataTable.Rows[0]["amount"]);
+                }
+                return dashboardAllPaymentCountForToday;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public DashboardAllPaymentsCount getAllPaymentsCount(int DocId) 
+        {
+            DashboardAllPaymentsCount dashboardAllPaymentsCount = new DashboardAllPaymentsCount();
+            try
+            {
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ParameterName = "DocId", ParameterValue =Convert.ToString(DocId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getAllPaymentCounts, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    dashboardAllPaymentsCount.Count = Convert.ToInt32(dataTable.Rows[0]["amount"]);
+                }
+                return dashboardAllPaymentsCount;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        public List<AllPatientModel> GetAllPatientListDataForToday(int DocId)
+        {
+            try
+            {
+                List<AllPatientModel> allPatientsList = new List<AllPatientModel>();
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getAllPatientListDataForToday, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        allPatientsList.Add(new AllPatientModel()
+                        {
+                            ID = i + 1,
+                            PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
+                            Phone = Convert.ToString(dataTable.Rows[i]["phone"]),
+                            Date = Convert.ToString(dataTable.Rows[i]["created_at"])
+                        });
+                    }
+                }
+                return allPatientsList;
+            }
+            catch (Exception ex)
+            {
+
                 throw;
             }
         }

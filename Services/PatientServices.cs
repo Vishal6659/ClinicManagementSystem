@@ -8,7 +8,6 @@ namespace ClinicManagementSystem.Services
     {
         int AddNewPatient(NewPatient newPatient);
         List<AllPatientModel> GetAllPatientListData(int DocId);
-        List<AllPatientModel> GetAllPatientListDataForToday(int DocId);
     }
     public class PatientServices : IPatientServices
     {
@@ -26,8 +25,8 @@ namespace ClinicManagementSystem.Services
                 new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString( newPatient.PatientID)},
                 new Parameters{ ParameterName = "FirstName", ParameterValue = newPatient.FirstName},
                 new Parameters{ ParameterName = "LastName", ParameterValue = newPatient.LastName},
-                new Parameters{ ParameterName = "Age", ParameterValue =Convert.ToString(newPatient.Age)},
-                new Parameters{ ParameterName = "Phone", ParameterValue = Convert.ToString(newPatient.Phone)},
+                new Parameters{ ParameterName = "Age", ParameterValue = newPatient.Age},
+                new Parameters{ ParameterName = "Phone", ParameterValue = newPatient.Phone},
                 new Parameters{ ParameterName = "Gender", ParameterValue = newPatient.Gender},
                 new Parameters{ ParameterName = "PresentComplaint", ParameterValue = newPatient.PresentComplaint},
                 new Parameters{ ParameterName = "PastHistory", ParameterValue = newPatient.PastHistory},
@@ -68,7 +67,7 @@ namespace ClinicManagementSystem.Services
                             ID = i+1,
                             PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
                             PatientId = Convert.ToString(dataTable.Rows[i]["patient_id"]),
-                            Phone = Convert.ToInt64(dataTable.Rows[i]["phone"]),
+                            Phone = Convert.ToString(dataTable.Rows[i]["phone"]),
                             Date = Convert.ToString(dataTable.Rows[i]["created_at"])
                         });
                     }
@@ -80,39 +79,6 @@ namespace ClinicManagementSystem.Services
 
                 throw;
             }
-        }
-
-        public List<AllPatientModel> GetAllPatientListDataForToday(int DocId) 
-        {
-            try
-            {
-                List<AllPatientModel> allPatientsList = new List<AllPatientModel>();
-                DataTable dataTable = new DataTable();
-                List<Parameters> parameters = new List<Parameters>()
-                {
-                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)}
-                };
-                dataTable = _pDb.SelectMethod(QueryHelper.getAllPatientListDataForToday, parameters);
-                if (dataTable != null && dataTable.Rows.Count > 0)
-                {
-                    for (int i = 0; i < dataTable.Rows.Count; i++)
-                    {
-                        allPatientsList.Add(new AllPatientModel()
-                        {
-                            ID = i + 1,
-                            PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
-                            Phone = Convert.ToInt64(dataTable.Rows[i]["phone"]),
-                            Date = Convert.ToString(dataTable.Rows[i]["created_at"])
-                        });
-                    }
-                }
-                return allPatientsList;
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-        }
+        }        
     }
 }

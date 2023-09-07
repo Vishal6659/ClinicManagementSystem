@@ -24,5 +24,14 @@
     {
         public int Count { get; set; }
     }
+    public class DashboardAllPaymentCountForToday
+    {
+        public int Count { get; set; }
+    }
+
+    public class DashboardAllPaymentsCount
+    {
+        public int Count { get; set; }
+    }
 
 }

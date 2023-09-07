@@ -102,10 +102,10 @@
             <div class="card shadow" style="border-left: solid 4px lightseagreen;">
                 <div class="card-body">
                     <div class="row">
-                        <h6 style="font-weight: normal" class="pb-3">Total Payments</h6>
+                        <h6 style="font-weight: normal" class="pb-3">New Payments Today</h6>
                     </div>
                     <div class="row">
-                        <h5>0</h5>
+                        <h5 id="allTotalPaymentCountOfDay">0</h5>
                     </div>
                 </div>
             </div>
@@ -114,10 +114,10 @@
             <div class="card shadow" style="border-left: solid 4px darkgoldenrod;">
                 <div class="card-body">
                     <div class="row">
-                        <h6 style="font-weight: normal" class="pb-3">Payments This Month</h6>
+                        <h6 style="font-weight: normal" class="pb-3">All Payments</h6>
                     </div>
                     <div class="row">
-                        <h5>0</h5>
+                        <h5 id="allTotalPayments">0</h5>
                     </div>
                 </div>
             </div>
@@ -154,10 +154,9 @@
                                         <td>@item.Date</td>
                                         <td>
                                             <div class="row">
-                                                <div class="col-md-4"></div>
                                                 <div class="col-md-2"><i class='bx bxs-edit-alt'></i></div>
                                                 <div class="col-md-2"><i class='bx bxs-message-square-x'></i></div>
-                                                <div class="col-md-4"></div>
+                                                <div class="col-md-8"></div>
                                             </div>
                                         </td>
                                     </tr>
@@ -304,6 +303,50 @@
                 }
                 else {
                     console.log('No Data Found for : getAllPrescriptionCount');
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Home/getAllPaymentCountForToday",
+            data: { DocId },
+            success: function (data) {
+                console.log(`All Payment Count : Respond Json ====> ${JSON.stringify(data)}`);
+                if (data != null) {
+                    var tCount = `${JSON.stringify(data)}`;
+                    var finalCount = tCount.replace(/\D/g, '');
+                    $('#allTotalPaymentCountOfDay').text(finalCount);
+                }
+                else if (data == 0) {
+                    $("#allTotalPrescriptionsCount").text("0");
+                }
+                else {
+                    console.log('No Data Found for : getAllPrescriptionCount');
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Home/getAllPaymentsCount",
+            data: { DocId },
+            success: function (data) {
+                console.log(`All Payment Count : Respond Json ====> ${JSON.stringify(data)}`);
+                if (data != null) {
+                    var tCount = `${JSON.stringify(data)}`;
+                    var finalCount = tCount.replace(/\D/g, '');
+                    $('#allTotalPayments').text(finalCount);
+                }
+                else if (data == 0) {
+                    $("#allTotalPayments").text("0");
+                }
+                else {
+                    console.log('No Data Found for : getAllPaymentsCount');
                 }
             }
         });

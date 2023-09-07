@@ -1,4 +1,5 @@
 ﻿@model ClinicManagementSystem.Models.AllBillingModelVM
+
 @{
     ViewData["Title"] = "All Billings";
     Layout = "_Layout";
@@ -8,7 +9,7 @@
     @{
         if (TempData["msg"] != null)
         {
-            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>            
         }
     }
 </div>
@@ -53,10 +54,9 @@
                                     <td>@item.Status</td>                                    
                                     <td>
                                         <div class="row">
-                                            <div class="col-md-4"></div>
                                             <div class="col-md-2" id="editIcon"><i class='bx bxs-edit-alt'></i></div>
                                             <div class="col-md-2" id="deleteIcon"><i class='bx bxs-message-square-x'></i></div>
-                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -72,11 +72,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#allBillingsTable').DataTable();
-        $('#editIcon').click(function () {
-            alert("I am an Edit alert box!");
-        });
-        $('#deleteIcon').click(function () {
-            alert("I am an Delete alert box!");
-        });
+            
     });
 </script>

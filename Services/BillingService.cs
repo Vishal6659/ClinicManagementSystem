@@ -65,7 +65,7 @@ namespace ClinicManagementSystem.Services
                         Id = i + 1,
                         PatientId = Convert.ToInt32(dataTable.Rows[i]["patient_id"]),
                         PatientName = Convert.ToString(dataTable.Rows[i]["patient_name"]),
-                        Amount = Convert.ToInt32(dataTable.Rows[i]["amount"]),
+                        Amount = Convert.ToString(dataTable.Rows[i]["amount"]),
                         Status = Convert.ToString(dataTable.Rows[i]["status"]),
                         CreatedOn = Convert.ToString(dataTable.Rows[i]["created_at"]),
                     });

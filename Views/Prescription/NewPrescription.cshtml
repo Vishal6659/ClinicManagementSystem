@@ -67,8 +67,8 @@
                                     <input type="text" class="form-control" placeholder="DrugType" asp-for="DrugType" />
                                 </div>
                                 <div class="col-md 6">
-                                    <select class="form-select js-example-basic-single" name="DrugName" asp-for="DrugName">
-                                        <option value="">Select Drug...</option>
+                                    <select class="form-select js-example-basic-single" name="DrugName" multiple="multiple" asp-for="DrugName">
+                                        @*<option value="">Select Drug...</option>*@
                                     </select>
                                 </div>
                                 <div class="col-md 3">
@@ -104,8 +104,8 @@
                         <div class="testDivInternal">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <select class="form-select js-example-basic-single" name="TestName" asp-for="TestName">
-                                        <option value="">Select Test...</option>
+                                    <select class="form-select js-example-basic-single" name="TestName" multiple="multiple" asp-for="TestName">
+                                        @*<option value="">Select Test...</option>*@
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-4">
@@ -225,7 +225,7 @@
                         $('#DrugName').append(html);
                     },
                 });
-            }
+            }           
         });
 
         $('#TestName').ready(function () {
@@ -247,6 +247,48 @@
                     },
                 });
             }
+        });
+
+        $('#DrugName').select2({
+            templateSelection: function (selected, total) {
+                return selected.text;
+            },
+            templateResult: function (result) {
+                var $option = $('<span></span>');
+                $option.text(result.text);
+                if (result.element && result.element.selected) {
+                    $option.prepend('<span class="selected">&#10003;</span>'); 
+                }
+                return $option;
+            },
+            width: '100%', 
+            dropdownAutoWidth: true, 
+            minimumResultsForSearch: Infinity 
+        });
+
+        $('#DrugName').select2({
+            placeholder: 'Select Drugs', 
+        });
+
+        $('#TestName').select2({
+            templateSelection: function (selected, total) {
+                return selected.text;
+            },
+            templateResult: function (result) {
+                var $option = $('<span></span>');
+                $option.text(result.text);
+                if (result.element && result.element.selected) {
+                    $option.prepend('<span class="selected">&#10003;</span>');
+                }
+                return $option;
+            },
+            width: '100%',
+            dropdownAutoWidth: true,
+            minimumResultsForSearch: Infinity
+        });
+
+        $('#TestName').select2({
+            placeholder: 'Select Tests',
         });
 
     });

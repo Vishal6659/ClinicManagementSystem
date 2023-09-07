@@ -5,7 +5,7 @@
         public int ID { get; set; }
         public string PatientId { get; set; }
         public string PatientName { get; set; }
-        public Int64 Phone { get; set; }
+        public string Phone { get; set; }
         public string Date { get; set; }
         public string Actions { get; set; }
        
@@ -22,7 +22,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Age { get; set; }
-        public Int64 Phone { get; set; }
+        public string Phone { get; set; }
         public string Gender { get; set; }
         public string PresentComplaint { get; set; }
         public string PastHistory { get; set; }
