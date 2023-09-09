@@ -61,7 +61,7 @@ namespace ClinicManagementSystem.Controllers
                 if (sessionModel != null)
                 {
                     Random random = new Random();
-                    int num = random.Next();
+                    int num = random.Next(1, 999999);
                     newPatient.PatientID = num;
                     newPatient.DocID = sessionModel.DocId;
                     if (newPatient != null)
@@ -90,6 +90,43 @@ namespace ClinicManagementSystem.Controllers
                 throw;
             }
             return View(newPatient);
+        }
+
+        [HttpPost]
+        public IActionResult DeletePatient(int DocId, int RecordId, int PatientId)
+        {
+            DeletePatientModel deletePatientModel = new DeletePatientModel();
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    deletePatientModel.DocId = DocId;
+                    deletePatientModel.RecordId = RecordId;
+                    deletePatientModel.PatientId = PatientId;
+                    int data = patientServices.deletePatientRecord(deletePatientModel);
+                    if (data != 1)
+                    {
+                        TempData["msg"] = "Patient Record Deleted UnSuccesfull";
+                        return RedirectToAction("AllPatients", "Patient");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Patient Record Deleted Succesfull";
+                        return RedirectToAction("AllPatients", "Patient");
+                    }
+                }
+                else
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

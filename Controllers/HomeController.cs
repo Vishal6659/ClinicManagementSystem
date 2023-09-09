@@ -97,6 +97,43 @@ namespace ClinicManagementSystem.Controllers
             return View(allPatientModel);
         }
 
+        [HttpPost]
+        public IActionResult DeletePatient(int DocId, int RecordId, int PatientId)
+        {
+            DeletePatientModel deletePatientModel = new DeletePatientModel();
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    deletePatientModel.DocId = DocId;
+                    deletePatientModel.RecordId = RecordId;
+                    deletePatientModel.PatientId = PatientId;                   
+                    int data = accountServices.deletePatientRecord(deletePatientModel);
+                    if (data != 1)
+                    {
+                        TempData["msg"] = "Patient Record Deleted UnSuccesfull";
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Patient Record Deleted Succesfull";
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else 
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpGet]
         public IActionResult Registration()
         {
@@ -258,5 +295,7 @@ namespace ClinicManagementSystem.Controllers
             }
             return Json(dashboardAllPaymentsCount);
         }
+
+       
     }
 }

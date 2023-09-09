@@ -10,7 +10,9 @@ namespace ClinicManagementSystem.Services
     {
          int AddNewAppointment(NewAppointment newAppointment);
         List<AllAppointmentModel> GetAllAppointmentList(int DocId);
-        
+        int deletePatientRecord(DeletePrescriptionModel deletePrescriptionModel);
+
+
     }
     public class AppointmentService : IAppointmentService
     {
@@ -60,11 +62,12 @@ namespace ClinicManagementSystem.Services
                         allAppointmentModelsList.Add(new AllAppointmentModel()
                         {
                             Id = i+1,
+                            RecordId = Convert.ToString(dataTable.Rows[i]["id"]),
                             Name = Convert.ToString( dataTable.Rows[i]["namee"]),
                             Date = Convert.ToString( dataTable.Rows[i]["datee"]),
                             Time = Convert.ToString( dataTable.Rows[i]["timee"]),
                             Status = Convert.ToString( dataTable.Rows[i]["status"]),
-                            createdAt = Convert.ToString( dataTable.Rows[i]["createdat"]),
+                            createdAt = Convert.ToString( dataTable.Rows[i]["createdat"])
                         });
                     }
                 }
@@ -77,6 +80,24 @@ namespace ClinicManagementSystem.Services
             }
         }
 
-        
+        public int deletePatientRecord(DeletePrescriptionModel deletePrescriptionModel)
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( deletePrescriptionModel.DocId)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deletePrescriptionModel.RecordId)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.deleteAppointmentRecord, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
     }
 }

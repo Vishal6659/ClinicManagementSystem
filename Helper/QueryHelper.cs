@@ -32,5 +32,8 @@
         public const string getAllPastRecordsOfPatientByPatientId = "select * from tbl_newprescription where doc_id = @DocId::bigint and patient_id = @PatientId;";
         public const string insertNewBillingData = "insert into tbl_newbilling(patient_id, doc_id, patient_name, payment_mode, amount, status) values " + "(CAST(@PatientId AS Int), CAST(@DocId AS Int), @PatientName, @PaymentMode, CAST(@Amount AS Int), @PaymentStatus);";
         public const string getAllBillingListData = "select patient_id, patient_name, amount, status, created_at from tbl_newbilling where doc_id = @DocId::bigint;";
+
+        public const string deletePatientRecord = "delete from tbl_newpatient where doc_id = @DocId::Int AND patient_id = @PatientId::Int AND id = @RecordId::Int;";
+        public const string deleteAppointmentRecord = "delete from tbl_newappointment where doc_id = @DocId::Int AND id = @RecordId::Int;";
     }
 }

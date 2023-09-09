@@ -17,6 +17,7 @@ namespace ClinicManagementSystem.Services
         DashboardAllPaymentCountForToday GetAllPaymentCountForToday(int DocId);
         DashboardAllPaymentsCount getAllPaymentsCount(int DocId);
         List<AllPatientModel> GetAllPatientListDataForToday(int DocId);
+        int deletePatientRecord(DeletePatientModel deletePatientModel);
     }
     public class AccountServices : IAccountServices
     {
@@ -50,6 +51,26 @@ namespace ClinicManagementSystem.Services
             };
             _result = _pDb.InsertUpdateDelete(QueryHelper.insertRegistrationData, parameters);
             if (_result != 0 && _result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int deletePatientRecord(DeletePatientModel deletePatientModel)
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( deletePatientModel.DocId)},
+                new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString( deletePatientModel.PatientId)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deletePatientModel.RecordId)}                
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.deletePatientRecord, parameters);
+            if (result != 0 && result > 0)
             {
                 return 1;
             }
@@ -167,7 +188,7 @@ namespace ClinicManagementSystem.Services
             }
         }
 
-        public DashboardNewAppointmentCount getNewAppointmentCountForDashboard(int DocId) 
+        public DashboardNewAppointmentCount getNewAppointmentCountForDashboard(int DocId)
         {
             DashboardNewAppointmentCount dashboardNewAppointmentCount = new DashboardNewAppointmentCount();
             try
@@ -192,7 +213,7 @@ namespace ClinicManagementSystem.Services
 
         public DashboardNewPriscriptionCount getDashboardNewPriscriptionCount(int DocId)
         {
-            DashboardNewPriscriptionCount dashboardNewPriscriptionCount= new DashboardNewPriscriptionCount();
+            DashboardNewPriscriptionCount dashboardNewPriscriptionCount = new DashboardNewPriscriptionCount();
             try
             {
                 DataTable dataTable = new DataTable();
@@ -236,7 +257,7 @@ namespace ClinicManagementSystem.Services
             }
         }
 
-        public DashboardAllPaymentCountForToday GetAllPaymentCountForToday(int DocId) 
+        public DashboardAllPaymentCountForToday GetAllPaymentCountForToday(int DocId)
         {
             DashboardAllPaymentCountForToday dashboardAllPaymentCountForToday = new DashboardAllPaymentCountForToday();
             try
@@ -247,9 +268,16 @@ namespace ClinicManagementSystem.Services
                     new Parameters{ParameterName = "DocId", ParameterValue =Convert.ToString(DocId)}
                 };
                 dataTable = _pDb.SelectMethod(QueryHelper.getAllPaymentCountForToday, parameters);
-                if (dataTable != null && dataTable.Rows.Count > 0) 
+                if (dataTable != null && dataTable.Rows.Count > 0)
                 {
-                    dashboardAllPaymentCountForToday.Count = Convert.ToInt32(dataTable.Rows[0]["amount"]);
+                    if (dataTable.Rows[0]["amount"] != DBNull.Value)
+                    {
+                        dashboardAllPaymentCountForToday.Count = Convert.ToInt32(dataTable.Rows[0]["amount"]);
+                    }
+                }
+                else
+                {
+                    dashboardAllPaymentCountForToday.Count = 0;
                 }
                 return dashboardAllPaymentCountForToday;
             }
@@ -259,7 +287,7 @@ namespace ClinicManagementSystem.Services
             }
         }
 
-        public DashboardAllPaymentsCount getAllPaymentsCount(int DocId) 
+        public DashboardAllPaymentsCount getAllPaymentsCount(int DocId)
         {
             DashboardAllPaymentsCount dashboardAllPaymentsCount = new DashboardAllPaymentsCount();
             try
@@ -272,7 +300,14 @@ namespace ClinicManagementSystem.Services
                 dataTable = _pDb.SelectMethod(QueryHelper.getAllPaymentCounts, parameters);
                 if (dataTable != null && dataTable.Rows.Count > 0)
                 {
-                    dashboardAllPaymentsCount.Count = Convert.ToInt32(dataTable.Rows[0]["amount"]);
+                    if (dataTable.Rows[0]["amount"] != DBNull.Value)
+                    {
+                        dashboardAllPaymentsCount.Count = Convert.ToInt32(dataTable.Rows[0]["amount"]);
+                    }
+                }
+                else
+                {
+                    dashboardAllPaymentsCount.Count = 0;
                 }
                 return dashboardAllPaymentsCount;
             }
@@ -301,6 +336,8 @@ namespace ClinicManagementSystem.Services
                         allPatientsList.Add(new AllPatientModel()
                         {
                             ID = i + 1,
+                            RecordId = Convert.ToString(dataTable.Rows[i]["id"]),
+                            PatientId = Convert.ToString(dataTable.Rows[i]["patient_id"]),
                             PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
                             Phone = Convert.ToString(dataTable.Rows[i]["phone"]),
                             Date = Convert.ToString(dataTable.Rows[i]["created_at"])

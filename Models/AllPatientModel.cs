@@ -3,6 +3,7 @@
     public class AllPatientModel
     {
         public int ID { get; set; }
+        public string RecordId { get; set; }
         public string PatientId { get; set; }
         public string PatientName { get; set; }
         public string Phone { get; set; }
@@ -30,5 +31,21 @@
         public string PresentMedication { get; set; }
         public string PhysicalNature { get; set; }
         public string MentalNature { get; set; }
+    }
+
+    public class DeletePatientModel 
+    {
+        public int DocId { get; set; }
+        public int RecordId { get; set; }
+        public int PatientId { get; set; }
+        public string PatientName { get; set; }
+        public string PatientPhoneNumber { get; set; }
+        public string PatientCreatedDate { get; set; }
+    }
+
+    public class DeletePrescriptionModel
+    {
+        public int DocId { get; set; }
+        public int RecordId { get; set; }        
     }
 }

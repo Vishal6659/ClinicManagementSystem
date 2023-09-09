@@ -5,11 +5,11 @@
     Layout = "_Layout";
 }
 
-<div id="msgDiv" style="margin-top:15px">
+<div  style="margin-top:15px">
     @{
         if (TempData["msg"] != null)
         {
-            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>            
+            <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
         }
     }
 </div>
@@ -72,6 +72,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#allBillingsTable').DataTable();
-            
+        $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
+            $("#msgDiv").slideUp(500);
+        });
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(500);
+        });
     });
 </script>

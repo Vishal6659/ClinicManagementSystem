@@ -88,6 +88,42 @@ namespace ClinicManagementSystem.Controllers
             return RedirectToAction("AllAppointments", "Appointment");
         }
 
+        [HttpPost]
+        public IActionResult DeletePatient(int DocId, int RecordId)
+        {
+            DeletePrescriptionModel deletePrescriptionModel = new DeletePrescriptionModel();
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    deletePrescriptionModel.DocId = DocId;
+                    deletePrescriptionModel.RecordId = RecordId;                    
+                    int data = appointmentService.deletePatientRecord(deletePrescriptionModel);
+                    if (data != 1)
+                    {
+                        TempData["msg"] = "Patient Record Deleted UnSuccesfull";
+                        return RedirectToAction("AllAppointments", "Appointment");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Patient Record Deleted Succesfull";
+                        return RedirectToAction("AllAppointments", "Appointment");
+                    }
+                }
+                else
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 
    

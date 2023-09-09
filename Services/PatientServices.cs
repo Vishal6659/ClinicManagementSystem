@@ -8,6 +8,7 @@ namespace ClinicManagementSystem.Services
     {
         int AddNewPatient(NewPatient newPatient);
         List<AllPatientModel> GetAllPatientListData(int DocId);
+        int deletePatientRecord(DeletePatientModel deletePatientModel);
     }
     public class PatientServices : IPatientServices
     {
@@ -65,6 +66,7 @@ namespace ClinicManagementSystem.Services
                         allPatientsList.Add(new AllPatientModel()
                         {
                             ID = i+1,
+                            RecordId = Convert.ToString(dataTable.Rows[i]["id"]),
                             PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
                             PatientId = Convert.ToString(dataTable.Rows[i]["patient_id"]),
                             Phone = Convert.ToString(dataTable.Rows[i]["phone"]),
@@ -79,6 +81,26 @@ namespace ClinicManagementSystem.Services
 
                 throw;
             }
-        }        
+        }
+
+        public int deletePatientRecord(DeletePatientModel deletePatientModel)
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( deletePatientModel.DocId)},
+                new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString( deletePatientModel.PatientId)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deletePatientModel.RecordId)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.deletePatientRecord, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

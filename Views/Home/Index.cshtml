@@ -13,12 +13,12 @@
     }
 }
 
-<div id="msgDiv" style="margin-top:20px">
+<div  style="margin-top:20px">
     @{
         if (TempData["msg"] != null)
         {
-            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
-        }
+            <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+        }        
     }
 </div>
 
@@ -135,6 +135,8 @@
                     <thead>
                         <tr>
                             <th style="font-weight:bold">ID</th>
+                            <th style="font-weight:bold" hidden>Record ID</th>
+                            <th style="font-weight:bold" hidden>Patient ID</th>
                             <th style="font-weight:bold">Patient Name</th>
                             <th style="font-weight:bold">Phone Number</th>
                             <th style="font-weight:bold">Created Date</th>
@@ -148,14 +150,16 @@
                                 foreach (var item in Model.patientModelList)
                                 {
                                     <tr>
-                                        <td>@item.ID</td>
-                                        <td>@item.PatientName</td>
-                                        <td>@item.Phone</td>
-                                        <td>@item.Date</td>
-                                        <td>
+                                        <td id="rowId">@item.ID</td>
+                                        <td id="rowRecordId" hidden>@item.RecordId</td>
+                                        <td id="rowPatientId" hidden>@item.PatientId</td>
+                                        <td id="rowPatientName">@item.PatientName</td>
+                                        <td id="rowPatientPhoneNumber">@item.Phone</td>
+                                        <td id="rowDate">@item.Date</td>
+                                        <td id="rowEditDeleteOptions">
                                             <div class="row">
                                                 <div class="col-md-2"><i class='bx bxs-edit-alt'></i></div>
-                                                <div class="col-md-2"><i class='bx bxs-message-square-x'></i></div>
+                                                <div class="col-md-2"><button class="btn btn-primary btn-sm" onclick="deleteRowFunction(@item.RecordId, @item.PatientId,  @DocId )">Delete</button> </div>
                                                 <div class="col-md-8"></div>
                                             </div>
                                         </td>
@@ -173,10 +177,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#doctable').DataTable();
-    });
+        var DocId = @DocId;
+        $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
+            $("#msgDiv").slideUp(500);
+        });
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(500);
+        });
 
-    var DocId = @DocId;
-    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/Home/getAllPatientsCount",
@@ -186,7 +194,7 @@
                 if (data != null) {
                     var tCount = `${JSON.stringify(data)}`;
                     var finalCount = tCount.replace(/\D/g, '');
-                    $('#allPatientCount').text(finalCount);                   
+                    $('#allPatientCount').text(finalCount);
                 }
                 else if (data == 0) {
                     $("#allPatientCount").text("0");
@@ -196,9 +204,7 @@
                 }
             }
         });
-    });
 
-    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/Home/getAllNewPatientsCount",
@@ -218,9 +224,7 @@
                 }
             }
         });
-    });
 
-    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/Home/getAllAppointmentCount",
@@ -240,9 +244,7 @@
                 }
             }
         });
-    });
 
-    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/Home/getNewAppointmentCount",
@@ -262,9 +264,7 @@
                 }
             }
         });
-    });
 
-    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/Home/getNewPrescriptionCount",
@@ -284,9 +284,7 @@
                 }
             }
         });
-    });
 
-    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/Home/getAllPrescriptionCount",
@@ -306,9 +304,7 @@
                 }
             }
         });
-    });
 
-    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/Home/getAllPaymentCountForToday",
@@ -328,9 +324,7 @@
                 }
             }
         });
-    });
 
-    $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/Home/getAllPaymentsCount",
@@ -352,6 +346,21 @@
         });
     });
 
+    function deleteRowFunction(RecordId, PatientId, DocId) {
+        $.ajax({
+            type: "POST",
+            url: "/Home/DeletePatient",
+            data: { DocId: DocId, RecordId: RecordId, PatientId: PatientId },
+            success: function (data) {
+                if (data != null) {
+                    setInterval('refreshPage()', 900);                    
+                }               
+            }
+        });
+    }
+    function refreshPage() {
+        location.reload(true);
+    }
 
 </script>
 
