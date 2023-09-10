@@ -1,18 +1,24 @@
 ﻿using ClinicManagementSystem.Services;
 using ClinicManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private IConfiguration _configuration;
         IAccountServices accountServices = new AccountServices();
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
         public IActionResult Login()
@@ -32,6 +38,31 @@ namespace ClinicManagementSystem.Controllers
             return View();
         }
 
+        // Method to create the JWT token accepting the Login Model as parameter
+
+       /* public string GenerateToken(LoginModel loginModel)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim>
+                {
+                new Claim("Username", loginModel.Username),
+                new Claim("Password", loginModel.Password)
+                };
+
+            var token = new JwtSecurityToken
+            (
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(1),
+                signingCredentials: credentials
+             );
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }*/
+
+
         [HttpPost]
         public IActionResult Login(LoginModel loginModel)
         {
@@ -43,6 +74,24 @@ namespace ClinicManagementSystem.Controllers
                     ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
                     if (responseModel.DocId != 0 && responseModel.AadharCardNumber != 0)
                     {
+                        //JWT Token
+                        //var token = GenerateToken(loginModel);
+                        /* if (!string.IsNullOrEmpty(token))
+                         {
+                             setSessionModel.DocId = responseModel.DocId;
+                             setSessionModel.Firstname = responseModel.FirstName;
+                             setSessionModel.Lastname = responseModel.LastName;
+                             setSessionModel.Mobilenumber = Convert.ToInt64(responseModel.PhoneNumber);
+                             setSessionModel.Email = responseModel.EmailAddress;
+                             setSessionModel.Address = responseModel.Address;
+                             setSessionModel.Gender = responseModel.Gender;
+                             HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);
+                             TempData["msg"] = "Login Succesfull";
+                             return RedirectToAction("Index", "Home");
+                         }
+                         TempData["msg"] = "Token Not Found";
+                         return View();*/
+
                         setSessionModel.DocId = responseModel.DocId;
                         setSessionModel.Firstname = responseModel.FirstName;
                         setSessionModel.Lastname = responseModel.LastName;
@@ -108,7 +157,7 @@ namespace ClinicManagementSystem.Controllers
                 {
                     deletePatientModel.DocId = DocId;
                     deletePatientModel.RecordId = RecordId;
-                    deletePatientModel.PatientId = PatientId;                   
+                    deletePatientModel.PatientId = PatientId;
                     int data = accountServices.deletePatientRecord(deletePatientModel);
                     if (data != 1)
                     {
@@ -121,12 +170,12 @@ namespace ClinicManagementSystem.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
-                else 
+                else
                 {
                     TempData["msg"] = "Session Not Found";
                     return RedirectToAction("Login", "Home");
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -185,7 +234,7 @@ namespace ClinicManagementSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult getAllNewPatientsCount(int DocId) 
+        public IActionResult getAllNewPatientsCount(int DocId)
         {
             DashboardNewPatientsCount dashboardNewPatientsCount = new DashboardNewPatientsCount();
             GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
@@ -201,7 +250,7 @@ namespace ClinicManagementSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult getAllAppointmentCount(int DocId) 
+        public IActionResult getAllAppointmentCount(int DocId)
         {
             DashboardAllAppointmentCount dashboardAllAppointmentCount = new DashboardAllAppointmentCount();
             GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
@@ -265,11 +314,11 @@ namespace ClinicManagementSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult getAllPaymentCountForToday(int DocId) 
+        public IActionResult getAllPaymentCountForToday(int DocId)
         {
             DashboardAllPaymentCountForToday dashboardAllPaymentCountForToday = new DashboardAllPaymentCountForToday();
             GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
-            if (sessionModel != null) 
+            if (sessionModel != null)
             {
                 dashboardAllPaymentCountForToday = accountServices.GetAllPaymentCountForToday(DocId);
             }
@@ -281,7 +330,7 @@ namespace ClinicManagementSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult getAllPaymentsCount(int DocId) 
+        public IActionResult getAllPaymentsCount(int DocId)
         {
             DashboardAllPaymentsCount dashboardAllPaymentsCount = new DashboardAllPaymentsCount();
             GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
@@ -289,13 +338,13 @@ namespace ClinicManagementSystem.Controllers
             {
                 dashboardAllPaymentsCount = accountServices.getAllPaymentsCount(DocId);
             }
-            else 
+            else
             {
                 return Json(null);
             }
             return Json(dashboardAllPaymentsCount);
         }
 
-       
+
     }
 }

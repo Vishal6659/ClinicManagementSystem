@@ -4,11 +4,14 @@
     Layout = "_Layout";
 }
 
-<div id="msgDiv" style="margin-top:15px">
+<div style="margin-top:20px">
     @{
         if (TempData["msg"] != null)
         {
-            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+            if (TempData.ContainsKey("New Test not Inserted Succesfully"))
+            {
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }            
         }
     }
 </div>
@@ -48,3 +51,14 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
+            $("#msgDiv").slideUp(500);
+        });
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(500);
+        });
+    });
+</script>

@@ -4,6 +4,18 @@
     Layout = "_Layout";
 }
 
+<div style="margin-top:20px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            if (TempData.ContainsKey("New Appointment not Inserted Succesfully"))
+            {
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }           
+        }
+    }
+</div>
+
 <div class="card shadow mt-4">
     <form asp-action="NewAppointment" asp-controller="Appointment" method="post">
         <div class="card-header">

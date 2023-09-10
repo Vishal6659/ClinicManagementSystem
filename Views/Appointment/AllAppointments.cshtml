@@ -17,7 +17,18 @@
     @{
         if (TempData["msg"] != null)
         {
-            <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+            if (TempData.ContainsKey("New Appointment Succesfully Inserted"))
+            {
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
+            else if (TempData.ContainsKey("Patient Record Deleted UnSuccesfull"))
+            {
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
+            else
+            {
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
         }
     }
 </div>

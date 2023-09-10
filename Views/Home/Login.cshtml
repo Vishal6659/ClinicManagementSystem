@@ -4,6 +4,26 @@
     Layout = "_LoginLayout";
 }
 
+<div style="margin-top:20px">
+    @{
+        if (TempData["msg"] != null)
+        {
+            if (TempData.ContainsKey("Login Succesfull"))
+            {
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
+            else if (TempData.ContainsKey("Session Not Found"))
+            {
+                <div class="alert alert-warning" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
+            else
+            {
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
+        }
+    }
+</div>
+
 <style>
     .container-fluid {
         overflow: hidden;
@@ -41,15 +61,6 @@
         }
 </style>
 
-<div id="msgDiv" style="margin-top:15px">
-    @{
-        if (TempData["msg"] != null)
-        {
-            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
-        }
-    }
-</div>
-
 <form asp-action="Login" asp-controller="Home" method="post">
     <div class="container">
         <h2 style="color:cornflowerblue;">
@@ -58,7 +69,7 @@
         <hr />
         <div class="form-group">
             <label class="control-label"><span style="color:red">*</span>Username <span asp-validation-for="Username" class="clearfix text-danger" style="font-size: 12px"></span></label>
-            <input class="form-control" asp-for="Username" type="text" placeholder="Enter Username" />
+            <input class="form-control" autocomplete="off" asp-for="Username" type="text" placeholder="Enter Username" />
         </div>
         <br />
         <div class="form-group">
@@ -77,6 +88,13 @@
 </form>
 
 <script type="text/javascript">
-
+    $(document).ready(function (){
+        $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
+            $("#msgDiv").slideUp(500);
+        });
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(500);
+        });
+    });    
 </script>
 

@@ -3,11 +3,28 @@
     ViewData["Title"] = "All Patients";
     Layout = "_Layout";
 }
-<div  style="margin-top:15px">
+
+@{
+    string DocId = string.Empty;
+    GetSessionModel sessionModel = Context.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+    if (sessionModel != null)
+    {
+        DocId = Convert.ToString(sessionModel.DocId);
+    }
+}
+
+<div style="margin-top:20px">
     @{
         if (TempData["msg"] != null)
-        {
-            <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+        {            
+            if (TempData.ContainsKey("Test Record not Deleted Succesfully"))
+            {
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
+            else
+            {
+                <div class="alert alert-success id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
         }
     }
 </div>
@@ -30,6 +47,7 @@
                 <thead>
                     <tr>
                         <th style="font-weight:bold">ID</th>
+                        <th style="font-weight:bold" hidden>Record ID</th>
                         <th style="font-weight:bold">Test Name</th>
                         <th style="font-weight:bold">Description</th>
                         <th style="font-weight:bold">Actions</th>
@@ -43,12 +61,13 @@
                             {
                                 <tr>
                                     <td>@item.Id</td>
+                                    <td hidden>@item.RecordId</td>
                                     <td>@item.TestName</td>
                                     <td>@item.Description</td>
                                     <td>
                                         <div class="row">
                                             <div class="col-md-2"><i class='bx bxs-edit-alt'></i></div>
-                                            <div class="col-md-2"><i class='bx bxs-message-square-x'></i></div>
+                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" onclick="deleteRowFunction(@item.RecordId, @DocId )">Delete</button> </div>
                                             <div class="col-md-8"></div>
                                         </div>
                                     </td>
@@ -64,6 +83,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var DocId = @DocId;
         $('#allTestsTable').DataTable();
         $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
             $("#msgDiv").slideUp(500);
@@ -72,5 +92,21 @@
             $("#success-alert").slideUp(500);
         });
     });
+
+    function deleteRowFunction(RecordId, DocId) {
+        $.ajax({
+            type: "POST",
+            url: "/Test/DeleteTestRecord",
+            data: { DocId: DocId, RecordId: RecordId},
+            success: function (data) {
+                if (data != null) {
+                    setInterval('refreshPage()', 900);
+                }
+            }
+        });
+    }
+    function refreshPage() {
+        location.reload(true);
+    }
 </script>
 

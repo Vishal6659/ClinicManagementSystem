@@ -71,7 +71,7 @@ namespace ClinicManagementSystem.Controllers
                         }
                         else 
                         {
-                            TempData["msg"] = "New Test not Inserted Succesfully ";
+                            TempData["msg"] = "New Test not Inserted Succesfully";
                             return View();
                         }
                     }
@@ -88,6 +88,42 @@ namespace ClinicManagementSystem.Controllers
                 throw;
             }
             return RedirectToAction("AllTests", "Test");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteTestRecord(int DocId, int RecordId)
+        {            
+            DeleteTestModel deleteTestModel = new DeleteTestModel();
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    deleteTestModel.DocId = DocId;
+                    deleteTestModel.RecordId = RecordId;
+                    int data = testServices.deleteTestRecord(deleteTestModel);
+                    if (data != 1)
+                    {
+                        TempData["msg"] = "Test Record not Deleted Succesfully";
+                        return RedirectToAction("AllTests", "Test");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Test Record Deleted Succesfull";
+                        return RedirectToAction("AllTests", "Test");
+                    }
+                }
+                else
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
     } 

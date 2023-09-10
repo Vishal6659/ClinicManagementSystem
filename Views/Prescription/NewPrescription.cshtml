@@ -18,7 +18,11 @@
     @{
         if (TempData["msg"] != null)
         {
-            <div class="alert alert-success" onclick="$(this).slideUp(500);" onshow="$(this).slideUp(800);" role="alert">@TempData["msg"]</div>
+            if (TempData.ContainsKey("New Prescription not Inserted Created"))
+            {
+                <div class="alert alert-danger" role="alert">@TempData["msg"]</div>
+            }
+            
         }
     }
 </div>

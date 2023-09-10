@@ -8,6 +8,7 @@ namespace ClinicManagementSystem.Services
     {
         int AddTest(NewTest newTest);
         List<AllTestModel> GetAllTestList(int DocId);
+        int deleteTestRecord(DeleteTestModel deleteTestModel);
     }
     public class TestServices :ITestServices
     {
@@ -53,8 +54,8 @@ namespace ClinicManagementSystem.Services
                     {
                         allTestModelsList.Add(new AllTestModel()
                         {
-                            /*Id = Convert.ToString( dataTable.Rows[i]["id"]),*/
                             Id = i+1,
+                            RecordId = Convert.ToInt32(dataTable.Rows[i]["id"]),
                             TestName = Convert.ToString(dataTable.Rows[i]["testname"]),
                             Description = Convert.ToString(dataTable.Rows[i]["description"])
                         });
@@ -66,6 +67,25 @@ namespace ClinicManagementSystem.Services
             {
 
                 throw;
+            }
+        }
+
+        public int deleteTestRecord(DeleteTestModel deleteTestModel)
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( deleteTestModel.DocId)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deleteTestModel.RecordId)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.deleteTestRecord, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
             }
         }
     }

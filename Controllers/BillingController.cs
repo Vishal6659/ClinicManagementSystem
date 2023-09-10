@@ -71,11 +71,11 @@ namespace ClinicManagementSystem.Controllers
                         int success = billingService.addNewBillingData(newBillingModel);
                         if (success != 0)
                         {
-                            TempData["msg"] = "New Prescription Succesfully Created";
+                            TempData["msg"] = "New Billing Created Succesfully";
                         }
                         else
                         {
-                            TempData["msg"] = "New Prescription not Inserted Created ";
+                            TempData["msg"] = "New Billing not Inserted Succesfully";
                             return View();
                         }
                     }
@@ -115,6 +115,42 @@ namespace ClinicManagementSystem.Controllers
             else
             {
                 return Json(null);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteBilling(int DocId, int RecordId, int PatientId)
+        {
+            DeleteBillingModel deleteBillingModel = new DeleteBillingModel();
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    deleteBillingModel.DocId = DocId;
+                    deleteBillingModel.RecordId = RecordId;
+                    deleteBillingModel.PatientId = PatientId;
+                    int data = billingService.deleteBillingRecord(deleteBillingModel);
+                    if (data != 1)
+                    {
+                        TempData["msg"] = "Billing Record not Deleted Succesfully";
+                        return RedirectToAction("AllBillings", "Billing");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Billing Record Deleted Succesfully";
+                        return RedirectToAction("AllBillings", "Billing");
+                    }
+                }
+                else
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

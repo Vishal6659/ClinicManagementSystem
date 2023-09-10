@@ -9,6 +9,7 @@ namespace ClinicManagementSystem.Services
     {
         int AddNewDrug(NewDrug newDrug);
         List<AllDrugModel> GetAllDrugListData(int DocId);
+        int deleteDrugRecord(DeleteDrugModel deleteDrugModel);
     }
     public class DrugSevices : IDrugSevices
     {
@@ -57,6 +58,7 @@ namespace ClinicManagementSystem.Services
                         allDrugModelsList.Add(new AllDrugModel()
                         {
                             Id = i+1,
+                            RecordId = Convert.ToInt32(dataTable.Rows[i]["id"]),
                             DrugName = Convert.ToString(dataTable.Rows[i]["drugname"]),
                             GenericName = Convert.ToString(dataTable.Rows[i]["genericname"])
                         });
@@ -71,6 +73,24 @@ namespace ClinicManagementSystem.Services
             }
         }
 
+        public int deleteDrugRecord(DeleteDrugModel deleteDrugModel)
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( deleteDrugModel.DocId)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deleteDrugModel.RecordId)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.deleteDrugRecord, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
 
     }
 }

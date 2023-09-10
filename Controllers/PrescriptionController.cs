@@ -73,7 +73,7 @@ namespace ClinicManagementSystem.Controllers
                         }
                         else
                         {
-                            TempData["msg"] = "New Prescription not Inserted Created ";
+                            TempData["msg"] = "New Prescription not Inserted Created";
                             return View();
                         }
                     }
@@ -88,8 +88,46 @@ namespace ClinicManagementSystem.Controllers
             {
                 throw;
             }
-            return RedirectToAction("NewBilling", "Billing");
+            return RedirectToAction("AllPrescriptions", "Prescription");
         }
+
+        [HttpPost]
+        public IActionResult DeletePrescription(int DocId, int RecordId, int PatientId)
+        {
+            DeletePatientModel deletePatientModel = new DeletePatientModel();
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    deletePatientModel.DocId = DocId;
+                    deletePatientModel.RecordId = RecordId;
+                    deletePatientModel.PatientId = PatientId;
+                    int data = prescriptionServices.deletePrescriptionRecord(deletePatientModel);
+                    if (data != 1)
+                    {
+                        TempData["msg"] = "Prescription Record not Deleted Succesfull";
+                        return RedirectToAction("AllPrescriptions", "Prescription");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Prescription Record Deleted Succesfull";
+                        return RedirectToAction("AllPrescriptions", "Prescription");
+                    }
+                }
+                else
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpGet]
         public IActionResult getAllPatientsName(int DocId) 
         {

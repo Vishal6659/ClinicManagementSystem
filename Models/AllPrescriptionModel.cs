@@ -3,6 +3,7 @@
     public class AllPrescriptionModel
     {
         public int Id { get; set; }
+        public string RecordId { get; set; }
         public string PatientId { get; set; }
         public string PatientName { get; set; }
         public string DrugName { get; set; }
@@ -60,6 +61,12 @@
     public class ResponseListModel 
     {
         public Object data { get; set; } = new object();
+    }
+
+    public class DeletePrescriptionModel
+    {
+        public int DocId { get; set; }
+        public int RecordId { get; set; }
     }
 
 }

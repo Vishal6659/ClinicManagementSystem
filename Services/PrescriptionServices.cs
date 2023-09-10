@@ -13,6 +13,7 @@ namespace ClinicManagementSystem.Services
         int addNewPrescriptionData(NewPrescriptionModel newPrescriptionModel);
         List<AllPrescriptionModel> allPrescriptionLists(int DocId);
         List<AllPastPrescriptionDataModel> allPastRecordsOfPatient(int DocId, int PatientId);
+        int deletePrescriptionRecord(DeletePatientModel deletePatientModel);
     }
     public class PrescriptionServices : IPrescriptionServices
     {
@@ -158,6 +159,7 @@ namespace ClinicManagementSystem.Services
                     allPrescriptionLists.Add(new AllPrescriptionModel()
                     {
                         Id = i+1,
+                        RecordId = Convert.ToString(dataTable.Rows[i]["id"]),
                         PatientId = Convert.ToString(dataTable.Rows[i]["patient_id"]),
                         PatientName = Convert.ToString(dataTable.Rows[i]["patient_name"]),
                         DrugName = Convert.ToString(dataTable.Rows[i]["drug_name"]),
@@ -176,7 +178,7 @@ namespace ClinicManagementSystem.Services
             DataTable dataTable = new DataTable();
             List<Parameters> parameters = new List<Parameters>()
             {
-                new Parameters{ ParameterName = "DocId", ParameterValue=Convert.ToString( DocId)},
+                new Parameters{ ParameterName = "DocId", ParameterValue=Convert.ToString(DocId)},
                 new Parameters{ ParameterName = "PatientId", ParameterValue=Convert.ToString( PatientId)}
             };
             dataTable = _pDb.SelectMethod(QueryHelper.getAllPastRecordsOfPatientByPatientId, parameters);
@@ -197,6 +199,26 @@ namespace ClinicManagementSystem.Services
                 }
             }
             return allPastRecordsOfPatientList;
+        }
+
+        public int deletePrescriptionRecord(DeletePatientModel deletePatientModel)
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( deletePatientModel.DocId)},
+                new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString( deletePatientModel.PatientId)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deletePatientModel.RecordId)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.deletePrescriptionRecord, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

@@ -4,11 +4,27 @@
     Layout = "_Layout";
 }
 
+@{
+    string DocId = string.Empty;
+    GetSessionModel sessionModel = Context.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+    if (sessionModel != null)
+    {
+        DocId = Convert.ToString(sessionModel.DocId);
+    }
+}
+
 <div  style="margin-top:15px">
     @{
         if (TempData["msg"] != null)
         {
-            <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+            if (TempData.ContainsKey("Prescription Record not Deleted Succesfull"))
+            {
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }            
+            else
+            {
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
         }
     }
 </div>
@@ -31,6 +47,7 @@
                 <thead>
                     <tr>
                         <th style="font-weight:bold">ID</th>
+                        <th style="font-weight:bold" hidden>Record ID</th>
                         <th style="font-weight:bold" hidden>Patient Id</th>
                         <th style="font-weight:bold">Patient Name</th>
                         <th style="font-weight:bold">Drug Name</th>
@@ -48,6 +65,7 @@
                             {
                                 <tr>
                                     <td>@item.Id</td>
+                                    <td hidden>@item.RecordId</td>
                                     <td hidden>@item.PatientId</td>
                                     <td>@item.PatientName</td>
                                     <td>@item.DrugName</td>
@@ -57,7 +75,7 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-md-3" id="editIcon"><i class='bx bxs-edit-alt'></i></div>
-                                            <div class="col-md-3" id="deleteIcon"><i class='bx bxs-message-square-x'></i></div>
+                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" onclick="deleteRowFunction(@item.RecordId, @item.PatientId, @DocId )">Delete</button> </div>
                                             <div class="col-md-6"></div>
                                         </div>
                                     </td>
@@ -73,6 +91,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var DocId = @DocId;
         $('#allPatientsTable').DataTable();
         $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
             $("#msgDiv").slideUp(500);
@@ -82,4 +101,19 @@
         });
 
     });
+    function deleteRowFunction(RecordId, PatientId, DocId) {
+        $.ajax({
+            type: "POST",
+            url: "/Prescription/DeletePrescription",
+            data: { DocId: DocId, RecordId: RecordId, PatientId: PatientId },
+            success: function (data) {
+                if (data != null) {
+                    setInterval('refreshPage()', 900);
+                }
+            }
+        });
+    }
+    function refreshPage() {
+        location.reload(true);
+    }
 </script>

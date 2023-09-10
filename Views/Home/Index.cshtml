@@ -13,12 +13,23 @@
     }
 }
 
-<div  style="margin-top:20px">
+<div style="margin-top:20px">
     @{
         if (TempData["msg"] != null)
         {
-            <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
-        }        
+            if (TempData.ContainsKey("Patient Record Deleted UnSuccesfull"))
+            {
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
+            else if (TempData.ContainsKey("Patient Record Deleted Succesfull"))
+            {
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
+            else
+            {
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
+        }
     }
 </div>
 

@@ -9,6 +9,7 @@ namespace ClinicManagementSystem.Services
         int addNewBillingData(NewBillingModel newBillingModel);
         List<AllBillingModel> allBillingList(int DocId);
         List<AllPatientsNamesDetail> allPatientsNames(int DocId);
+        int deleteBillingRecord(DeleteBillingModel deleteBillingModel);
     }
     public class BillingService : IBillingService
     {
@@ -63,6 +64,7 @@ namespace ClinicManagementSystem.Services
                     allBillingModelsList.Add(new AllBillingModel()
                     {
                         Id = i + 1,
+                        RecordId = Convert.ToInt32(dataTable.Rows[i]["id"]),
                         PatientId = Convert.ToInt32(dataTable.Rows[i]["patient_id"]),
                         PatientName = Convert.ToString(dataTable.Rows[i]["patient_name"]),
                         Amount = Convert.ToString(dataTable.Rows[i]["amount"]),
@@ -102,6 +104,26 @@ namespace ClinicManagementSystem.Services
                 throw;
             }
             return allPatientsNames;
+        }
+
+        public int deleteBillingRecord(DeleteBillingModel deleteBillingModel)
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( deleteBillingModel.DocId)},
+                new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString( deleteBillingModel.PatientId)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deleteBillingModel.RecordId)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.deleteBillingRecord, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

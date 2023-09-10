@@ -41,11 +41,5 @@
         public string PatientName { get; set; }
         public string PatientPhoneNumber { get; set; }
         public string PatientCreatedDate { get; set; }
-    }
-
-    public class DeletePrescriptionModel
-    {
-        public int DocId { get; set; }
-        public int RecordId { get; set; }        
-    }
+    }    
 }

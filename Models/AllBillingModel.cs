@@ -3,6 +3,7 @@
     public class AllBillingModel
     {
         public int Id { get; set; }
+        public int RecordId { get; set; }
         public int PatientId { get; set; }
         public string PatientName { get; set; }
         public string CreatedOn { get; set; }
@@ -29,5 +30,11 @@
         public int PatientId { get; set; }
         public string PatientName { get; set; }
 
+    }
+    public class DeleteBillingModel
+    {
+        public int DocId { get; set; }
+        public int RecordId { get; set; }
+        public int PatientId { get; set; }
     }
 }

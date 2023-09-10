@@ -70,7 +70,7 @@ namespace ClinicManagementSystem.Controllers
                         }
                         else 
                         {
-                            TempData["msg"] = "New Drug not Inserted Succesfully ";
+                            TempData["msg"] = "New Drug not Inserted Succesfully";
                             return View();
                         }
                     }
@@ -87,6 +87,42 @@ namespace ClinicManagementSystem.Controllers
                 throw;
             }
             return RedirectToAction("AllDrugs", "Drug");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteDrug(int DocId, int RecordId)
+        {            
+            DeleteDrugModel deleteDrugModel = new DeleteDrugModel();
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    deleteDrugModel.DocId = DocId;
+                    deleteDrugModel.RecordId = RecordId;
+                    int data = drugSevices.deleteDrugRecord(deleteDrugModel);
+                    if (data != 1)
+                    {
+                        TempData["msg"] = "Drug Record not Deleted Succesfull";
+                        return RedirectToAction("AllDrugs", "Drug");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Drug Record Deleted Succesfully";
+                        return RedirectToAction("AllDrugs", "Drug");
+                    }
+                }
+                else
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

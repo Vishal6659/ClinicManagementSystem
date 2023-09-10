@@ -74,7 +74,7 @@ namespace ClinicManagementSystem.Controllers
                         }
                         else
                         {
-                            TempData["msg"] = "New Patient not Inserted Succesfully ";
+                            TempData["msg"] = "New Patient not Inserted Succesfully";
                             return View();
                         }
                     }                    

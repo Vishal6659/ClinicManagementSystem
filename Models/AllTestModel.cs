@@ -3,6 +3,7 @@
     public class AllTestModel
     {
         public int Id { get; set; }
+        public int RecordId { get; set; }
         public string TestName { get; set; }
         public string Description { get; set; }
     }
@@ -17,5 +18,10 @@
         public int DocID { get; set; }
         public string TestName { get; set; }
         public string Description { get; set; }
+    }
+    public class DeleteTestModel
+    {
+        public int DocId { get; set; }
+        public int RecordId { get; set; }
     }
 }

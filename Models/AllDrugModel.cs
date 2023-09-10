@@ -3,6 +3,7 @@
     public class AllDrugModel
     {
         public int Id { get; set; }
+        public int RecordId { get; set; }
         public string DrugName { get; set; }        
         public string GenericName { get; set; }
     }
@@ -17,5 +18,10 @@
         public string DrugName { get; set; }
         public string GenericName { get; set; }
         public string Note { get; set; }
+    }
+    public class DeleteDrugModel
+    {
+        public int DocId { get; set; }
+        public int RecordId { get; set; }
     }
 }
