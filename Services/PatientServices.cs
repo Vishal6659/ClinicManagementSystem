@@ -67,6 +67,8 @@ namespace ClinicManagementSystem.Services
                         {
                             ID = i+1,
                             RecordId = Convert.ToString(dataTable.Rows[i]["id"]),
+                            PatientFirstName = Convert.ToString(dataTable.Rows[i]["firstname"]),
+                            PatientLastName = Convert.ToString(dataTable.Rows[i]["lastname"]),
                             PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
                             PatientId = Convert.ToString(dataTable.Rows[i]["patient_id"]),
                             Phone = Convert.ToString(dataTable.Rows[i]["phone"]),
