@@ -38,31 +38,7 @@ namespace ClinicManagementSystem.Controllers
             return View();
         }
 
-        // Method to create the JWT token accepting the Login Model as parameter
-
-       /* public string GenerateToken(LoginModel loginModel)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new List<Claim>
-                {
-                new Claim("Username", loginModel.Username),
-                new Claim("Password", loginModel.Password)
-                };
-
-            var token = new JwtSecurityToken
-            (
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddMinutes(1),
-                signingCredentials: credentials
-             );
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }*/
-
-
+       
         [HttpPost]
         public IActionResult Login(LoginModel loginModel)
         {
@@ -73,25 +49,7 @@ namespace ClinicManagementSystem.Controllers
                 {
                     ResponseModel responseModel = accountServices.checkLoginCredentials(loginModel);
                     if (responseModel.DocId != 0 && responseModel.AadharCardNumber != 0)
-                    {
-                        //JWT Token
-                        //var token = GenerateToken(loginModel);
-                        /* if (!string.IsNullOrEmpty(token))
-                         {
-                             setSessionModel.DocId = responseModel.DocId;
-                             setSessionModel.Firstname = responseModel.FirstName;
-                             setSessionModel.Lastname = responseModel.LastName;
-                             setSessionModel.Mobilenumber = Convert.ToInt64(responseModel.PhoneNumber);
-                             setSessionModel.Email = responseModel.EmailAddress;
-                             setSessionModel.Address = responseModel.Address;
-                             setSessionModel.Gender = responseModel.Gender;
-                             HttpContext.Session.SetObjectAsJson(SessionVariables.SessionData, setSessionModel);
-                             TempData["msg"] = "Login Succesfull";
-                             return RedirectToAction("Index", "Home");
-                         }
-                         TempData["msg"] = "Token Not Found";
-                         return View();*/
-
+                    {                       
                         setSessionModel.DocId = responseModel.DocId;
                         setSessionModel.Firstname = responseModel.FirstName;
                         setSessionModel.Lastname = responseModel.LastName;

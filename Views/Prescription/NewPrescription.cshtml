@@ -141,9 +141,7 @@
                                 <th style="font-weight:bold">ID</th>
                                 <th style="font-weight:bold">Patient Name</th>
                                 <th style="font-weight:bold">Drug Name</th>
-                                <th style="font-weight:bold">Drug Advice</th>
                                 <th style="font-weight:bold">TestName</th>
-                                <th style="font-weight:bold">Test Description</th>
                                 <th style="font-weight:bold">Visited On</th>
                             </tr>
                         </thead>
@@ -163,6 +161,7 @@
     var PatientId;
 
     $(document).ready(function () {
+        $('#tableResponseBody').DataTable();
         $('.js-example-basic-single').select2();
         var DocId = @DocId;
         $('#PatientName').ready(function () {
@@ -203,7 +202,7 @@
                         console.log(`getAllPastRecordsOfPatientOnId : Response ====> ${JSON.stringify(data)}`);                        
                             var tr = '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
                             $.each(data, function (key, value) {
-                                tr += '<tr><td>' + value.id + '</td><td>' + value.patientName + '</td><td>' + value.drugName + '</td><td>' + value.drugAdviceOrComments + '</td><td>' + value.testName + '</td><td>' + value.testDescription + '</td><td>' + value.createdAt + '</td></tr>';
+                                tr += '<tr><td>' + value.id + '</td><td>' + value.patientName + '</td><td>' + value.drugName + '</td><td>' + value.testName + '</td><td>' + value.createdAt + '</td></tr>';
                             });
                             $('#tableResponseBody tbody').html(tr);                                               
                     },
