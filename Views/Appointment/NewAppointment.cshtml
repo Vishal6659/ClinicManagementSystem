@@ -33,7 +33,7 @@
                     @*<select class="form-select" asp-for="Name">
                     <option value="">Select</option>
                     </select>*@
-                    <input type="text" placeholder="Enter Name" asp-for="Name" class="form-control" />
+                    <input type="text" placeholder="Enter Name" autocomplete="off" asp-for="Name" class="form-control" />
                 </div>
             </div>
             <div class="row mb-4">
@@ -41,7 +41,7 @@
                     <label class="control-label"><span style="color:red">*</span>Select Date</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="date" asp-for="Date" class="form-control" />
+                    <input type="date" asp-for="Date" autocomplete="off" class="form-control" />
                 </div>
             </div>
             <div class="row mb-4">
@@ -49,7 +49,7 @@
                     <label class="control-label"><span style="color:red">*</span>Select Time</label>
                 </div>
                 <div class="col-md-8">
-                    <input type="time" asp-for="Time" class="form-control" />
+                    <input type="time" asp-for="Time" autocomplete="off" class="form-control" />
                 </div>
             </div>
             <div class="row">

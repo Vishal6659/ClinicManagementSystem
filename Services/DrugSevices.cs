@@ -5,7 +5,7 @@ using System.Reflection.Metadata;
 
 namespace ClinicManagementSystem.Services
 {
-    public interface IDrugSevices 
+    public interface IDrugSevices
     {
         int AddNewDrug(NewDrug newDrug);
         List<AllDrugModel> GetAllDrugListData(int DocId);
@@ -22,7 +22,7 @@ namespace ClinicManagementSystem.Services
         public int AddNewDrug(NewDrug newDrug)
         {
             int result = 0;
-           List<Parameters> parameters = new List<Parameters>()
+            List<Parameters> parameters = new List<Parameters>()
            {
                new Parameters{ ParameterName = "DocId", ParameterValue=Convert.ToString( newDrug.DocID)},
                new Parameters{ ParameterName = "DrugName", ParameterValue=Convert.ToString( newDrug.DrugName)},
@@ -34,13 +34,13 @@ namespace ClinicManagementSystem.Services
             {
                 return 1;
             }
-            else 
+            else
             {
                 return 0;
             }
         }
 
-        public List<AllDrugModel> GetAllDrugListData(int DocId) 
+        public List<AllDrugModel> GetAllDrugListData(int DocId)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace ClinicManagementSystem.Services
                     {
                         allDrugModelsList.Add(new AllDrugModel()
                         {
-                            Id = i+1,
+                            Id = i + 1,
                             RecordId = Convert.ToInt32(dataTable.Rows[i]["id"]),
                             DrugName = Convert.ToString(dataTable.Rows[i]["drugname"]),
                             GenericName = Convert.ToString(dataTable.Rows[i]["genericname"])
@@ -91,6 +91,5 @@ namespace ClinicManagementSystem.Services
                 return 0;
             }
         }
-
     }
 }

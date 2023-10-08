@@ -19,15 +19,15 @@
         {
             if (TempData.ContainsKey("Drug Record not Deleted Succesfull"))
             {
-                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+                    <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
             else if (TempData.ContainsKey("New Drug not Inserted Succesfully"))
             {
-                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
-            }            
+                    <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+            }
             else
             {
-                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+                    <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
         }
     }
@@ -63,28 +63,27 @@
                         {
                             foreach (var item in Model.allDrugModelsList)
                             {
-                                <tr>
-                                    <td>@item.Id</td>
-                                    <td hidden>@item.RecordId</td>
-                                    <td>@item.DrugName</td>
-                                    <td>@item.GenericName</td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
-                                            <div class="col-md-2"><button class="btn btn-danger btn-sm" onclick="deleteRowFunction(@item.RecordId, @DocId )">Delete</button> </div>
-                                            <div class="col-md-8">
-                                                
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td hidden>@item.RecordId</td>
+                                        <td>@item.DrugName</td>
+                                        <td>@item.GenericName</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
+                                                <div class="col-md-2"><button class="btn btn-danger btn-sm" onclick="deleteRowFunction(@item.RecordId, @DocId )">Delete</button> </div>
+                                                <div class="col-md-8">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                             }
                         }
-                    }                    
+                    }
                 </tbody>
             </table>
         </div>
-    </div>   
+    </div>
     <div class="modal fade" id="modelWindow" role="dialog">
         <div class="modal-dialog modal-sm vertical-align-center">
             <div class="modal-content">
@@ -96,7 +95,6 @@
                     Body text here
                 </div>
                 <div class="modal-footer">
-                    
                 </div>
             </div>
         </div>
@@ -106,7 +104,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var DocId = @DocId;
-        $('#allDrugsTable').DataTable();  
+        $('#allDrugsTable').DataTable();
         $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
             $("#msgDiv").slideUp(500);
         });
@@ -126,7 +124,8 @@
                 }
             }
         });
-    }
+    }   
+
     function refreshPage() {
         location.reload(true);
     }

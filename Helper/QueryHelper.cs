@@ -23,7 +23,7 @@
         public const string getAllPaymentCounts = "select sum(amount) AS amount from tbl_newbilling where doc_id = @DocId::bigint;";
         public const string getNewAppointmentCountForDashboard = "Select COUNT(id) from tbl_newappointment where doc_id = @DocId::bigint and createdat >= current_date::timestamp;";
         public const string getNewPrescriptionCountForDashboard = "Select COUNT(id) from tbl_newprescription where doc_id = @DocId::bigint and created_at >= current_date::timestamp;";
-        public const string getAllPatientsNameByDocId = "select patient_id, firstname from tbl_newpatient tn where doc_id = @DocId::bigint;";
+        public const string getAllPatientsNameByDocId = "select patient_id, firstname, lastname from tbl_newpatient tn where doc_id = @DocId::bigint;";
         public const string getAllDrugNameByDocId = "select drugname from tbl_alldrug tn where doc_id = @DocId::bigint;";
         public const string getAllTestNameByDocId = "select testname from tbl_alltests tn where doc_id = @DocId::bigint;";
         public const string insertNewPrescriptionData = "insert into tbl_newprescription(patient_id, patient_name, doc_id, drug_type, drug_name, drug_mgorml, drug_dosage, test_name, test_description) values" + "(CAST(@PatientId AS Int), @PatientName, CAST(@DocId AS Int), @DrugType, @DrugName, @DrugMgOrMl, @DrugDosage ,@TestName, @TestDescription)";
@@ -38,5 +38,6 @@
         public const string deleteAppointmentRecord = "delete from tbl_newappointment where doc_id = @DocId::Int AND id = @RecordId::Int;";
         public const string deleteDrugRecord = "delete from tbl_alldrug where doc_id = @DocId::Int AND id = @RecordId::Int;";
         public const string deleteTestRecord = "delete from tbl_alltests where doc_id = @DocId::Int AND id = @RecordId::Int;";
+        public const string getdrugDataOnTheBasisOfDrugAndRecordId = "select * from tbl_alldrug where doc_id = @DocId::bigint AND id = @RecordId::Int;";
     }
 }

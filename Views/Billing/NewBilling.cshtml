@@ -125,7 +125,7 @@
                     $('#PatientName').empty();
                     var html = '<option value="">Select</option>';
                     $.each(data, function (key, value) {
-                        html += '<option value="' + value.patientName + '-' + value.patientId + '"> ' + value.patientName + '</option>';
+                        html += '<option value="' + value.patientFirstName + " " + value.patientLastName + '-' + value.patientId + '"> ' + value.patientFirstName + " " + value.patientLastName + '</option>';
                     });
                     $('#PatientName').append(html);
                 },

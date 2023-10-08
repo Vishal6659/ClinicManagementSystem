@@ -69,7 +69,7 @@ namespace ClinicManagementSystem.Services
                             RecordId = Convert.ToString(dataTable.Rows[i]["id"]),
                             PatientFirstName = Convert.ToString(dataTable.Rows[i]["firstname"]),
                             PatientLastName = Convert.ToString(dataTable.Rows[i]["lastname"]),
-                            PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
+                           // PatientName = Convert.ToString(dataTable.Rows[i]["firstname"]),
                             PatientId = Convert.ToString(dataTable.Rows[i]["patient_id"]),
                             Phone = Convert.ToString(dataTable.Rows[i]["phone"]),
                             Date = Convert.ToString(dataTable.Rows[i]["created_at"])

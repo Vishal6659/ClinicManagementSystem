@@ -40,7 +40,8 @@ namespace ClinicManagementSystem.Services
                         allPatientsNames.Add(new AllPatientsNamesDetails
                         {
                             PatientId = Convert.ToInt32( dataTable.Rows[i]["patient_id"]),
-                            PatientName = Convert.ToString(dataTable.Rows[i]["firstname"])
+                            PatientFirstName = Convert.ToString(dataTable.Rows[i]["firstname"]),
+                            PatientLastName = Convert.ToString(dataTable.Rows[i]["lastname"])
                         });
                     }
                 }

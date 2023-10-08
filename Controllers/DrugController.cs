@@ -1,12 +1,14 @@
 ﻿using ClinicManagementSystem.Models;
 using ClinicManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace ClinicManagementSystem.Controllers
 {   
     public class DrugController : Controller
     {
         IDrugSevices drugSevices = new DrugSevices();
+        [HttpGet]
         public IActionResult AllDrugs()
         {
             AllDrugModelVM allDrugModel = new AllDrugModelVM();
@@ -31,6 +33,7 @@ namespace ClinicManagementSystem.Controllers
             return View(allDrugModel);
         }
 
+        [HttpGet]
         public IActionResult NewDrug() 
         {
             try
@@ -87,7 +90,7 @@ namespace ClinicManagementSystem.Controllers
                 throw;
             }
             return RedirectToAction("AllDrugs", "Drug");
-        }
+        }       
 
         [HttpPost]
         public IActionResult DeleteDrug(int DocId, int RecordId)

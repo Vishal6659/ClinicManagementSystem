@@ -7,7 +7,7 @@
         public string PatientId { get; set; }
         public string PatientFirstName { get; set; }
         public string PatientLastName { get; set; }
-        public string PatientName { get; set; }
+       // public string PatientName { get; set; }
         public string Phone { get; set; }
         public string Date { get; set; }
         public string Actions { get; set; }

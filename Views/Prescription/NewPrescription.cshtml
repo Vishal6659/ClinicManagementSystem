@@ -177,7 +177,7 @@
                         $('#PatientName').empty();
                         var html = '<option value="">Select</option>';
                         $.each(data, function (key, value) {
-                            html += '<option value="' + value.patientName + '-' + value.patientId + '"> ' + value.patientName + '</option>';
+                            html += '<option value="' + value.patientFirstName + " " + value.patientLastName + '-' + value.patientId + '"> ' + value.patientFirstName + " " + value.patientLastName + '</option>';
                         });
                         $('#PatientName').append(html);
                     },
@@ -202,7 +202,7 @@
                         console.log(`getAllPastRecordsOfPatientOnId : Response ====> ${JSON.stringify(data)}`);                        
                             var tr = '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
                             $.each(data, function (key, value) {
-                                tr += '<tr><td>' + value.id + '</td><td>' + value.patientName + '</td><td>' + value.drugName + '</td><td>' + value.testName + '</td><td>' + value.createdAt + '</td></tr>';
+                            tr += '<tr><td>' + value.id + '</td><td>' + value.patientName + '</td><td>' + value.drugName + '</td><td>' + value.testName + '</td><td>' + value.createdAt + '</td></tr>';
                             });
                             $('#tableResponseBody tbody').html(tr);                                               
                     },
