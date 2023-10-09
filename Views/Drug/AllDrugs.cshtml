@@ -19,15 +19,15 @@
         {
             if (TempData.ContainsKey("Drug Record not Deleted Succesfull"))
             {
-                    <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
             else if (TempData.ContainsKey("New Drug not Inserted Succesfully"))
             {
-                    <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
             else
             {
-                    <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
         }
     }
@@ -63,20 +63,20 @@
                         {
                             foreach (var item in Model.allDrugModelsList)
                             {
-                                    <tr>
-                                        <td>@item.Id</td>
-                                        <td hidden>@item.RecordId</td>
-                                        <td>@item.DrugName</td>
-                                        <td>@item.GenericName</td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
-                                                <div class="col-md-2"><button class="btn btn-danger btn-sm" onclick="deleteRowFunction(@item.RecordId, @DocId )">Delete</button> </div>
-                                                <div class="col-md-8">
-                                                </div>
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td hidden>@item.RecordId</td>
+                                    <td>@item.DrugName</td>
+                                    <td>@item.GenericName</td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
+                                            <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId)">Delete</button> </div>
+                                            <div class="col-md-8">
                                             </div>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </td>
+                                </tr>
                             }
                         }
                     }
@@ -84,49 +84,61 @@
             </table>
         </div>
     </div>
-    <div class="modal fade" id="modelWindow" role="dialog">
-        <div class="modal-dialog modal-sm vertical-align-center">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Heading</h4>
+                    <h5 class="modal-title" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue;" id="exampleModalLongTitle">Delete Row</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>                        
+                    </button>
                 </div>
                 <div class="modal-body">
-                    Body text here
+                    <p>Are You Sure??</p>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="finalDeleteButton" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var DocId = @DocId;
-        $('#allDrugsTable').DataTable();
-        $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
-            $("#msgDiv").slideUp(500);
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var DocId = @DocId;
+            $('#allDrugsTable').DataTable();
+            $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
+                $("#msgDiv").slideUp(500);
+            });
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#success-alert").slideUp(500);
+            });
         });
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
-            $("#success-alert").slideUp(500);
-        });
-    });
 
-    function deleteRowFunction(RecordId, DocId) {
-        $.ajax({
-            type: "POST",
-            url: "/Drug/DeleteDrug",
-            data: { DocId: DocId, RecordId: RecordId },
-            success: function (data) {
-                if (data != null) {
-                    setInterval('refreshPage()', 900);
+        function getDataToDeleteRecord(RecordId, DocId) {
+            var recordId = RecordId;
+            var docId = DocId;
+            $("#finalDeleteButton").click(function(){
+                deleteRowFunction(recordId, docId);
+            });
+        }
+
+        function deleteRowFunction(RecordId, DocId) {
+            $.ajax({
+                type: "POST",
+                url: "/Drug/DeleteDrug",
+                data: { DocId: DocId, RecordId: RecordId },
+                success: function (data) {
+                    if (data != null) {
+                        setInterval('refreshPage()', 900);
+                    }
                 }
-            }
-        });
-    }   
+            });
+        }
 
-    function refreshPage() {
-        location.reload(true);
-    }
-</script>
+        function refreshPage() {
+            location.reload(true);
+        }
+    </script>
