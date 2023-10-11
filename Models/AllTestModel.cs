@@ -24,4 +24,9 @@
         public int DocId { get; set; }
         public int RecordId { get; set; }
     }
+    public class ViewRowTestData 
+    {
+        public string TestName { get; set; }
+        public string Description { get; set; }
+    }
 }

@@ -126,6 +126,24 @@ namespace ClinicManagementSystem.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult ViewRowData(int DocId, int RecordId) 
+        {            
+            try
+            {
+                ViewRowTestData viewRowTestData = testServices.getDataToView(DocId, RecordId);
+                if (viewRowTestData != null)
+                {
+                    return Json(viewRowTestData);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return View();
+        }
+
     } 
     
 }

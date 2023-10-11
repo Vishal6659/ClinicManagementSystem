@@ -16,14 +16,14 @@
 <div style="margin-top:20px">
     @{
         if (TempData["msg"] != null)
-        {            
+        {
             if (TempData.ContainsKey("Test Record not Deleted Succesfully"))
             {
-                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+                        <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
             else
             {
-                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+                        <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
         }
     }
@@ -59,19 +59,20 @@
                         {
                             foreach (var item in Model.allTestModelsList)
                             {
-                                <tr>
-                                    <td>@item.Id</td>
-                                    <td hidden>@item.RecordId</td>
-                                    <td>@item.TestName</td>
-                                    <td>@item.Description</td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
-                                            <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId )">Delete</button> </div>
-                                            <div class="col-md-8"></div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td hidden>@item.RecordId</td>
+                                            <td>@item.TestName</td>
+                                            <td>@item.Description</td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
+                                                    <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId )">Delete</button> </div>
+                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId )">View</button></div>
+                                                    <div class="col-md-6"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
                             }
                         }
                     }
@@ -101,6 +102,41 @@
     </div>
 </div>
 
+<!-- Modal (View Row Data) -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue;">Test Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Medicine</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="medicineName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Medicine Description</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="medicineDescription"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         var DocId = @DocId;
@@ -125,7 +161,7 @@
         $.ajax({
             type: "POST",
             url: "/Test/DeleteTestRecord",
-            data: { DocId: DocId, RecordId: RecordId},
+            data: { DocId: DocId, RecordId: RecordId },
             success: function (data) {
                 if (data != null) {
                     setInterval('refreshPage()', 900);
@@ -133,6 +169,21 @@
             }
         });
     }
+
+    function viewRowData(RecordId, DocId) {
+        $.ajax({
+            type: "GET",
+            url: "/Test/ViewRowData",
+            data: { DocId: DocId, RecordId: RecordId },
+            success: function (data) {
+                if (data != null) {                    
+                    $("#medicineName").text(data.testName);
+                    $("#medicineDescription").text(data.description);
+                }
+            }
+        });
+    }  
+    
     function refreshPage() {
         location.reload(true);
     }

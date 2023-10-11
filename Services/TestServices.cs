@@ -9,6 +9,7 @@ namespace ClinicManagementSystem.Services
         int AddTest(NewTest newTest);
         List<AllTestModel> GetAllTestList(int DocId);
         int deleteTestRecord(DeleteTestModel deleteTestModel);
+        ViewRowTestData getDataToView(int DocId, int RecordId);
     }
     public class TestServices :ITestServices
     {
@@ -66,6 +67,31 @@ namespace ClinicManagementSystem.Services
             catch (Exception ex)
             {
 
+                throw;
+            }
+        }
+
+        public ViewRowTestData getDataToView(int DocId, int RecordId) 
+        {
+            try
+            {
+                ViewRowTestData viewRowTestData = new ViewRowTestData();
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)},
+                    new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString(RecordId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getTestsRecordDataToView, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    viewRowTestData.TestName = Convert.ToString(dataTable.Rows[0]["testname"]);
+                    viewRowTestData.Description = Convert.ToString(dataTable.Rows[0]["description"]);
+                }
+                return viewRowTestData;
+            }
+            catch (Exception ex)
+            {
                 throw;
             }
         }
