@@ -10,6 +10,7 @@ namespace ClinicManagementSystem.Services
         int AddNewDrug(NewDrug newDrug);
         List<AllDrugModel> GetAllDrugListData(int DocId);
         int deleteDrugRecord(DeleteDrugModel deleteDrugModel);
+        ViewRowDrugData getDataToView(int DocId, int RecordId);
     }
     public class DrugSevices : IDrugSevices
     {
@@ -89,6 +90,32 @@ namespace ClinicManagementSystem.Services
             else
             {
                 return 0;
+            }
+        }
+
+        public ViewRowDrugData getDataToView(int DocId, int RecordId) 
+        {
+            try
+            {
+                ViewRowDrugData viewRowDrugData = new ViewRowDrugData();
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)},
+                    new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString(RecordId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getDrugRecordDataToView, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    viewRowDrugData.DrugName = Convert.ToString(dataTable.Rows[0]["drugname"]);
+                    viewRowDrugData.GenericName = Convert.ToString(dataTable.Rows[0]["genericname"]);
+                    viewRowDrugData.Description = Convert.ToString(dataTable.Rows[0]["note"]);
+                }
+                return viewRowDrugData;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

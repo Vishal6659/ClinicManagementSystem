@@ -9,6 +9,7 @@ namespace ClinicManagementSystem.Services
         int AddNewPatient(NewPatient newPatient);
         List<AllPatientModel> GetAllPatientListData(int DocId);
         int deletePatientRecord(DeletePatientModel deletePatientModel);
+        ViewPatientDataModel getDataToView(int DocId, int RecordId);
     }
     public class PatientServices : IPatientServices
     {
@@ -102,6 +103,41 @@ namespace ClinicManagementSystem.Services
             else
             {
                 return 0;
+            }
+        }
+
+        public ViewPatientDataModel getDataToView(int DocId, int RecordId)
+        {
+            try
+            {
+                ViewPatientDataModel viewPatientDataModel = new ViewPatientDataModel();
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)},
+                    new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString(RecordId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getPatientRecordDataToView, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    viewPatientDataModel.FirstName = Convert.ToString(dataTable.Rows[0]["firstname"]);
+                    viewPatientDataModel.LastName = Convert.ToString(dataTable.Rows[0]["lastname"]);
+                    viewPatientDataModel.Age = Convert.ToString(dataTable.Rows[0]["patientage"]);
+                    viewPatientDataModel.Phone = Convert.ToString(dataTable.Rows[0]["phone"]);
+                    viewPatientDataModel.Gender = Convert.ToString(dataTable.Rows[0]["gender"]);
+                    viewPatientDataModel.PresentComplaint = Convert.ToString(dataTable.Rows[0]["presentcomplaint"]);
+                    viewPatientDataModel.PastHistory = Convert.ToString(dataTable.Rows[0]["pasthistory"]);
+                    viewPatientDataModel.FamilyHistory = Convert.ToString(dataTable.Rows[0]["familyhistory"]);
+                    viewPatientDataModel.PresentMedication = Convert.ToString(dataTable.Rows[0]["presentmedication"]);
+                    viewPatientDataModel.PhysicalNature = Convert.ToString(dataTable.Rows[0]["physicalnature"]);
+                    viewPatientDataModel.MentalNature = Convert.ToString(dataTable.Rows[0]["mentalnature"]);
+                    viewPatientDataModel.CreatedAt = Convert.ToString(dataTable.Rows[0]["created_at"]);
+                }
+                return viewPatientDataModel;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

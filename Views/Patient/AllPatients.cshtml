@@ -67,7 +67,7 @@
                                         <div class="row">
                                             <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
                                             <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @item.PatientId, @DocId )">Delete</button> </div>
-                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">View</button></div>
+                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId)">View</button></div>
                                             <div class="col-md-6"></div>
                                         </div>
                                     </td>
@@ -112,7 +112,102 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Sample Data</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">First Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="firstName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Last Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="lastName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Patient Age</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="patientAge"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Phone Number</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="phoneNumber"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Gender</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="gender"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Present Complaint</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="presentComplaint"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Past History</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="pastHistory"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Family History</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="familyHistory"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Present Medication</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="presentMedication"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Physical Nature</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="physicalNature"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Mental Nature</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="mentalNature"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Created At</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="createdAt"></p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -155,6 +250,31 @@
             }
         });
     }
+
+    function viewRowData(RecordId, DocId) {
+        $.ajax({
+            type: "GET",
+            url: "/Home/ViewRowData",
+            data: { DocId: DocId, RecordId: RecordId },
+            success: function (data) {
+                if (data != null) {
+                    $("#firstName").text(data.firstName);
+                    $("#lastName").text(data.lastName);
+                    $("#patientAge").text(data.age);
+                    $("#phoneNumber").text(data.phone);
+                    $("#gender").text(data.gender);
+                    $("#presentComplaint").text(data.presentComplaint);
+                    $("#pastHistory").text(data.pastHistory);
+                    $("#familyHistory").text(data.familyHistory);
+                    $("#presentMedication").text(data.presentMedication);
+                    $("#physicalNature").text(data.physicalNature);
+                    $("#mentalNature").text(data.mentalNature);
+                    $("#createdAt").text(data.createdAt);
+                }
+            }
+        });
+    }
+
     function refreshPage() {
         location.reload(true);
     }

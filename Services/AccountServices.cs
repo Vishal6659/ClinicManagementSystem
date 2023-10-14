@@ -18,6 +18,7 @@ namespace ClinicManagementSystem.Services
         DashboardAllPaymentsCount getAllPaymentsCount(int DocId);
         List<AllPatientModel> GetAllPatientListDataForToday(int DocId);
         int deletePatientRecord(DeletePatientModel deletePatientModel);
+        ViewPatientDataModel getDataToView(int DocId, int RecordId);
     }
     public class AccountServices : IAccountServices
     {
@@ -67,7 +68,7 @@ namespace ClinicManagementSystem.Services
             {
                 new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( deletePatientModel.DocId)},
                 new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString( deletePatientModel.PatientId)},
-                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deletePatientModel.RecordId)}                
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deletePatientModel.RecordId)}
             };
             result = _pDb.InsertUpdateDelete(QueryHelper.deletePatientRecord, parameters);
             if (result != 0 && result > 0)
@@ -350,6 +351,41 @@ namespace ClinicManagementSystem.Services
             catch (Exception ex)
             {
 
+                throw;
+            }
+        }
+
+        public ViewPatientDataModel getDataToView(int DocId, int RecordId)
+        {
+            try
+            {
+                ViewPatientDataModel viewPatientDataModel = new ViewPatientDataModel();
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)},
+                    new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString(RecordId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getPatientRecordDataToView, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    viewPatientDataModel.FirstName = Convert.ToString(dataTable.Rows[0]["firstname"]);
+                    viewPatientDataModel.LastName = Convert.ToString(dataTable.Rows[0]["lastname"]);
+                    viewPatientDataModel.Age = Convert.ToString(dataTable.Rows[0]["patientage"]);
+                    viewPatientDataModel.Phone = Convert.ToString(dataTable.Rows[0]["phone"]);
+                    viewPatientDataModel.Gender = Convert.ToString(dataTable.Rows[0]["gender"]);
+                    viewPatientDataModel.PresentComplaint = Convert.ToString(dataTable.Rows[0]["presentcomplaint"]);
+                    viewPatientDataModel.PastHistory = Convert.ToString(dataTable.Rows[0]["pasthistory"]);
+                    viewPatientDataModel.FamilyHistory = Convert.ToString(dataTable.Rows[0]["familyhistory"]);
+                    viewPatientDataModel.PresentMedication = Convert.ToString(dataTable.Rows[0]["presentmedication"]);
+                    viewPatientDataModel.PhysicalNature = Convert.ToString(dataTable.Rows[0]["physicalnature"]);
+                    viewPatientDataModel.MentalNature = Convert.ToString(dataTable.Rows[0]["mentalnature"]);
+                    viewPatientDataModel.CreatedAt = Convert.ToString(dataTable.Rows[0]["created_at"]);
+                }
+                return viewPatientDataModel;
+            }
+            catch (Exception ex)
+            {
                 throw;
             }
         }

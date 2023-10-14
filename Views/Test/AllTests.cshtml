@@ -19,11 +19,11 @@
         {
             if (TempData.ContainsKey("Test Record not Deleted Succesfully"))
             {
-                        <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
             else
             {
-                        <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
         }
     }
@@ -59,20 +59,20 @@
                         {
                             foreach (var item in Model.allTestModelsList)
                             {
-                                        <tr>
-                                            <td>@item.Id</td>
-                                            <td hidden>@item.RecordId</td>
-                                            <td>@item.TestName</td>
-                                            <td>@item.Description</td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
-                                                    <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId )">Delete</button> </div>
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td hidden>@item.RecordId</td>
+                                    <td>@item.TestName</td>
+                                    <td>@item.Description</td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
+                                            <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId )">Delete</button> </div>
                                             <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId )">View</button></div>
-                                                    <div class="col-md-6"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            <div class="col-md-6"></div>
+                                        </div>
+                                    </td>
+                                </tr>
                             }
                         }
                     }
@@ -115,18 +115,18 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <p style="font-weight:bold">Medicine</p>
+                        <p style="font-weight:bold">Test Name</p>
                     </div>
                     <div class="col-md-8">
-                        <p id="medicineName"></p>
+                        <p id="testName"></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <p style="font-weight:bold">Medicine Description</p>
+                        <p style="font-weight:bold">Test Description</p>
                     </div>
                     <div class="col-md-8">
-                        <p id="medicineDescription"></p>
+                        <p id="testDescription"></p>
                     </div>
                 </div>
             </div>
@@ -176,14 +176,14 @@
             url: "/Test/ViewRowData",
             data: { DocId: DocId, RecordId: RecordId },
             success: function (data) {
-                if (data != null) {                    
-                    $("#medicineName").text(data.testName);
-                    $("#medicineDescription").text(data.description);
+                if (data != null) {
+                    $("#testName").text(data.testName);
+                    $("#testDescription").text(data.description);
                 }
             }
         });
-    }  
-    
+    }
+
     function refreshPage() {
         location.reload(true);
     }

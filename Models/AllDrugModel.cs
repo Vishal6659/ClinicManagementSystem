@@ -24,4 +24,10 @@
         public int DocId { get; set; }
         public int RecordId { get; set; }
     }
+    public class ViewRowDrugData
+    {
+        public string DrugName { get; set; }
+        public string GenericName { get; set; }
+        public string Description { get; set; }
+    }
 }

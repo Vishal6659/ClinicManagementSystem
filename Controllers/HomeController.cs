@@ -303,6 +303,23 @@ namespace ClinicManagementSystem.Controllers
             return Json(dashboardAllPaymentsCount);
         }
 
+        [HttpGet]
+        public IActionResult ViewRowData(int DocId, int RecordId)
+        {
+            try
+            {
+                ViewPatientDataModel viewPatientDataModel = accountServices.getDataToView(DocId, RecordId);
+                if (viewPatientDataModel != null)
+                {
+                    return Json(viewPatientDataModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return View();
+        }
 
     }
 }

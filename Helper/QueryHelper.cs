@@ -40,5 +40,7 @@
         public const string deleteTestRecord = "delete from tbl_alltests where doc_id = @DocId::Int AND id = @RecordId::Int;";
         public const string getdrugDataOnTheBasisOfDrugAndRecordId = "select * from tbl_alldrug where doc_id = @DocId::bigint AND id = @RecordId::Int;";
         public const string getTestsRecordDataToView = "select * from tbl_alltests where doc_id = @DocId::bigint AND id = @RecordId::Int;";
+        public const string getDrugRecordDataToView = "select * from tbl_alldrug where doc_id = @DocId::bigint AND id = @RecordId::Int;";
+        public const string getPatientRecordDataToView = "select * from tbl_newpatient where doc_id = @DocId::bigint AND id = @RecordId::Int;";
     }
 }

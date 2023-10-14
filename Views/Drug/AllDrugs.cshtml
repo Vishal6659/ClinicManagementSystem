@@ -53,7 +53,7 @@
                         <th style="font-weight:bold">ID</th>
                         <th style="font-weight:bold" hidden>Record ID</th>
                         <th style="font-weight:bold">Drug Name</th>
-                        <th style="font-weight:bold">Description</th>
+                        <th style="font-weight:bold">Generic Name</th>
                         <th style="font-weight:bold">Actions</th>
                     </tr>
                 </thead>
@@ -72,7 +72,7 @@
                                         <div class="row">
                                             <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
                                             <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId)">Delete</button> </div>
-                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">View</button></div>
+                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId )">View</button></div>
                                             <div class="col-md-6"></div>
                                         </div>
                                     </td>
@@ -117,7 +117,30 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Sample Data</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Drug Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="drugName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Generic Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="genericName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Drug Description</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="drugDescription"></p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -158,6 +181,21 @@
                 }
             });
         }
+
+    function viewRowData(RecordId, DocId) {
+        $.ajax({
+            type: "GET",
+            url: "/Drug/ViewRowData",
+            data: { DocId: DocId, RecordId: RecordId },
+            success: function (data) {
+                if (data != null) {
+                    $("#drugName").text(data.drugName);
+                    $("#genericName").text(data.genericName);
+                    $("#drugDescription").text(data.description);
+                }
+            }
+        });
+    }
 
         function refreshPage() {
             location.reload(true);
