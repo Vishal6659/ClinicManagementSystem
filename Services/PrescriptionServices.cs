@@ -14,6 +14,7 @@ namespace ClinicManagementSystem.Services
         List<AllPrescriptionModel> allPrescriptionLists(int DocId);
         List<AllPastPrescriptionDataModel> allPastRecordsOfPatient(int DocId, int PatientId);
         int deletePrescriptionRecord(DeletePatientModel deletePatientModel);
+        ViewPrescriptionDataModel getDataToView(int DocId, int RecordId);
     }
     public class PrescriptionServices : IPrescriptionServices
     {
@@ -219,6 +220,37 @@ namespace ClinicManagementSystem.Services
             else
             {
                 return 0;
+            }
+        }
+
+        public ViewPrescriptionDataModel getDataToView(int DocId, int RecordId) 
+        {
+            try
+            {
+                ViewPrescriptionDataModel viewPrescriptionDataModel = new ViewPrescriptionDataModel();
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)},
+                    new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString(RecordId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getPrescriptionRecordDataToView, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0) 
+                {
+                    viewPrescriptionDataModel.PatientName = Convert.ToString(dataTable.Rows[0]["patient_name"]);
+                    viewPrescriptionDataModel.DrugType = Convert.ToString(dataTable.Rows[0]["drug_type"]);
+                    viewPrescriptionDataModel.DrugName = Convert.ToString(dataTable.Rows[0]["drug_name"]);
+                    viewPrescriptionDataModel.DrugMgOrMl = Convert.ToString(dataTable.Rows[0]["drug_mgorml"]);
+                    viewPrescriptionDataModel.DrugDosage = Convert.ToString(dataTable.Rows[0]["drug_dosage"]);
+                    viewPrescriptionDataModel.TestName = Convert.ToString(dataTable.Rows[0]["test_name"]);
+                    viewPrescriptionDataModel.TestDescription = Convert.ToString(dataTable.Rows[0]["test_description"]);
+                    viewPrescriptionDataModel.CreatedAt = Convert.ToString(dataTable.Rows[0]["created_at"]);
+                }
+                return viewPrescriptionDataModel;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

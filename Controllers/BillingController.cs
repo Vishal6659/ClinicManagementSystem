@@ -153,5 +153,23 @@ namespace ClinicManagementSystem.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        public IActionResult ViewRowData(int DocId, int RecordId)
+        {
+            try
+            {
+                ViewBillingDataModel viewBillingDataModel = billingService.getDataToView(DocId, RecordId);
+                if (viewBillingDataModel != null)
+                {
+                    return Json(viewBillingDataModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return View();
+        }
     }
 }

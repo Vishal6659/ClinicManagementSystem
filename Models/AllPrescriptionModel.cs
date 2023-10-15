@@ -70,4 +70,18 @@
         public int RecordId { get; set; }
     }
 
+    public class ViewPrescriptionDataModel 
+    {
+        public string PatientName { get; set; }
+        public string DrugType { get; set; }
+        public string DrugName { get; set; }
+        public string DrugMgOrMl { get; set; }
+        public string DrugDosage { get; set; }
+        public string DrugDuration { get; set; }
+        public string DrugAdviceOrComments { get; set; }
+        public string TestName { get; set; }
+        public string TestDescription { get; set; }
+        public string CreatedAt { get; set; }
+    }
+
 }

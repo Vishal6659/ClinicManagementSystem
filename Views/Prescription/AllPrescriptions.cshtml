@@ -76,7 +76,7 @@
                                         <div class="row">
                                             <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
                                             <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @item.PatientId, @DocId )">Delete</button> </div>
-                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">View</button></div>
+                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId)">View</button></div>
                                             <div class="col-md-6"></div>
                                         </div>
                                     </td>
@@ -121,7 +121,70 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Sample Data</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Patient Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="patientName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Drug Type</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="drugType"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Drug Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="drugName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Drug (Mg/Ml)</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="drugmgorml"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Drug Dosage</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="drugDosage"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Test Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="testName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Test Description</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="testDescription"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Created At</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="createdAt"></p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -162,6 +225,26 @@
             }
         });
     }
+    function viewRowData(RecordId, DocId) {
+        $.ajax({
+            type: "GET",
+            url: "/Prescription/ViewRowData",
+            data: { DocId: DocId, RecordId: RecordId },
+            success: function (data) {
+                if (data != null) {
+                    $("#patientName").text(data.patientName);
+                    $("#drugType").text(data.drugType);
+                    $("#drugName").text(data.drugName);
+                    $("#drugmgorml").text(data.drugMgOrMl);
+                    $("#drugDosage").text(data.drugDosage);
+                    $("#testName").text(data.testName);
+                    $("#testDescription").text(data.testDescription);
+                    $("#createdAt").text(data.createdAt);
+                }
+            }
+        });
+    }
+
     function refreshPage() {
         location.reload(true);
     }

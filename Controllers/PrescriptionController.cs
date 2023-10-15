@@ -226,5 +226,23 @@ namespace ClinicManagementSystem.Controllers
                 return Json(null);
             }
         }
+
+        [HttpGet]
+        public IActionResult ViewRowData(int DocId, int RecordId)
+        {
+            try
+            {
+                ViewPrescriptionDataModel viewPrescriptionDataModel = prescriptionServices.getDataToView(DocId, RecordId);
+                if (viewPrescriptionDataModel != null)
+                {
+                    return Json(viewPrescriptionDataModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return View();
+        }
     }
 }

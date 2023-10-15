@@ -25,6 +25,15 @@
         public string Amount { get; set; }
         public string PaymentStatus { get; set; }
     }
+
+    public class ViewBillingDataModel 
+    {
+        public string PatientName { get; set; }
+        public string PaymentMode { get; set; }
+        public string Amount { get; set; }
+        public string PaymentStatus { get; set; }
+        public string CreatedAt{ get; set; }
+    }
     public class AllPatientsNamesDetail
     {
         public int PatientId { get; set; }

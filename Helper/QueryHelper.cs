@@ -42,5 +42,8 @@
         public const string getTestsRecordDataToView = "select * from tbl_alltests where doc_id = @DocId::bigint AND id = @RecordId::Int;";
         public const string getDrugRecordDataToView = "select * from tbl_alldrug where doc_id = @DocId::bigint AND id = @RecordId::Int;";
         public const string getPatientRecordDataToView = "select * from tbl_newpatient where doc_id = @DocId::bigint AND id = @RecordId::Int;";
+        public const string getAppointmentRecordDataToView = "select * from tbl_newappointment where doc_id = @DocId::bigint AND id = @RecordId::Int;";
+        public const string getPrescriptionRecordDataToView = "select * from tbl_newprescription where doc_id = @DocId::bigint AND id = @RecordId::Int;";
+        public const string getBillingRecordDataToView = "select * from tbl_newbilling where doc_id = @DocId::bigint AND id = @RecordId::Int;";
     }
 }

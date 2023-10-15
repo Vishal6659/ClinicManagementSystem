@@ -60,4 +60,6 @@
         public string MentalNature { get; set; }
         public string CreatedAt { get; set; }
     }
+
+    
 }

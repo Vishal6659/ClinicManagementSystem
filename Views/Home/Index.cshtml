@@ -19,15 +19,15 @@
         {
             if (TempData.ContainsKey("Patient Record Deleted UnSuccesfull"))
             {
-                    <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
+                <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
             else if (TempData.ContainsKey("Patient Record Deleted Succesfull"))
             {
-                    <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
             else
             {
-                    <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
+                <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
             }
         }
     }
@@ -160,22 +160,22 @@
                             {
                                 foreach (var item in Model.patientModelList)
                                 {
-                                        <tr>
-                                            <td id="rowId">@item.ID</td>
-                                            <td id="rowRecordId" hidden>@item.RecordId</td>
-                                            <td id="rowPatientId" hidden>@item.PatientId</td>
-                                            <td id="rowPatientName">@item.PatientFirstName @item.PatientLastName</td>
-                                            <td id="rowPatientPhoneNumber">@item.Phone</td>
-                                            <td id="rowDate">@item.Date</td>
-                                            <td id="rowEditDeleteOptions">
-                                                <div class="row">
-                                                    <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
-                                                    <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @item.PatientId,  @DocId )">Delete</button> </div>
-                                                    <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId)">View</button></div>
-                                                    <div class="col-md-6"></div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td id="rowId">@item.ID</td>
+                                        <td id="rowRecordId" hidden>@item.RecordId</td>
+                                        <td id="rowPatientId" hidden>@item.PatientId</td>
+                                        <td id="rowPatientName">@item.PatientFirstName @item.PatientLastName</td>
+                                        <td id="rowPatientPhoneNumber">@item.Phone</td>
+                                        <td id="rowDate">@item.Date</td>
+                                        <td id="rowEditDeleteOptions">
+                                            <div class="row">
+                                                <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
+                                                <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @item.PatientId,  @DocId )">Delete</button> </div>
+                                                <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId)">View</button></div>
+                                                <div class="col-md-6"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 }
                             }
                         }
@@ -315,7 +315,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -509,8 +509,8 @@
             data: { DocId: DocId, RecordId: RecordId, PatientId: PatientId },
             success: function (data) {
                 if (data != null) {
-                    setInterval('refreshPage()', 900);                    
-                }               
+                    setInterval('refreshPage()', 900);
+                }
             }
         });
     }

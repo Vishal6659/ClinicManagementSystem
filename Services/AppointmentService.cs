@@ -11,8 +11,7 @@ namespace ClinicManagementSystem.Services
          int AddNewAppointment(NewAppointment newAppointment);
         List<AllAppointmentModel> GetAllAppointmentList(int DocId);
         int deletePatientRecord(DeletePrescriptionModel deletePrescriptionModel);
-
-
+        ViewAppointmentDataModel getDataToView(int DocId, int RecordId);
     }
     public class AppointmentService : IAppointmentService
     {
@@ -96,6 +95,34 @@ namespace ClinicManagementSystem.Services
             else
             {
                 return 0;
+            }
+        }
+
+        public ViewAppointmentDataModel getDataToView(int DocId, int RecordId) 
+        {
+            try
+            {
+                ViewAppointmentDataModel viewAppointmentDataModel = new ViewAppointmentDataModel();
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)},
+                    new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString(RecordId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getAppointmentRecordDataToView, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0) 
+                {
+                    viewAppointmentDataModel.Name = Convert.ToString(dataTable.Rows[0]["namee"]);
+                    viewAppointmentDataModel.Date = Convert.ToString(dataTable.Rows[0]["datee"]);
+                    viewAppointmentDataModel.Time = Convert.ToString(dataTable.Rows[0]["timee"]);
+                    viewAppointmentDataModel.Status = Convert.ToString(dataTable.Rows[0]["status"]);
+                    viewAppointmentDataModel.CreatedAt = Convert.ToString(dataTable.Rows[0]["createdat"]);
+                }
+                return viewAppointmentDataModel;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
 

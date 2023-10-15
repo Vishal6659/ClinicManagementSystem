@@ -124,6 +124,24 @@ namespace ClinicManagementSystem.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult ViewRowData(int DocId, int RecordId)
+        {
+            try
+            {
+                ViewAppointmentDataModel viewAppointmentDataModel = appointmentService.getDataToView(DocId, RecordId);
+                if (viewAppointmentDataModel != null)
+                {
+                    return Json(viewAppointmentDataModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return View();
+        }
+
     }
 
    

@@ -75,7 +75,7 @@
                                         <div class="row">
                                             <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
                                             <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @item.PatientId, @DocId )">Delete</button> </div>
-                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">View</button></div>
+                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId)">View</button></div>
                                             <div class="col-md-6"></div>
                                         </div>
                                     </td>
@@ -120,7 +120,46 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Sample Data</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Patient Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="patientName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Payment Mode</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="paymentMode"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Amount</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="amount"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Status</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="status"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Created At</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="createdAt"></p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -162,6 +201,23 @@
             }
         });
     }
+    function viewRowData(RecordId, DocId) {
+        $.ajax({
+            type: "GET",
+            url: "/Billing/ViewRowData",
+            data: { DocId: DocId, RecordId: RecordId },
+            success: function (data) {
+                if (data != null) {
+                    $("#patientName").text(data.patientName);
+                    $("#paymentMode").text(data.paymentMode);
+                    $("#amount").text(data.amount);
+                    $("#status").text(data.paymentStatus);
+                    $("#createdAt").text(data.createdAt);                    
+                }
+            }
+        });
+    }
+
     function refreshPage() {
         location.reload(true);
     }

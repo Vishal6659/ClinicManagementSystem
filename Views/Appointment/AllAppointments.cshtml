@@ -76,7 +76,7 @@
                                         <div class="row">
                                             <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
                                             <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId )">Delete</button> </div>
-                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">View</button></div>
+                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId)">View</button></div>
                                             <div class="col-md-6"></div>
                                         </div>
                                     </td>
@@ -121,7 +121,46 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Sample Data</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Patient Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="patientName"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Selected Date</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="selectedDate"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Selected Time</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="selectedTime"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Status</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="status"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Created At</p>
+                    </div>
+                    <div class="col-md-8">
+                        <p id="createdAt"></p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -158,6 +197,23 @@
             success: function (data) {
                 if (data != null) {
                     setInterval('refreshPage()', 900);
+                }
+            }
+        });
+    }
+
+    function viewRowData(RecordId, DocId) {
+        $.ajax({
+            type: "GET",
+            url: "/Appointment/ViewRowData",
+            data: { DocId: DocId, RecordId: RecordId },
+            success: function (data) {
+                if (data != null) {
+                    $("#patientName").text(data.name);
+                    $("#selectedDate").text(data.date);
+                    $("#selectedTime").text(data.time);
+                    $("#status").text(data.status);                    
+                    $("#createdAt").text(data.createdAt);                    
                 }
             }
         });

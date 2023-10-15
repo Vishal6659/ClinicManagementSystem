@@ -10,6 +10,7 @@ namespace ClinicManagementSystem.Services
         List<AllBillingModel> allBillingList(int DocId);
         List<AllPatientsNamesDetail> allPatientsNames(int DocId);
         int deleteBillingRecord(DeleteBillingModel deleteBillingModel);
+        ViewBillingDataModel getDataToView(int DocId, int RecordId);
     }
     public class BillingService : IBillingService
     {
@@ -124,6 +125,34 @@ namespace ClinicManagementSystem.Services
             else
             {
                 return 0;
+            }
+        }
+
+        public ViewBillingDataModel getDataToView(int DocId, int RecordId) 
+        {
+            try
+            {
+                ViewBillingDataModel viewBillingDataModel = new ViewBillingDataModel();
+                DataTable dataTable = new DataTable();
+                List<Parameters> parameters = new List<Parameters>()
+                {
+                    new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)},
+                    new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString(RecordId)}
+                };
+                dataTable = _pDb.SelectMethod(QueryHelper.getBillingRecordDataToView, parameters);
+                if (dataTable != null && dataTable.Rows.Count > 0) 
+                {
+                    viewBillingDataModel.PatientName = Convert.ToString(dataTable.Rows[0]["patient_name"]);
+                    viewBillingDataModel.PaymentMode = Convert.ToString(dataTable.Rows[0]["payment_mode"]);
+                    viewBillingDataModel.Amount = Convert.ToString(dataTable.Rows[0]["amount"]);
+                    viewBillingDataModel.PaymentStatus = Convert.ToString(dataTable.Rows[0]["status"]);
+                    viewBillingDataModel.CreatedAt = Convert.ToString(dataTable.Rows[0]["created_at"]);
+                }
+                return viewBillingDataModel;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }
