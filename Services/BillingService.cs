@@ -10,7 +10,8 @@ namespace ClinicManagementSystem.Services
         List<AllBillingModel> allBillingList(int DocId);
         List<AllPatientsNamesDetail> allPatientsNames(int DocId);
         int deleteBillingRecord(DeleteBillingModel deleteBillingModel);
-        ViewBillingDataModel getDataToView(int DocId, int RecordId);
+        ViewBillingDataModel getDataToView(int DocId, int RecordId, int PatientId);
+        int updateRowData(UpdateNewBillingModel updateNewBillingModel);
     }
     public class BillingService : IBillingService
     {
@@ -128,7 +129,7 @@ namespace ClinicManagementSystem.Services
             }
         }
 
-        public ViewBillingDataModel getDataToView(int DocId, int RecordId) 
+        public ViewBillingDataModel getDataToView(int DocId, int RecordId, int PatientId) 
         {
             try
             {
@@ -137,7 +138,8 @@ namespace ClinicManagementSystem.Services
                 List<Parameters> parameters = new List<Parameters>()
                 {
                     new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString(DocId)},
-                    new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString(RecordId)}
+                    new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString(RecordId)},
+                    new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString(PatientId)}
                 };
                 dataTable = _pDb.SelectMethod(QueryHelper.getBillingRecordDataToView, parameters);
                 if (dataTable != null && dataTable.Rows.Count > 0) 
@@ -146,13 +148,37 @@ namespace ClinicManagementSystem.Services
                     viewBillingDataModel.PaymentMode = Convert.ToString(dataTable.Rows[0]["payment_mode"]);
                     viewBillingDataModel.Amount = Convert.ToString(dataTable.Rows[0]["amount"]);
                     viewBillingDataModel.PaymentStatus = Convert.ToString(dataTable.Rows[0]["status"]);
-                    viewBillingDataModel.CreatedAt = Convert.ToString(dataTable.Rows[0]["created_at"]);
+                    viewBillingDataModel.CreatedAt = Convert.ToString(dataTable.Rows[0]["created_at"]);                    
                 }
                 return viewBillingDataModel;
             }
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        public int updateRowData(UpdateNewBillingModel updateNewBillingModel) 
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( updateNewBillingModel.DocId)},
+                new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString( updateNewBillingModel.PatientId)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( updateNewBillingModel.RecordId)},
+                new Parameters{ ParameterName = "NewPatientName", ParameterValue = Convert.ToString( updateNewBillingModel.NewPatientName)},
+                new Parameters{ ParameterName = "NewPaymentMode", ParameterValue = Convert.ToString( updateNewBillingModel.NewPaymentMode)},
+                new Parameters{ ParameterName = "NewAmount", ParameterValue = Convert.ToString( updateNewBillingModel.NewAmount)},
+                new Parameters{ ParameterName = "NewPaymentStatus", ParameterValue = Convert.ToString( updateNewBillingModel.NewPaymentStatus)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.editRowDataForBilling, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
             }
         }
     }

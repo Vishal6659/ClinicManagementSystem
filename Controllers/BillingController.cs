@@ -93,6 +93,49 @@ namespace ClinicManagementSystem.Controllers
             return RedirectToAction("AllBillings", "Billing");
         }
 
+        [HttpPost]
+        public IActionResult UpdateRowData(int DocId, int RecordId, int PatientId, string NewPatientName, string NewPaymentMode, string NewAmount, string NewPaymentStatus) 
+        {
+            UpdateNewBillingModel updateNewBillingModel = new UpdateNewBillingModel();
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    updateNewBillingModel.DocId = DocId;
+                    updateNewBillingModel.RecordId= RecordId;
+                    updateNewBillingModel.PatientId = PatientId;
+                    updateNewBillingModel.NewPatientName = NewPatientName;
+                    updateNewBillingModel.NewPaymentMode = NewPaymentMode;
+                    updateNewBillingModel.NewPaymentStatus = NewPaymentStatus;
+                    updateNewBillingModel.NewAmount = NewAmount;
+                    if (updateNewBillingModel != null)
+                    {
+                        int success = billingService.updateRowData(updateNewBillingModel);
+                        if (success != 0)
+                        {
+                            TempData["msg"] = "Row Updated Succesfully";
+                            return RedirectToAction("AllBillings", "Billing");
+                        }
+                        else
+                        {
+                            TempData["msg"] = "Row Not Updated Succesfully";
+                        }
+                    }                    
+                }
+                else 
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return RedirectToAction("AllBillings", "Billing");
+        }
+
         [HttpGet]
         public IActionResult getAllPatientsName(int DocId)
         {
@@ -155,11 +198,11 @@ namespace ClinicManagementSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult ViewRowData(int DocId, int RecordId)
+        public IActionResult ViewRowData(int DocId, int RecordId, int PatientId)
         {
             try
             {
-                ViewBillingDataModel viewBillingDataModel = billingService.getDataToView(DocId, RecordId);
+                ViewBillingDataModel viewBillingDataModel = billingService.getDataToView(DocId, RecordId, PatientId);
                 if (viewBillingDataModel != null)
                 {
                     return Json(viewBillingDataModel);

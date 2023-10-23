@@ -32,7 +32,7 @@
         public string PaymentMode { get; set; }
         public string Amount { get; set; }
         public string PaymentStatus { get; set; }
-        public string CreatedAt{ get; set; }
+        public string CreatedAt{ get; set; }       
     }
     public class AllPatientsNamesDetail
     {
@@ -46,5 +46,15 @@
         public int DocId { get; set; }
         public int RecordId { get; set; }
         public int PatientId { get; set; }
+    }
+    public class UpdateNewBillingModel
+    {
+        public int DocId { get; set; }
+        public int PatientId { get; set; }
+        public int RecordId { get; set; }
+        public string NewPatientName { get; set; }
+        public string NewPaymentMode { get; set; }
+        public string NewAmount { get; set; }
+        public string NewPaymentStatus { get; set; }
     }
 }

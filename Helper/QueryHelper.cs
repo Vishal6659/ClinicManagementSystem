@@ -44,6 +44,8 @@
         public const string getPatientRecordDataToView = "select * from tbl_newpatient where doc_id = @DocId::bigint AND id = @RecordId::Int;";
         public const string getAppointmentRecordDataToView = "select * from tbl_newappointment where doc_id = @DocId::bigint AND id = @RecordId::Int;";
         public const string getPrescriptionRecordDataToView = "select * from tbl_newprescription where doc_id = @DocId::bigint AND id = @RecordId::Int;";
-        public const string getBillingRecordDataToView = "select * from tbl_newbilling where doc_id = @DocId::bigint AND id = @RecordId::Int;";
+        public const string getBillingRecordDataToView = "select * from tbl_newbilling where doc_id = @DocId::bigint AND id = @RecordId::Int AND patient_id = @PatientId::Int;";
+        public const string editRowDataForBilling = "update tbl_newbilling set patient_name = @NewPatientName, payment_mode =@NewPaymentMode, amount =@NewAmount::Int, status =@NewPaymentStatus where doc_id = @DocId::bigint AND id = @RecordId::Int AND patient_id = @PatientId::Int;";
+        public const string editRowDataForTests = "update tbl_alltests set testname = @NewTestName, description =@NewDescription where doc_id = @DocId::bigint AND id = @RecordId::Int ;";
     }
 }

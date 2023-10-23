@@ -10,6 +10,7 @@ namespace ClinicManagementSystem.Services
         List<AllTestModel> GetAllTestList(int DocId);
         int deleteTestRecord(DeleteTestModel deleteTestModel);
         ViewRowTestData getDataToView(int DocId, int RecordId);
+        int updateRowData(EditTestModel editTestModel);
     }
     public class TestServices :ITestServices
     {
@@ -105,6 +106,27 @@ namespace ClinicManagementSystem.Services
                 new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( deleteTestModel.RecordId)}
             };
             result = _pDb.InsertUpdateDelete(QueryHelper.deleteTestRecord, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int updateRowData(EditTestModel editTestModel) 
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( editTestModel.DocID)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( editTestModel.RecordID)},
+                new Parameters{ ParameterName = "NewTestName", ParameterValue = Convert.ToString( editTestModel.NewTestName)},
+                new Parameters{ ParameterName = "NewDescription", ParameterValue = Convert.ToString( editTestModel.NewDescription)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.editRowDataForTests, parameters);
             if (result != 0 && result > 0)
             {
                 return 1;

@@ -29,4 +29,12 @@
         public string TestName { get; set; }
         public string Description { get; set; }
     }
+
+    public class EditTestModel
+    {
+        public int DocID { get; set; }
+        public int RecordID { get; set; }
+        public string NewTestName { get; set; }
+        public string NewDescription { get; set; }
+    }
 }

@@ -91,6 +91,43 @@ namespace ClinicManagementSystem.Controllers
         }
 
         [HttpPost]
+        public IActionResult UpdateRowData(int recordId, int docId, string newTestName, string newTestDescription)
+        {
+            EditTestModel editTestModel = new EditTestModel();
+            editTestModel.DocID = docId;
+            editTestModel.RecordID = recordId;
+            editTestModel.NewTestName = newTestName;
+            editTestModel.NewDescription = newTestDescription;
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    int success = testServices.updateRowData(editTestModel);
+                    if (success != 0)
+                    {
+                        TempData["msg"] = "Row Updated Succesfully";
+                        return RedirectToAction("AllTests", "Test");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Row Not Updated Succesfully";
+                    }
+                }
+                else 
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return RedirectToAction("AllTests", "Test");
+        }
+
+        [HttpPost]
         public IActionResult DeleteTestRecord(int DocId, int RecordId)
         {            
             DeleteTestModel deleteTestModel = new DeleteTestModel();
