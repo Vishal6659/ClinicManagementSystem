@@ -53,6 +53,7 @@ namespace ClinicManagementSystem.Controllers
             }
         }
 
+        [HttpPost]
         public IActionResult NewAppointment(NewAppointment newAppointment)
         {
             try
@@ -73,6 +74,45 @@ namespace ClinicManagementSystem.Controllers
                             TempData["msg"] = "New Appointment not Inserted Succesfully ";
                             return View();
                         }
+                    }
+                }
+                else
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return RedirectToAction("AllAppointments", "Appointment");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateRowData(int recordId, int docId, string newPatientName, string newSelectDate, string newSelectTime, string newStatus) 
+        {
+            EditAppointmentModel editAppointmentModel = new EditAppointmentModel();
+            editAppointmentModel.DocID = docId;
+            editAppointmentModel.RecordID = recordId;
+            editAppointmentModel.NewName = newPatientName;
+            editAppointmentModel.NewDate = newSelectDate;
+            editAppointmentModel.NewTime = newSelectTime;
+            editAppointmentModel.NewStatus = newStatus;
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    int success = appointmentService.updateRowData(editAppointmentModel);
+                    if (success != 0)
+                    {
+                        TempData["msg"] = "Row Updated Succesfully";
+                        return RedirectToAction("AllAppointments", "Appointment");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Row Not Updated Succesfully";
                     }
                 }
                 else

@@ -74,7 +74,7 @@
                                     <td>@item.createdAt</td>
                                     <td>
                                         <div class="row">
-                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
+                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white" data-toggle="modal" data-target=".bd-example-modal-lgg" onclick="editRowData(@item.RecordId, @DocId)">Edit</button></div>
                                             <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId )">Delete</button> </div>
                                             <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId)">View</button></div>
                                             <div class="col-md-6"></div>
@@ -105,6 +105,74 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" id="finalDeleteButton" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade bd-example-modal-lgg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue;">Edit Appointment Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Patient Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Patient Name" value="PatientName" id="NewPatientName" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Select Date</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="date" class="form-control" placeholder="Select Date" value="SelectDate" id="NewSelectDate" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Select Time</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="time" class="form-control" placeholder="Select Time" value="SelectTime" id="NewSelectTime" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Status</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Status" value="Status" id="NewStatus" />
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Record Id</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Record Id" value="RecordId" id="RecordId" />
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Doctor Id</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Doctor id" value="DocId" id="DocId" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="finalUpdate" class="btn btn-warning">Update</button>
             </div>
         </div>
     </div>
@@ -218,6 +286,48 @@
             }
         });
     }
+
+    function editRowData(RecordId, DocId) {
+        $.ajax({
+            type: "GET",
+            url: "/Appointment/ViewRowData",
+            data: { DocId: DocId, RecordId: RecordId },
+            success: function (data) {
+                if (data != null) {
+                    $("#NewPatientName").val(data.name);
+                    $("#NewSelectDate").val(data.date);
+                    $("#NewSelectTime").val(data.time);
+                    $("#NewStatus").val(data.status);
+                    $("#RecordId").val(RecordId);
+                    $("#DocId").val(@DocId);
+                }
+            }
+        });
+    }
+
+    $("#finalUpdate").click(function () {
+        var newPatientName = $("#NewPatientName").val();
+        var newSelectDate = $("#NewSelectDate").val();
+        var newSelectTime = $("#NewSelectTime").val();
+        var newStatus = $("#NewStatus").val();
+        var recordId = $("#RecordId").val();
+        var docId = $("#DocId").val();
+        updateRowFunction(recordId, docId, newPatientName, newSelectDate, newSelectTime, newStatus);
+    });
+
+    function updateRowFunction(recordId, docId, newPatientName, newSelectDate, newSelectTime, newStatus) {
+        $.ajax({
+            type: "POST",
+            url: "/Appointment/UpdateRowData",
+            data: { DocId: docId, RecordId: recordId, NewPatientName: newPatientName, NewSelectDate: newSelectDate, NewSelectTime: newSelectTime, NewStatus: newStatus },
+            success: function (data) {
+                if (data != null) {
+                    refreshPage();
+                }
+            }
+        });
+    }
+
     function refreshPage() {
         location.reload(true);
     }

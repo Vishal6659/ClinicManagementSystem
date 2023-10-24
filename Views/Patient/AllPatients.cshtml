@@ -65,9 +65,9 @@
                                     <td>@item.Date</td>
                                     <td>
                                         <div class="row">
-                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
+                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white" data-toggle="modal" data-target=".bd-example-modal-lgg" onclick="editRowData(@item.RecordId, @item.PatientId, @DocId)">Edit</button></div>
                                             <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @item.PatientId, @DocId )">Delete</button> </div>
-                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId)">View</button></div>
+                                            <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @item.PatientId, @DocId)">View</button></div>
                                             <div class="col-md-6"></div>
                                         </div>
                                     </td>
@@ -216,6 +216,138 @@
     </div>
 </div>
 
+<!-- Modal (Edit Row Data) -->
+<div class="modal fade bd-example-modal-lgg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue;">Edit Patient Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">First Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="First Name" value="FirstName" id="NewFirstName" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Last Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Last Name" value="LastName" id="NewLastName" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Age</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Age" value="Age" id="NewAge" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Mobile Number</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Mobile Number" value="MobileNumber" id="NewMobileNumber" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Gender</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Gender" value="Gender" id="NewGender" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Present Complaint</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Present Complaint" value="PresentComplaint" id="NewPresentComplaint" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Past History</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Past History" value="PastHistory" id="NewPastHistory" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Family History</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Family History" value="FamilyHistory" id="NewFamilyHistory" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Present Medication</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Present Medication" value="PresentMedication" id="NewPresentMedication" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Physical Nature</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Physical Nature" value="PhysicalNature" id="NewPhysicalNature" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Mental Nature</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Mental Nature" value="MentalNature" id="NewMentalNature" />
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Record Id</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Record Id" value="RecordId" id="RecordId" />
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Doctor Id</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Doctor id" value="DocId" id="DocId" />
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Patient Id</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Patient Id" value="PatientId" id="PatientId" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="finalUpdate" class="btn btn-warning">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -251,12 +383,13 @@
         });
     }
 
-    function viewRowData(RecordId, DocId) {
+    function viewRowData(RecordId, PatientId, DocId) {
         $.ajax({
             type: "GET",
             url: "/Home/ViewRowData",
-            data: { DocId: DocId, RecordId: RecordId },
+            data: { RecordId: RecordId, PatientId: PatientId, DocId: DocId },
             success: function (data) {
+                console.log(data);
                 if (data != null) {
                     $("#firstName").text(data.firstName);
                     $("#lastName").text(data.lastName);
@@ -270,6 +403,64 @@
                     $("#physicalNature").text(data.physicalNature);
                     $("#mentalNature").text(data.mentalNature);
                     $("#createdAt").text(data.createdAt);
+                }
+            }
+        });
+    }
+
+    function editRowData(RecordId, PatientId, DocId) {
+        $.ajax({
+            type: "GET",
+            url: "/Home/ViewRowData",
+            data: { RecordId: RecordId, PatientId: PatientId, DocId: DocId },
+            success: function (data) {
+                console.log(data);
+                if (data != null) {
+                    $("#NewFirstName").val(data.firstName);
+                    $("#NewLastName").val(data.lastName);
+                    $("#NewAge").val(data.age);
+                    $("#NewMobileNumber").val(data.phone);
+                    $("#NewGender").val(data.gender);
+                    $("#NewPresentComplaint").val(data.presentComplaint);
+                    $("#NewPastHistory").val(data.pastHistory);
+                    $("#NewFamilyHistory").val(data.familyHistory);
+                    $("#NewPresentMedication").val(data.presentMedication);
+                    $("#NewPhysicalNature").val(data.physicalNature);
+                    $("#NewMentalNature").val(data.mentalNature);
+                    $("#RecordId").val(RecordId);
+                    $("#PatientId").val(PatientId);
+                    $("#DocId").val(@DocId);
+                }
+            }
+        });
+    }
+
+    $("#finalUpdate").click(function () {
+        var recordId = $("#RecordId").val();
+        var patientId = $("#PatientId").val();
+        var docId = $("#DocId").val();
+        var newFirstName = $("#NewFirstName").val();
+        var newLastName = $("#NewLastName").val();
+        var newAge = $("#NewAge").val();
+        var newMobileNumber = $("#NewMobileNumber").val();
+        var newGender = $("#NewGender").val();
+        var newPresentComplaint = $("#NewPresentComplaint").val();
+        var newPastHistory = $("#NewPastHistory").val();
+        var newFamilyHistory = $("#NewFamilyHistory").val();
+        var newPresentMedication = $("#NewPresentMedication").val();
+        var newPhysicalNature = $("#NewPhysicalNature").val();
+        var newMentalNature = $("#NewMentalNature").val();
+        updateRowFunction(recordId, docId, patientId, newFirstName, newLastName, newAge, newMobileNumber, newGender, newPresentComplaint, newPastHistory, newFamilyHistory, newPresentMedication, newPhysicalNature, newMentalNature);
+    });
+
+    function updateRowFunction(recordId, docId, patientId, newFirstName, newLastName, newAge, newMobileNumber, newGender, newPresentComplaint, newPastHistory, newFamilyHistory, newPresentMedication, newPhysicalNature, newMentalNature) {
+        $.ajax({
+            type: "POST",
+            url: "/Patient/UpdateRowData",
+            data: { DocId: docId, RecordId: recordId, PatientId: patientId, NewFirstName: newFirstName, NewLastName: newLastName, NewAge: newAge, NewMobileNumber: newMobileNumber, NewGender: newGender, NewPresentComplaint: newPresentComplaint, NewPastHistory: newPastHistory, NewFamilyHistory: newFamilyHistory, NewPresentMedication: newPresentMedication, NewPhysicalNature: newPhysicalNature, NewMentalNature: newMentalNature },
+            success: function (data) {
+                if (data != null) {
+                    refreshPage();
                 }
             }
         });

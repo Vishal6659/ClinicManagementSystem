@@ -93,6 +93,48 @@ namespace ClinicManagementSystem.Controllers
         }
 
         [HttpPost]
+        public IActionResult UpdateRowData(int recordId,int docId,int patientId,string newFirstName, string newLastName, string newAge, string newMobileNumber, string newGender, string newPresentComplaint, string newPastHistory, string newFamilyHistory, string newPresentMedication, string newPhysicalNature, string newMentalNature)
+        {
+            EditPatientDataModel editPatientDataModel = new EditPatientDataModel();
+            editPatientDataModel.RecordId = recordId;
+            editPatientDataModel.DocId = docId;
+            editPatientDataModel.PatientId = patientId;
+            editPatientDataModel.FirstName = newFirstName;
+            editPatientDataModel.LastName = newLastName;
+            editPatientDataModel.Age = newAge;
+            editPatientDataModel.Phone = newMobileNumber;
+            editPatientDataModel.Gender = newGender;
+            editPatientDataModel.PresentComplaint = newPresentComplaint;
+            editPatientDataModel.PastHistory = newPastHistory;
+            editPatientDataModel.FamilyHistory = newFamilyHistory;
+            editPatientDataModel.PresentMedication = newPresentMedication;
+            editPatientDataModel.PhysicalNature = newPhysicalNature;
+            editPatientDataModel.MentalNature = newMentalNature;
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    int success = patientServices.updateRowData(editPatientDataModel);
+                    if (success != 0)
+                    {
+                        TempData["msg"] = "Row Updated Succesfully";
+                        return RedirectToAction("AllPatients", "Patient");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Row Not Updated Succesfully";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return RedirectToAction("AllPatients", "Patient");
+        }
+
+        [HttpPost]
         public IActionResult DeletePatient(int DocId, int RecordId, int PatientId)
         {
             DeletePatientModel deletePatientModel = new DeletePatientModel();

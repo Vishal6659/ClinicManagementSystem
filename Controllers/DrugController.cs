@@ -145,5 +145,43 @@ namespace ClinicManagementSystem.Controllers
             }
             return View();
         }
+
+        [HttpPost]
+        public IActionResult UpdateRowData(int recordId, int docId, string newDrugName, string newDrugDescription, string newGenericName) 
+        {
+            EditDrugModel editDrugModel = new EditDrugModel();
+            editDrugModel.DocID = docId;
+            editDrugModel.RecordID = recordId;
+            editDrugModel.NewDrugName = newDrugName;
+            editDrugModel.NewDrugDescription = newDrugDescription;
+            editDrugModel.NewGenericName = newGenericName;
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null) 
+                {
+                    int success = drugSevices.updateRowData(editDrugModel);
+                    if (success != 0)
+                    {
+                        TempData["msg"] = "Row Updated Succesfully";
+                        return RedirectToAction("AllDrugs", "Drug");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Row Not Updated Succesfully";
+                    }
+                }
+                else
+                {
+                    TempData["msg"] = "Session Not Found";
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return RedirectToAction("AllDrugs", "Drug");
+        }
     }
 }

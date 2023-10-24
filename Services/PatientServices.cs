@@ -10,6 +10,7 @@ namespace ClinicManagementSystem.Services
         List<AllPatientModel> GetAllPatientListData(int DocId);
         int deletePatientRecord(DeletePatientModel deletePatientModel);
         ViewPatientDataModel getDataToView(int DocId, int RecordId);
+        int updateRowData(EditPatientDataModel editPatientDataModel);
     }
     public class PatientServices : IPatientServices
     {
@@ -138,6 +139,37 @@ namespace ClinicManagementSystem.Services
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        public int updateRowData(EditPatientDataModel editPatientDataModel) 
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( editPatientDataModel.DocId)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( editPatientDataModel.RecordId)},
+                new Parameters{ ParameterName = "PatientId", ParameterValue = Convert.ToString( editPatientDataModel.PatientId)},
+                new Parameters{ ParameterName = "NewFirstName", ParameterValue = Convert.ToString( editPatientDataModel.FirstName)},
+                new Parameters{ ParameterName = "NewLastName", ParameterValue = Convert.ToString( editPatientDataModel.LastName)},
+                new Parameters{ ParameterName = "NewAge", ParameterValue = Convert.ToString( editPatientDataModel.Age)},
+                new Parameters{ ParameterName = "NewMobileNumber", ParameterValue = Convert.ToString( editPatientDataModel.Phone)},
+                new Parameters{ ParameterName = "NewGender", ParameterValue = Convert.ToString( editPatientDataModel.Gender)},
+                new Parameters{ ParameterName = "NewPresentComplaint", ParameterValue = Convert.ToString( editPatientDataModel.PresentComplaint)},
+                new Parameters{ ParameterName = "NewPastHistory", ParameterValue = Convert.ToString( editPatientDataModel.PastHistory)},
+                new Parameters{ ParameterName = "NewFamilyHistory", ParameterValue = Convert.ToString( editPatientDataModel.FamilyHistory)},
+                new Parameters{ ParameterName = "NewPresentMedication", ParameterValue = Convert.ToString( editPatientDataModel.PresentMedication)},
+                new Parameters{ ParameterName = "NewPhysicalNature", ParameterValue = Convert.ToString( editPatientDataModel.PhysicalNature)},
+                new Parameters{ ParameterName = "NewMentalNature", ParameterValue = Convert.ToString( editPatientDataModel.MentalNature)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.editRowDataForPatient, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
             }
         }
     }

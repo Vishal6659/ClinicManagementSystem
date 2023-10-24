@@ -34,4 +34,14 @@
         public string Status { get; set; }
         public string CreatedAt { get; set; }
     }
+
+    public class EditAppointmentModel
+    {
+        public int DocID { get; set; }
+        public int RecordID { get; set; }
+        public string NewName { get; set; }
+        public string NewDate { get; set; }
+        public string NewTime { get; set; }
+        public string NewStatus { get; set; }
+    }
 }

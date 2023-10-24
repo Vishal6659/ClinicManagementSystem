@@ -11,6 +11,7 @@ namespace ClinicManagementSystem.Services
         List<AllDrugModel> GetAllDrugListData(int DocId);
         int deleteDrugRecord(DeleteDrugModel deleteDrugModel);
         ViewRowDrugData getDataToView(int DocId, int RecordId);
+        int updateRowData(EditDrugModel editDrugModel);
     }
     public class DrugSevices : IDrugSevices
     {
@@ -116,6 +117,28 @@ namespace ClinicManagementSystem.Services
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        public int updateRowData(EditDrugModel editDrugModel) 
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( editDrugModel.DocID)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( editDrugModel.RecordID)},
+                new Parameters{ ParameterName = "NewDrugName", ParameterValue = Convert.ToString( editDrugModel.NewDrugName)},
+                new Parameters{ ParameterName = "NewDrugDescription", ParameterValue = Convert.ToString( editDrugModel.NewDrugDescription)},
+                new Parameters{ ParameterName = "NewGenericName", ParameterValue = Convert.ToString( editDrugModel.NewGenericName)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.editRowDataForDrug, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
             }
         }
     }

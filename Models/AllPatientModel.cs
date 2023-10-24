@@ -61,5 +61,23 @@
         public string CreatedAt { get; set; }
     }
 
+    public class EditPatientDataModel
+    {
+        public int RecordId { get; set; }
+        public int DocId { get; set; }
+        public int PatientId { get; set; }                
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Age { get; set; }
+        public string Phone { get; set; }
+        public string Gender { get; set; }
+        public string PresentComplaint { get; set; }
+        public string PastHistory { get; set; }
+        public string FamilyHistory { get; set; }
+        public string PresentMedication { get; set; }
+        public string PhysicalNature { get; set; }
+        public string MentalNature { get; set; }
+    }
+
     
 }

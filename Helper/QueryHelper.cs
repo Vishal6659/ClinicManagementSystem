@@ -41,11 +41,14 @@
         public const string getdrugDataOnTheBasisOfDrugAndRecordId = "select * from tbl_alldrug where doc_id = @DocId::bigint AND id = @RecordId::Int;";
         public const string getTestsRecordDataToView = "select * from tbl_alltests where doc_id = @DocId::bigint AND id = @RecordId::Int;";
         public const string getDrugRecordDataToView = "select * from tbl_alldrug where doc_id = @DocId::bigint AND id = @RecordId::Int;";
-        public const string getPatientRecordDataToView = "select * from tbl_newpatient where doc_id = @DocId::bigint AND id = @RecordId::Int;";
+        public const string getPatientRecordDataToView = "select * from tbl_newpatient where doc_id = @DocId::bigint AND id = @RecordId::Int AND patient_id = @PatientId::Int;";
         public const string getAppointmentRecordDataToView = "select * from tbl_newappointment where doc_id = @DocId::bigint AND id = @RecordId::Int;";
         public const string getPrescriptionRecordDataToView = "select * from tbl_newprescription where doc_id = @DocId::bigint AND id = @RecordId::Int;";
         public const string getBillingRecordDataToView = "select * from tbl_newbilling where doc_id = @DocId::bigint AND id = @RecordId::Int AND patient_id = @PatientId::Int;";
         public const string editRowDataForBilling = "update tbl_newbilling set patient_name = @NewPatientName, payment_mode =@NewPaymentMode, amount =@NewAmount::Int, status =@NewPaymentStatus where doc_id = @DocId::bigint AND id = @RecordId::Int AND patient_id = @PatientId::Int;";
         public const string editRowDataForTests = "update tbl_alltests set testname = @NewTestName, description =@NewDescription where doc_id = @DocId::bigint AND id = @RecordId::Int ;";
+        public const string editRowDataForDrug = "update tbl_alldrug set drugname = @NewDrugName, note =@NewDrugDescription, genericname =@NewGenericName where doc_id = @DocId::bigint AND id = @RecordId::Int ;";
+        public const string editRowDataForAppointment = "update tbl_newappointment set namee = @NewName, datee =@NewDate, timee =@NewTime, status =@NewStatus where doc_id = @DocId::bigint AND id = @RecordId::Int ;";
+        public const string editRowDataForPatient = "update tbl_newpatient set firstname = @NewFirstName, lastname =@NewLastName, patientage =@NewAge, phone =@NewMobileNumber::bigint, gender =@NewGender, presentcomplaint =@NewPresentComplaint, pasthistory =@NewPastHistory, familyhistory =@NewFamilyHistory, presentmedication =@NewPresentMedication, physicalnature =@NewPhysicalNature, mentalnature =@NewMentalNature where doc_id = @DocId::bigint AND id = @RecordId::Int AND patient_id = @PatientId::Int ;";
     }
 }

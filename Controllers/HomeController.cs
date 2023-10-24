@@ -304,11 +304,11 @@ namespace ClinicManagementSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult ViewRowData(int DocId, int RecordId)
+        public IActionResult ViewRowData(int RecordId, int DocId, int PatientId)
         {
             try
             {
-                ViewPatientDataModel viewPatientDataModel = accountServices.getDataToView(DocId, RecordId);
+                ViewPatientDataModel viewPatientDataModel = accountServices.getDataToView(RecordId, DocId, PatientId);
                 if (viewPatientDataModel != null)
                 {
                     return Json(viewPatientDataModel);
@@ -319,6 +319,48 @@ namespace ClinicManagementSystem.Controllers
                 throw;
             }
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateRowData(int recordId, int docId, int patientId, string newFirstName, string newLastName, string newAge, string newMobileNumber, string newGender, string newPresentComplaint, string newPastHistory, string newFamilyHistory, string newPresentMedication, string newPhysicalNature, string newMentalNature)
+        {
+            EditPatientDataModel editPatientDataModel = new EditPatientDataModel();
+            editPatientDataModel.RecordId = recordId;
+            editPatientDataModel.DocId = docId;
+            editPatientDataModel.PatientId = patientId;
+            editPatientDataModel.FirstName = newFirstName;
+            editPatientDataModel.LastName = newLastName;
+            editPatientDataModel.Age = newAge;
+            editPatientDataModel.Phone = newMobileNumber;
+            editPatientDataModel.Gender = newGender;
+            editPatientDataModel.PresentComplaint = newPresentComplaint;
+            editPatientDataModel.PastHistory = newPastHistory;
+            editPatientDataModel.FamilyHistory = newFamilyHistory;
+            editPatientDataModel.PresentMedication = newPresentMedication;
+            editPatientDataModel.PhysicalNature = newPhysicalNature;
+            editPatientDataModel.MentalNature = newMentalNature;
+            try
+            {
+                GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
+                if (sessionModel != null)
+                {
+                    int success = accountServices.updateRowData(editPatientDataModel);
+                    if (success != 0)
+                    {
+                        TempData["msg"] = "Row Updated Succesfully";
+                        return RedirectToAction("AllPatients", "Patient");
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Row Not Updated Succesfully";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return RedirectToAction("AllPatients", "Patient");
         }
 
     }

@@ -12,6 +12,7 @@ namespace ClinicManagementSystem.Services
         List<AllAppointmentModel> GetAllAppointmentList(int DocId);
         int deletePatientRecord(DeletePrescriptionModel deletePrescriptionModel);
         ViewAppointmentDataModel getDataToView(int DocId, int RecordId);
+        int updateRowData(EditAppointmentModel editAppointmentModel);
     }
     public class AppointmentService : IAppointmentService
     {
@@ -123,6 +124,29 @@ namespace ClinicManagementSystem.Services
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        public int updateRowData(EditAppointmentModel editAppointmentModel) 
+        {
+            int result = 0;
+            List<Parameters> parameters = new List<Parameters>()
+            {
+                new Parameters{ ParameterName = "DocId", ParameterValue = Convert.ToString( editAppointmentModel.DocID)},
+                new Parameters{ ParameterName = "RecordId", ParameterValue = Convert.ToString( editAppointmentModel.RecordID)},
+                new Parameters{ ParameterName = "NewName", ParameterValue = Convert.ToString( editAppointmentModel.NewName)},
+                new Parameters{ ParameterName = "NewDate", ParameterValue = Convert.ToString( editAppointmentModel.NewDate)},
+                new Parameters{ ParameterName = "NewTime", ParameterValue = Convert.ToString( editAppointmentModel.NewTime)},
+                new Parameters{ ParameterName = "NewStatus", ParameterValue = Convert.ToString( editAppointmentModel.NewStatus)}
+            };
+            result = _pDb.InsertUpdateDelete(QueryHelper.editRowDataForAppointment, parameters);
+            if (result != 0 && result > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
             }
         }
 

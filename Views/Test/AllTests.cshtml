@@ -66,7 +66,7 @@
                                         <td>@item.Description</td>
                                         <td>
                                             <div class="row">
-                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="editRowData(@item.RecordId, @DocId )">Edit</button></div>
+                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white" data-toggle="modal" data-target=".bd-example-modal-lgg" onclick="editRowData(@item.RecordId, @DocId )">Edit</button></div>
                                                 <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId )">Delete</button> </div>
                                                 <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId )">View</button></div>
                                                 <div class="col-md-6"></div>
@@ -103,7 +103,7 @@
 </div>
 
 <!-- Edit Modal -->
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lgg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -244,8 +244,7 @@
             url: "/Test/ViewRowData",
             data: { DocId: DocId, RecordId: RecordId },
             success: function (data) {
-                if (data != null) {
-                    console.log(data);
+                if (data != null) {                    
                     $("#NewTestName").val(data.testName);
                     $("#NewTestDescription").val(data.description);
                     $("#RecordId").val(RecordId);
@@ -262,6 +261,7 @@
         var docId = $("#DocId").val();
         updateRowFunction(recordId, docId, newTestName, newTestDescription);
     });
+
     function updateRowFunction(recordId, docId, newTestName, newTestDescription) {
         $.ajax({
             type: "POST",

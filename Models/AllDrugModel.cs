@@ -30,4 +30,15 @@
         public string GenericName { get; set; }
         public string Description { get; set; }
     }
+
+    public class EditDrugModel
+    {
+        public int DocID { get; set; }
+        public int RecordID { get; set; }
+        public string NewDrugName { get; set; }
+        public string NewDrugDescription { get; set; }
+        public string NewGenericName { get; set; }
+    }
+
+
 }

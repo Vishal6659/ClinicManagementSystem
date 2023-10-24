@@ -70,7 +70,7 @@
                                     <td>@item.GenericName</td>
                                     <td>
                                         <div class="row">
-                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white">Edit</button></div>
+                                            <div class="col-md-2"><button class="btn btn-warning btn-sm" style="color:white" data-toggle="modal" data-target=".bd-example-modal-lgg" onclick="editRowData(@item.RecordId, @DocId )">Edit</button></div>
                                             <div class="col-md-2"><button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter" onclick="getDataToDeleteRecord(@item.RecordId, @DocId)">Delete</button> </div>
                                             <div class="col-md-2"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="viewRowData(@item.RecordId, @DocId )">View</button></div>
                                             <div class="col-md-6"></div>
@@ -83,7 +83,7 @@
                 </tbody>
             </table>
         </div>
-    </div>  
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -101,6 +101,66 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" id="finalDeleteButton" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade bd-example-modal-lgg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue;">Edit Drug Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Drug Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Drug Name" value="DrugName" id="NewDrugName" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Generic Name</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Generic Name" value="GenericName" id="NewGenericName" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Drug Description</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Drug Description" value="DrugDescription" id="NewDrugDescription" />
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Record Id</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Record Id" value="RecordId" id="RecordId" />
+                    </div>
+                </div>
+                <div class="row" hidden>
+                    <div class="col-md-4">
+                        <p style="font-weight:bold">Doctor Id</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Doctor id" value="DocId" id="DocId" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="finalUpdate" class="btn btn-warning">Update</button>
             </div>
         </div>
     </div>
@@ -149,38 +209,38 @@
     </div>
 </div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var DocId = @DocId;
-            $('#allDrugsTable').DataTable();
-            $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
-                $("#msgDiv").slideUp(500);
-            });
-            $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
-                $("#success-alert").slideUp(500);
-            });
+<script type="text/javascript">
+    $(document).ready(function () {
+        var DocId = @DocId;
+        $('#allDrugsTable').DataTable();
+        $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
+            $("#msgDiv").slideUp(500);
         });
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(500);
+        });
+    });
 
-        function getDataToDeleteRecord(RecordId, DocId) {
-            var recordId = RecordId;
-            var docId = DocId;
-            $("#finalDeleteButton").click(function(){
-                deleteRowFunction(recordId, docId);
-            });
-        }
+    function getDataToDeleteRecord(RecordId, DocId) {
+        var recordId = RecordId;
+        var docId = DocId;
+        $("#finalDeleteButton").click(function () {
+            deleteRowFunction(recordId, docId);
+        });
+    }
 
-        function deleteRowFunction(RecordId, DocId) {
-            $.ajax({
-                type: "POST",
-                url: "/Drug/DeleteDrug",
-                data: { DocId: DocId, RecordId: RecordId },
-                success: function (data) {
-                    if (data != null) {
-                        setInterval('refreshPage()', 900);
-                    }
+    function deleteRowFunction(RecordId, DocId) {
+        $.ajax({
+            type: "POST",
+            url: "/Drug/DeleteDrug",
+            data: { DocId: DocId, RecordId: RecordId },
+            success: function (data) {
+                if (data != null) {
+                    setInterval('refreshPage()', 900);
                 }
-            });
-        }
+            }
+        });
+    }
 
     function viewRowData(RecordId, DocId) {
         $.ajax({
@@ -197,7 +257,47 @@
         });
     }
 
-        function refreshPage() {
-            location.reload(true);
-        }
-    </script>
+    function editRowData(RecordId, DocId) {
+        $.ajax({
+            type: "GET",
+            url: "/Drug/ViewRowData",
+            data: { DocId: DocId, RecordId: RecordId },
+            success: function (data) {
+                if (data != null) {
+                    console.log(data);
+                    $("#NewDrugName").val(data.drugName);
+                    $("#NewDrugDescription").val(data.description);
+                    $("#NewGenericName").val(data.genericName);
+                    $("#RecordId").val(RecordId);
+                    $("#DocId").val(@DocId);
+                }
+            }
+        });
+    }
+
+    $("#finalUpdate").click(function () {
+        var newDrugName = $("#NewDrugName").val();
+        var newDrugDescription = $("#NewDrugDescription").val();
+        var newGenericName = $("#NewGenericName").val();
+        var recordId = $("#RecordId").val();
+        var docId = $("#DocId").val();
+        updateRowFunction(recordId, docId, newDrugName, newDrugDescription, newGenericName);
+    });
+
+    function updateRowFunction(recordId, docId, newDrugName, newDrugDescription, newGenericName) {
+        $.ajax({
+            type: "POST",
+            url: "/Drug/UpdateRowData",
+            data: { DocId: docId, RecordId: recordId, NewDrugName: newDrugName, NewDrugDescription: newDrugDescription, NewGenericName: newGenericName },
+            success: function (data) {
+                if (data != null) {
+                    refreshPage();
+                }
+            }
+        });
+    }
+
+    function refreshPage() {
+        location.reload(true);
+    }
+</script>
