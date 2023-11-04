@@ -4,6 +4,20 @@
     Layout = "_Layout";
 }
 
+<style>
+    #allPatientsTable {
+        table-layout: fixed;
+        width: 100%; /* Adjust the table width as needed */
+    }
+
+        #allPatientsTable th {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px; /* Adjust the maximum column width as needed */
+        }
+</style>
+
 @{
     string DocId = string.Empty;
     GetSessionModel sessionModel = Context.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
@@ -13,14 +27,14 @@
     }
 }
 
-<div  style="margin-top:15px">
+<div style="margin-top:15px">
     @{
         if (TempData["msg"] != null)
         {
             if (TempData.ContainsKey("Prescription Record not Deleted Succesfull"))
             {
                 <div class="alert alert-danger" id="msgDiv" role="alert">@TempData["msg"]</div>
-            }            
+            }
             else
             {
                 <div class="alert alert-success" id="msgDiv" role="alert">@TempData["msg"]</div>
@@ -36,7 +50,7 @@
             <div class="col-md-8"></div>
             <div class="col-md-2" style="margin-top:4px">
                 <a asp-action="NewPrescription" asp-controller="Prescription" method="get">
-                    <input type="submit" value="New Prescription" class="btn btn-primary btn-sm" style="margin-left:55px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+                    <input type="submit" value="New Prescription" class="btn btn-primary btn-sm" style="margin-left:85px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
                 </a>
             </div>
         </div>
@@ -51,7 +65,7 @@
                         <th style="font-weight:bold" hidden>Patient Id</th>
                         <th style="font-weight:bold">Patient Name</th>
                         <th style="font-weight:bold">Drug Name</th>
-                      @*<th style="font-weight:bold">Drug Advice</th>*@
+                        @*<th style="font-weight:bold">Drug Advice</th>*@
                         <th style="font-weight:bold">TestName</th>
                         @*<th style="font-weight:bold">Test Description</th>*@
                         <th style="font-weight:bold">Actions</th>
@@ -196,7 +210,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var DocId = @DocId;
-        $('#allPatientsTable').DataTable();
+        $('#allPatientsTable').DataTable();       
+
+
         $("#msgDiv").fadeTo(2000, 500).slideUp(500, function () {
             $("#msgDiv").slideUp(500);
         });

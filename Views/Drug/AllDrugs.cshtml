@@ -4,6 +4,21 @@
     Layout = "_Layout";
 }
 
+<style>
+    #allDrugsTable {
+        table-layout: fixed;
+        width: 100%; /* Adjust the table width as needed */
+    }
+
+        #allDrugsTable th {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px; /* Adjust the maximum column width as needed */
+        }
+     
+</style>
+
 @{
     string DocId = string.Empty;
     GetSessionModel sessionModel = Context.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
@@ -40,7 +55,7 @@
             <div class="col-md-8"></div>
             <div class="col-md-2" style="margin-top:4px">
                 <a asp-action="NewDrug" asp-controller="Drug" method="get">
-                    <input type="submit" value="New Drug" class="btn btn-primary btn-sm" style="margin-left:55px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+                    <input type="submit" value="New Drug" class="btn btn-primary btn-sm" style="margin-left:100px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
                 </a>
             </div>
         </div>

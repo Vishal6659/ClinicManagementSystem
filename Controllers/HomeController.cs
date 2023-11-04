@@ -1,11 +1,6 @@
-﻿using ClinicManagementSystem.Services;
-using ClinicManagementSystem.Models;
+﻿using ClinicManagementSystem.Models;
+using ClinicManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicManagementSystem.Controllers
 {

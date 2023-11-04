@@ -19,7 +19,7 @@ namespace ClinicManagementSystem.Controllers
                 {
                     int DocId = sessionModel.DocId;
                     allPrescriptionModelVM.allPrescriptionModelList = prescriptionServices.allPrescriptionLists(DocId);
-
+                    return View(allPrescriptionModelVM);
                 }
                 else 
                 {
@@ -29,10 +29,9 @@ namespace ClinicManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-
                 throw;
             }
-            return View(allPrescriptionModelVM);
+            
         }
         [HttpGet]
         public IActionResult NewPrescription() 
@@ -55,9 +54,21 @@ namespace ClinicManagementSystem.Controllers
                 throw;
             }
         }
-        [HttpPost]
-        public IActionResult NewPrescription(NewPrescriptionModel newPrescriptionModel) 
+        [HttpPost]        
+        public IActionResult NewPrescription(int DocId, int PatientId, string PatientName, string DrugNames, string DrugType, string DrugMgOrMl, string DrugDosage, string DrugDuration, string DrugAdviceOrComments, string TestNames, string TestDescription) 
         {
+            NewPrescriptionModel newPrescriptionModel = new NewPrescriptionModel();
+            newPrescriptionModel.DocId = DocId;
+            newPrescriptionModel.PatientId = PatientId;
+            newPrescriptionModel.PatientName = PatientName;
+            newPrescriptionModel.DrugName = DrugNames;
+            newPrescriptionModel.DrugType = DrugType;
+            newPrescriptionModel.DrugMgOrMl = DrugMgOrMl;
+            newPrescriptionModel.DrugDosage = DrugDosage;
+            newPrescriptionModel.DrugDuration = DrugDuration;
+            newPrescriptionModel.DrugAdviceOrComments = DrugAdviceOrComments;
+            newPrescriptionModel.TestName = TestNames;
+            newPrescriptionModel.TestDescription = TestDescription;
             try
             {
                 GetSessionModel sessionModel = HttpContext.Session.GetObjectFromJson<GetSessionModel>(SessionVariables.SessionData);
@@ -88,7 +99,7 @@ namespace ClinicManagementSystem.Controllers
             {
                 throw;
             }
-            return RedirectToAction("AllPrescriptions", "Prescription");
+             return RedirectToAction("AllPrescriptions", "Prescription");            
         }
 
         [HttpPost]

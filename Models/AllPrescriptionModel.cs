@@ -23,7 +23,7 @@
         public int DocId { get; set; }
         public string PatientName { get; set; }
         public string DrugType { get; set; }
-        public string[] DrugName { get; set; }
+        public string DrugName { get; set; }
         public string DrugMgOrMl { get; set; }
         public string DrugDosage { get; set; }
         public string DrugDuration { get; set; }

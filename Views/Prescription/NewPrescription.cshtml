@@ -22,148 +22,146 @@
             {
                 <div class="alert alert-danger" role="alert">@TempData["msg"]</div>
             }
-            
+
         }
     }
 </div>
 
-<form asp-action="NewPrescription" asp-controller="Prescription" method="post">
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card shadow" style="margin-top:20px">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Patient Information</div>
-                        <div class="col-md-6"></div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row mb-2">
-                        <div class="col-md-2">
-                            <label class="control-label" style="margin-top:5px">Patient: </label>
-                        </div>
-                        <div class="col-md-10">
-                            <select class="form-select js-example-basic-single" name="PatientName" asp-for="PatientName">
-                                <option value="">Select Patient ...</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <img class="mt-3" style="width:310px; margin-left:100px" alt="Sign" src="@Url.Content("~/Images/user.png")" />
-                    </div>
-                    <input type="submit" value="Add Prescription" class="btn btn-primary btn-sm" style="padding-left:60px; padding-right:60px; margin-left:130px; margin-top:20px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card shadow" style="margin-top:20px">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Patient Information</div>
+                    <div class="col-md-6"></div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8">
-            <div class="card shadow" style="margin-top:20px">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Drug List</div>
-                        <div class="col-md-6"></div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-md-2">
+                        <label class="control-label" style="margin-top:5px">Patient: </label>
+                    </div>
+                    <div class="col-md-10">
+                        <select class="form-select js-example-basic-single" name="PatientName" id="PatientName">
+                            <option value="">Select Patient ...</option>
+                        </select>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="DrugDivMain">
-                        <div class="internalDrugDiv">
-                            <div class="row mb-4">
-                                <div class="col-md 3">
-                                    <input type="text" class="form-control" placeholder="DrugType" asp-for="DrugType" />
-                                </div>
-                                <div class="col-md 6">
-                                    <select class="form-select js-example-basic-single" name="DrugName" multiple="multiple" asp-for="DrugName">
-                                        @*<option value="">Select Drug...</option>*@
-                                    </select>
-                                </div>
-                                <div class="col-md 3">
-                                    <input type="text" class="form-control" placeholder="Mg/Ml" asp-for="DrugMgOrMl" />
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Dose" asp-for="DrugDosage" />
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Duration" asp-for="DrugDuration" />
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="Advice/Comments" asp-for="DrugAdviceOrComments" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row">
+                    <img class="mt-3" style="width:310px; margin-left:100px" alt="Sign" src="@Url.Content("~/Images/user.png")" />
                 </div>
+                <input type="submit" onclick="getValuesOfInputData()" value="Add Prescription" class="btn btn-primary btn-sm" style="padding-left:60px; padding-right:60px; margin-left:130px; margin-top:20px; background:linear-gradient(-135deg, #71b7e6, #9b59b6); border:none" />
             </div>
-            <div class="card shadow mt-5">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Tests List</div>
-                        <div class="col-md-6"></div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="testDivMain">
-                        <div class="testDivInternal">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <select class="form-select js-example-basic-single" name="TestName" multiple="multiple" asp-for="TestName">
-                                        @*<option value="">Select Test...</option>*@
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <input type="text" class="form-control" placeholder="Description" asp-for="TestDescription" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12" hidden>
-                                    <input type="number" class="form-control" placeholder="Description" asp-for="PatientId" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="card shadow" style="margin-top:50px">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Past Records Of the Patient</div>
-                        <div class="col-md-6"></div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <table class="table table-hover" id="tableResponseBody">
-                        <thead>
-                            <tr>
-                                <th style="font-weight:bold">ID</th>
-                                <th style="font-weight:bold">Patient Name</th>
-                                <th style="font-weight:bold">Drug Name</th>
-                                <th style="font-weight:bold">TestName</th>
-                                <th style="font-weight:bold">Visited On</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                    
-                </div>
-            </div>
-
         </div>
     </div>
-</form>
+    <div class="col-md-8">
+        <div class="card shadow" style="margin-top:20px">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Drug List</div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="DrugDivMain">
+                    <div class="internalDrugDiv">
+                        <div class="row mb-4">
+                            <div class="col-md 3">
+                                <input type="text" class="form-control" placeholder="DrugType" id="DrugType" />
+                            </div>
+                            <div class="col-md 6">
+                                <select class="form-select js-example-basic-single" name="DrugName" multiple="multiple" id="DrugName">
+                                    @*<option value="">Select Drug...</option>*@
+                                </select>
+                            </div>
+                            <div class="col-md 3">
+                                <input type="text" class="form-control" placeholder="Mg/Ml" id="DrugMgOrMl" />
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Dose" id="DrugDosage" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Duration" id="DrugDuration" />
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Advice/Comments" id="DrugAdviceOrComments" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mt-5">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Tests List</div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="testDivMain">
+                    <div class="testDivInternal">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select class="form-select js-example-basic-single" name="TestName" multiple="multiple" id="TestName">
+                                    @*<option value="">Select Test...</option>*@
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <input type="text" class="form-control" placeholder="Description" id="TestDescription" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" hidden>
+                                <input type="number" class="form-control" placeholder="Description" id="PatientId" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card shadow" style="margin-top:50px">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6" style="margin-top:10px; margin-bottom:5px; color:cornflowerblue; font-weight:bold">Past Records Of the Patient</div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover" id="tableResponseBody">
+                    <thead>
+                        <tr>
+                            <th style="font-weight:bold">ID</th>
+                            <th style="font-weight:bold">Patient Name</th>
+                            <th style="font-weight:bold">Drug Name</th>
+                            <th style="font-weight:bold">TestName</th>
+                            <th style="font-weight:bold">Visited On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <script type="text/javascript">
     var PatientId;
+    var DocId = @DocId;
 
     $(document).ready(function () {
         $('#tableResponseBody').DataTable();
         $('.js-example-basic-single').select2();
-        var DocId = @DocId;
+
         $('#PatientName').ready(function () {
             $('#PatientName').empty();
             $('#PatientName').append('< option value = "" > Select < /option>');
@@ -192,65 +190,60 @@
             $('#PatientId').val(function () {
                 return this.value + PatientId;
             });
-            if (DocId !== 0)
-            {
+            if (DocId !== 0) {
                 $.ajax({
                     type: "GET",
                     url: "/Prescription/getAllPastRecordsOfPatientOnId",
                     data: { DocId: DocId, PatientId: PatientId },
-                    success: function (data){
-                        console.log(`getAllPastRecordsOfPatientOnId : Response ====> ${JSON.stringify(data)}`);                        
-                            var tr = '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
-                            $.each(data, function (key, value) {
+                    success: function (data) {
+                        console.log(`getAllPastRecordsOfPatientOnId : Response ====> ${JSON.stringify(data)}`);
+                        var tr = '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+                        $.each(data, function (key, value) {
                             tr += '<tr><td>' + value.id + '</td><td>' + value.patientName + '</td><td>' + value.drugName + '</td><td>' + value.testName + '</td><td>' + value.createdAt + '</td></tr>';
-                            });
-                            $('#tableResponseBody tbody').html(tr);                                               
+                        });
+                        $('#tableResponseBody tbody').html(tr);
                     },
                 });
             }
         });
 
-        $('#DrugName').ready(function () {
-            $('#DrugName').empty();
-            $('#DrugName').append('< option value = "" > Select < /option>');
-            if (DocId !== 0) {
-                $.ajax({
-                    type: "GET",
-                    url: "/Prescription/getAllDrugName",
-                    data: { DocId: DocId },
-                    success: function (data) {
-                        console.log(`getAllDrugName : Response ====> ${JSON.stringify(data)}`);
-                        $('#DrugName').empty();
-                        var html = '<option value="">Select</option>';
-                        $.each(data, function (key, value) {
-                            html += '<option value="' + value.drugName + '"> ' + value.drugName + '</option>';
-                        });
-                        $('#DrugName').append(html);
-                    },
-                });
-            }           
-        });
+        $('#DrugName').empty();
+        $('#DrugName').append('< option value = "" > Select < /option>');
+        if (DocId !== 0) {
+            $.ajax({
+                type: "GET",
+                url: "/Prescription/getAllDrugName",
+                data: { DocId: DocId },
+                success: function (data) {
+                    console.log(`getAllDrugName : Response ====> ${JSON.stringify(data)}`);
+                    $('#DrugName').empty();
+                    var html = '<option value="">Select</option>';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.drugName + '"> ' + value.drugName + '</option>';
+                    });
+                    $('#DrugName').append(html);
+                },
+            });
+        }
 
-        $('#TestName').ready(function () {
-            $('#TestName').empty();
-            $('#TestName').append('< option value = "" > Select < /option>');
-            if (DocId !== 0) {
-                $.ajax({
-                    type: "GET",
-                    url: "/Prescription/getAllTestName",
-                    data: { DocId: DocId },
-                    success: function (data) {
-                        console.log(`getAllTestName : Response ====> ${JSON.stringify(data)}`);
-                        $('#TestName').empty();
-                        var html = '<option value="">Select</option>';
-                        $.each(data, function (key, value) {
-                            html += '<option value="' + value.testName + '"> ' + value.testName + '</option>';
-                        });
-                        $('#TestName').append(html);
-                    },
-                });
-            }
-        });
+        $('#TestName').empty();
+        $('#TestName').append('< option value = "" > Select < /option>');
+        if (DocId !== 0) {
+            $.ajax({
+                type: "GET",
+                url: "/Prescription/getAllTestName",
+                data: { DocId: DocId },
+                success: function (data) {
+                    console.log(`getAllTestName : Response ====> ${JSON.stringify(data)}`);
+                    $('#TestName').empty();
+                    var html = '<option value="">Select</option>';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.testName + '"> ' + value.testName + '</option>';
+                    });
+                    $('#TestName').append(html);
+                },
+            });
+        }
 
         $('#DrugName').select2({
             templateSelection: function (selected, total) {
@@ -260,17 +253,17 @@
                 var $option = $('<span></span>');
                 $option.text(result.text);
                 if (result.element && result.element.selected) {
-                    $option.prepend('<span class="selected">&#10003;</span>'); 
+                    $option.prepend('<span class="selected">&#10003;</span>');
                 }
                 return $option;
             },
-            width: '100%', 
-            dropdownAutoWidth: true, 
-            minimumResultsForSearch: Infinity 
+            width: '100%',
+            dropdownAutoWidth: true,
+            minimumResultsForSearch: Infinity
         });
 
         $('#DrugName').select2({
-            placeholder: 'Select Drugs', 
+            placeholder: 'Select Drugs',
         });
 
         $('#TestName').select2({
@@ -295,4 +288,43 @@
         });
 
     });
+
+    function getValuesOfInputData() {
+        var patientId = $('#PatientId').val();
+        var patientName = $('#PatientName').val();
+        var drugNameArray = $('#DrugName').val();
+        var drugType = $('#DrugType').val();
+        var drugMgOrMl = $('#DrugMgOrMl').val();
+        var drugDosage = $('#DrugDosage').val();
+        var drugDuration = $('#DrugDuration').val();
+        var drugAdviceOrComments = $('#DrugAdviceOrComments').val();
+        var testNameArray = $('#TestName').val();
+        var testDescription = $('#TestDescription').val();
+
+        var drugNames = "";
+        for (let i = 0; i < drugNameArray.length; i++) {
+            drugNames += drugNameArray[i] + ", ";
+        }
+
+        var testNames = "";
+        for (let i = 0; i < testNameArray.length; i++) {
+            testNames += testNameArray[i] + ", ";
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/Prescription/NewPrescription",
+            data: { DocId: DocId, PatientId: patientId, PatientName: patientName, DrugNames: drugNames, DrugType: drugType, DrugMgOrMl: drugMgOrMl, DrugDosage: drugDosage, DrugDuration: drugDuration, DrugAdviceOrComments: drugAdviceOrComments, TestNames: testNames, TestDescription: testDescription },
+            success: function (data) {
+                if (data != null) {
+                    refreshPage();
+                    window.location.href = `AllPrescriptions`;
+                }
+            },
+        });
+
+    }
+    function refreshPage() {
+        location.reload(true);
+    }
 </script>
